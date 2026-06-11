@@ -69,8 +69,8 @@ const pinName = document.querySelector('#pinName');
 const pinAddress = document.querySelector('#pinAddress');
 const pinAssignee = document.querySelector('#pinAssignee');
 const pinNote = document.querySelector('#pinNote');
-const statusToggleButton = document.querySelector('#statusToggleButton');
-const statusButtons = document.querySelector('#statusButtons');
+const detailFields = document.querySelector('#detailFields');
+const statusDetails = document.querySelector('#statusDetails');
 const renamePinButton = document.querySelector('#renamePinButton');
 const deletePinButton = document.querySelector('#deletePinButton');
 
@@ -114,7 +114,6 @@ closeDrawer.addEventListener('click', () => drawer.dataset.open = 'false');
 searchText.addEventListener('input', renderList);
 pinAssignee.addEventListener('change', updateSelectedDetails);
 pinNote.addEventListener('change', updateSelectedDetails);
-statusToggleButton.addEventListener('click', toggleStatusButtons);
 
 document.querySelectorAll('[data-filter]').forEach((button) => {
   button.addEventListener('click', () => {
@@ -126,7 +125,7 @@ document.querySelectorAll('[data-filter]').forEach((button) => {
 document.querySelectorAll('[data-status]').forEach((button) => {
   button.addEventListener('click', () => {
     updateSelectedStatus(button.dataset.status);
-    setStatusButtonsOpen(false);
+    closePinDetails();
   });
 });
 
@@ -320,7 +319,7 @@ function selectPlace(id, pan = false) {
     map.panTo({ lat: place.lat, lng: place.lng });
     map.setZoom(Math.max(map.getZoom(), 16));
   }
-  setStatusButtonsOpen(false);
+  closePinDetails();
   renderPinPanel();
 }
 
@@ -364,14 +363,9 @@ function updateSelectedDetails() {
   renderList();
 }
 
-function toggleStatusButtons() {
-  setStatusButtonsOpen(statusButtons.classList.contains('is-collapsed'));
-}
-
-function setStatusButtonsOpen(open) {
-  statusButtons.classList.toggle('is-collapsed', !open);
-  statusToggleButton.setAttribute('aria-expanded', String(open));
-  statusToggleButton.textContent = open ? '結果を閉じる' : '結果変更';
+function closePinDetails() {
+  detailFields.open = false;
+  statusDetails.open = false;
 }
 
 function toggleAddPinMode() {

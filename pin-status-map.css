@@ -290,8 +290,32 @@ button:disabled {
 
 .pinActions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(72px, 1fr));
+  grid-template-columns: repeat(4, minmax(72px, 1fr));
   gap: 8px;
+  align-items: start;
+}
+
+.actionDetails {
+  min-width: 0;
+}
+
+.actionDetails summary {
+  min-height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #1f6fac;
+  border-radius: 6px;
+  background: #1f6fac;
+  color: #ffffff;
+  padding: 10px 13px;
+  font-weight: 850;
+  cursor: pointer;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.actionDetails summary::-webkit-details-marker {
+  display: none;
 }
 
 .statusButtons {
@@ -301,8 +325,8 @@ button:disabled {
   gap: 8px;
 }
 
-.statusButtons.is-collapsed {
-  display: none !important;
+.actionDetails[open] {
+  grid-column: 1 / -1;
 }
 
 .statusButtons button {
@@ -458,12 +482,13 @@ button:disabled {
   }
 
   .pinActions {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 4px;
   }
 
   .pinActions > button,
-  .statusButtons button {
+  .statusButtons button,
+  .actionDetails summary {
     min-height: 28px;
     padding: 4px 2px;
     font-size: 10px;
