@@ -365,11 +365,11 @@ function updateSelectedDetails() {
 }
 
 function toggleStatusButtons() {
-  setStatusButtonsOpen(statusButtons.hidden);
+  setStatusButtonsOpen(statusButtons.classList.contains('is-collapsed'));
 }
 
 function setStatusButtonsOpen(open) {
-  statusButtons.hidden = !open;
+  statusButtons.classList.toggle('is-collapsed', !open);
   statusToggleButton.setAttribute('aria-expanded', String(open));
   statusToggleButton.textContent = open ? '結果を閉じる' : '結果変更';
 }

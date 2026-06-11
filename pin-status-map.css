@@ -301,6 +301,10 @@ button:disabled {
   gap: 8px;
 }
 
+.statusButtons.is-collapsed {
+  display: none !important;
+}
+
 .statusButtons button {
   border-color: var(--status-color);
   background: var(--status-color);
