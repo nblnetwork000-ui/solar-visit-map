@@ -70,7 +70,11 @@ const pinAddress = document.querySelector('#pinAddress');
 const pinAssignee = document.querySelector('#pinAssignee');
 const pinNote = document.querySelector('#pinNote');
 const detailFields = document.querySelector('#detailFields');
-const statusDetails = document.querySelector('#statusDetails');
+const openStatusButton = document.querySelector('#openStatusButton');
+const statusSheet = document.querySelector('#statusSheet');
+const statusSheetBackdrop = document.querySelector('#statusSheetBackdrop');
+const closeStatusSheet = document.querySelector('#closeStatusSheet');
+const statusSheetName = document.querySelector('#statusSheetName');
 const renamePinButton = document.querySelector('#renamePinButton');
 const deletePinButton = document.querySelector('#deletePinButton');
 
@@ -114,6 +118,9 @@ closeDrawer.addEventListener('click', () => drawer.dataset.open = 'false');
 searchText.addEventListener('input', renderList);
 pinAssignee.addEventListener('change', updateSelectedDetails);
 pinNote.addEventListener('change', updateSelectedDetails);
+openStatusButton.addEventListener('click', openStatusSheet);
+statusSheetBackdrop.addEventListener('click', closeStatusSheetPanel);
+closeStatusSheet.addEventListener('click', closeStatusSheetPanel);
 
 document.querySelectorAll('[data-filter]').forEach((button) => {
   button.addEventListener('click', () => {
@@ -125,7 +132,7 @@ document.querySelectorAll('[data-filter]').forEach((button) => {
 document.querySelectorAll('[data-status]').forEach((button) => {
   button.addEventListener('click', () => {
     updateSelectedStatus(button.dataset.status);
-    closePinDetails();
+    closeStatusSheetPanel();
   });
 });
 
@@ -365,7 +372,20 @@ function updateSelectedDetails() {
 
 function closePinDetails() {
   detailFields.open = false;
-  statusDetails.open = false;
+  closeStatusSheetPanel();
+}
+
+function openStatusSheet() {
+  const place = places.find((item) => item.id === selectedPlaceId);
+  if (!place) {
+    return;
+  }
+  statusSheetName.textContent = place.name;
+  statusSheet.hidden = false;
+}
+
+function closeStatusSheetPanel() {
+  statusSheet.hidden = true;
 }
 
 function toggleAddPinMode() {

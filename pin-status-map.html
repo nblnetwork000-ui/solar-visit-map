@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="太陽光訪問マップ" />
     <link rel="manifest" href="./pin-status-map.webmanifest" />
-    <link rel="stylesheet" href="./pin-status-map.css?v=13" />
+    <link rel="stylesheet" href="./pin-status-map.css?v=14" />
   </head>
   <body>
     <main class="mapApp">
@@ -99,26 +99,34 @@
                 </label>
               </div>
             </details>
-            <details id="statusDetails" class="actionDetails">
-              <summary>結果変更</summary>
-              <div id="statusButtons" class="statusButtons">
-                <button class="status-appointment" type="button" data-status="appointment">アポ</button>
-                <button class="status-initialKick" type="button" data-status="initialKick">インキ</button>
-                <button class="status-doorKick" type="button" data-status="doorKick">ドアキ</button>
-                <button class="status-application" type="button" data-status="application">アプ</button>
-                <button class="status-revisit" type="button" data-status="revisit">再訪</button>
-                <button class="status-excluded" type="button" data-status="excluded">対象外</button>
-                <button class="status-away" type="button" data-status="away">留守</button>
-                <button class="status-banned" type="button" data-status="banned">禁止</button>
-              </div>
-            </details>
+            <button id="openStatusButton" type="button">結果変更</button>
             <button id="renamePinButton" type="button">名称</button>
             <button id="deletePinButton" class="dangerButton" type="button">ピン削除</button>
           </div>
         </div>
+
+        <div id="statusSheet" class="statusSheet" hidden>
+          <button id="statusSheetBackdrop" class="statusSheetBackdrop" type="button" aria-label="閉じる"></button>
+          <section class="statusSheetPanel" aria-label="訪問結果を選択">
+            <div class="statusSheetHead">
+              <strong id="statusSheetName">訪問結果</strong>
+              <button id="closeStatusSheet" type="button">閉じる</button>
+            </div>
+            <div class="statusChoiceGrid">
+              <button class="status-appointment" type="button" data-status="appointment">アポ</button>
+              <button class="status-initialKick" type="button" data-status="initialKick">インキ</button>
+              <button class="status-doorKick" type="button" data-status="doorKick">ドアキ</button>
+              <button class="status-application" type="button" data-status="application">アプ</button>
+              <button class="status-revisit" type="button" data-status="revisit">再訪</button>
+              <button class="status-excluded" type="button" data-status="excluded">対象外</button>
+              <button class="status-away" type="button" data-status="away">留守</button>
+              <button class="status-banned" type="button" data-status="banned">禁止</button>
+            </div>
+          </section>
+        </div>
       </section>
     </main>
 
-    <script src="./pin-status-map.js?v=13" type="module"></script>
+    <script src="./pin-status-map.js?v=14" type="module"></script>
   </body>
 </html>

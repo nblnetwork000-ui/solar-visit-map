@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pin-status-map-v13';
+const CACHE_NAME = 'pin-status-map-v14';
 const ASSETS = [
   './pin-status-map.html',
   './pin-status-map.css',

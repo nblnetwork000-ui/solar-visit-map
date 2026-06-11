@@ -318,8 +318,7 @@ button:disabled {
   display: none;
 }
 
-.statusButtons {
-  grid-column: 1 / -1;
+.statusChoiceGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(72px, 1fr));
   gap: 8px;
@@ -329,9 +328,46 @@ button:disabled {
   grid-column: 1 / -1;
 }
 
-.statusButtons button {
+.statusChoiceGrid button {
   border-color: var(--status-color);
   background: var(--status-color);
+}
+
+.statusSheet {
+  position: absolute;
+  z-index: 18;
+  inset: 0;
+}
+
+.statusSheetBackdrop {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: rgb(15 23 42 / 28%);
+  padding: 0;
+}
+
+.statusSheetPanel {
+  position: absolute;
+  right: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  left: 12px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #d6dee7;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 14px 40px rgb(15 23 42 / 24%);
+}
+
+.statusSheetHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .status-unvisited {
@@ -476,16 +512,11 @@ button:disabled {
     display: none !important;
   }
 
-  .actionDetails:not([open]) .pinFields,
-  .actionDetails:not([open]) .statusButtons {
+  .actionDetails:not([open]) .pinFields {
     display: none !important;
   }
 
   .actionDetails[open] .pinFields {
-    display: grid !important;
-  }
-
-  .actionDetails[open] .statusButtons {
     display: grid !important;
   }
 
@@ -505,16 +536,30 @@ button:disabled {
   }
 
   .pinActions > button,
-  .statusButtons button,
+  .statusChoiceGrid button,
   .actionDetails summary {
     min-height: 28px;
     padding: 4px 2px;
     font-size: 10px;
   }
 
-  .statusButtons {
+  .statusSheetPanel {
+    right: 8px;
+    bottom: max(8px, env(safe-area-inset-bottom));
+    left: 8px;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .statusChoiceGrid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 4px;
+    gap: 6px;
+  }
+
+  .statusChoiceGrid button {
+    min-height: 40px;
+    font-size: 13px;
   }
 }
 
