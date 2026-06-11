@@ -288,9 +288,16 @@ button:disabled {
   padding-block: 7px;
 }
 
-.statusButtons {
+.pinActions {
   display: grid;
-  grid-template-columns: repeat(5, minmax(72px, 1fr));
+  grid-template-columns: repeat(3, minmax(72px, 1fr));
+  gap: 8px;
+}
+
+.statusButtons {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(72px, 1fr));
   gap: 8px;
 }
 
@@ -446,15 +453,21 @@ button:disabled {
     padding-block: 4px;
   }
 
-  .statusButtons {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+  .pinActions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 4px;
   }
 
+  .pinActions > button,
   .statusButtons button {
     min-height: 28px;
     padding: 4px 2px;
     font-size: 10px;
+  }
+
+  .statusButtons {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
   }
 }
 
