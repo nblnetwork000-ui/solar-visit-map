@@ -6,7 +6,7 @@
 
 - Google Maps JavaScript API と Geocoding API が使えるブラウザ用APIキー
 - 共有パスワード
-- 永続保存できるサーバー
+- 本格運用では永続保存できるサーバー
 
 ## Renderで公開する
 
@@ -29,7 +29,12 @@ GOOGLE_MAPS_BROWSER_KEY=Google Mapsのブラウザ用APIキー
 
 ## 保存データ
 
-ピン情報は `DATA_DIR` 配下の `pin-status-places.json` に保存されます。Renderでは `render.yaml` により `DATA_DIR=/var/data`、永続ディスクのマウント先も `/var/data` にしています。
+現在の `render.yaml` は、カード登録を避けてまず公開URLを作るための無料試用構成です。ピン情報はサーバー内の `data/pin-status-places.json` に保存されますが、無料環境では再デプロイや再起動で消える可能性があります。
+
+本格運用でピン情報を守る場合は、次のどちらかに切り替えます。
+
+- Renderの永続ディスクを追加し、`DATA_DIR=/var/data` を設定する
+- Google Sheetsなど外部ストレージへ保存する
 
 ## Google Maps APIキーの制限
 
@@ -48,4 +53,5 @@ https://solar-visit-map.onrender.com/*
 - URLと共有パスワードを知っている人は編集できます。
 - 全消去ボタンは誤操作防止のため画面から外しています。ピンを選択してから `ピン削除` で1件ずつ削除します。
 - 本格運用前にCSVを書き出してバックアップできることを確認してください。
+- 無料試用構成では、重要なピン情報はこまめにCSVでバックアップしてください。
 - 担当者ごとの編集履歴が必要になったら、次の拡張としてログ記録を追加してください。
