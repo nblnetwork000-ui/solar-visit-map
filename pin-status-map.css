@@ -448,10 +448,10 @@ button:disabled {
     bottom: max(6px, env(safe-area-inset-bottom));
     left: 6px;
     grid-template-columns: 1fr;
-    gap: 6px;
-    max-height: 34vh;
+    gap: 5px;
+    max-height: 24vh;
     overflow: auto;
-    padding: 8px;
+    padding: 7px;
     border-radius: 6px;
   }
 
@@ -469,6 +469,24 @@ button:disabled {
     grid-template-columns: 1fr 1fr;
     gap: 5px;
     margin-top: 5px;
+  }
+
+  .pinPanel > div:first-child > .pinFields,
+  .pinPanel > .statusButtons {
+    display: none !important;
+  }
+
+  .actionDetails:not([open]) .pinFields,
+  .actionDetails:not([open]) .statusButtons {
+    display: none !important;
+  }
+
+  .actionDetails[open] .pinFields {
+    display: grid !important;
+  }
+
+  .actionDetails[open] .statusButtons {
+    display: grid !important;
   }
 
   .pinFields label {
@@ -515,6 +533,6 @@ button:disabled {
   }
 
   .pinPanel {
-    max-height: 32vh;
+    max-height: 22vh;
   }
 }
