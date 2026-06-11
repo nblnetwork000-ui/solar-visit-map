@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>訪問先管理</title>
+    <link rel="stylesheet" href="./customer-crm.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="sidebar" aria-labelledby="formTitle">
+        <div class="heading">
+          <h1 id="formTitle">訪問先管理</h1>
+          <p id="recordCount">0件</p>
+        </div>
+
+        <form id="customerForm" class="form">
+          <input id="customerId" name="customerId" type="hidden" />
+          <label>
+            顧客名
+            <input id="name" name="name" type="text" maxlength="80" autocomplete="organization" required />
+          </label>
+          <label>
+            住所
+            <textarea id="address" name="address" rows="3" maxlength="180" required></textarea>
+          </label>
+          <div class="grid">
+            <label>
+              電話番号
+              <input id="phone" name="phone" type="tel" maxlength="30" autocomplete="tel" />
+            </label>
+            <label>
+              次回訪問
+              <input id="nextVisit" name="nextVisit" type="date" />
+            </label>
+          </div>
+
+          <fieldset class="statusGroup">
+            <legend>訪問状況</legend>
+            <label class="statusOption status-new">
+              <input type="radio" name="status" value="new" checked />
+              <span></span>
+              未訪問
+            </label>
+            <label class="statusOption status-follow">
+              <input type="radio" name="status" value="follow" />
+              <span></span>
+              再訪問
+            </label>
+            <label class="statusOption status-won">
+              <input type="radio" name="status" value="won" />
+              <span></span>
+              成約
+            </label>
+            <label class="statusOption status-lost">
+              <input type="radio" name="status" value="lost" />
+              <span></span>
+              見送り
+            </label>
+          </fieldset>
+
+          <label>
+            メモ
+            <textarea id="memo" name="memo" rows="4" maxlength="300"></textarea>
+          </label>
+
+          <div class="actions">
+            <button id="saveButton" type="submit">保存</button>
+            <button id="clearButton" type="button" class="secondary">クリア</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="workspace">
+        <div class="toolbar">
+          <label class="search">
+            検索
+            <input id="searchText" type="search" maxlength="80" />
+          </label>
+          <label>
+            表示
+            <select id="statusFilter">
+              <option value="all">すべて</option>
+              <option value="new">未訪問</option>
+              <option value="follow">再訪問</option>
+              <option value="won">成約</option>
+              <option value="lost">見送り</option>
+            </select>
+          </label>
+          <button id="exportButton" type="button">CSV出力</button>
+          <label class="importButton">
+            CSV読込
+            <input id="importFile" type="file" accept=".csv,text/csv" />
+          </label>
+        </div>
+
+        <div class="summaryGrid" aria-label="訪問状況の集計">
+          <button class="summaryTile status-new" data-filter="new" type="button">
+            <span></span>
+            <strong id="countNew">0</strong>
+            未訪問
+          </button>
+          <button class="summaryTile status-follow" data-filter="follow" type="button">
+            <span></span>
+            <strong id="countFollow">0</strong>
+            再訪問
+          </button>
+          <button class="summaryTile status-won" data-filter="won" type="button">
+            <span></span>
+            <strong id="countWon">0</strong>
+            成約
+          </button>
+          <button class="summaryTile status-lost" data-filter="lost" type="button">
+            <span></span>
+            <strong id="countLost">0</strong>
+            見送り
+          </button>
+        </div>
+
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>状況</th>
+                <th>顧客名</th>
+                <th>住所</th>
+                <th>電話番号</th>
+                <th>次回訪問</th>
+                <th>メモ</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="customerRows"></tbody>
+          </table>
+          <p id="emptyState" class="emptyState">登録なし</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./customer-crm.js" type="module"></script>
+  </body>
+</html>

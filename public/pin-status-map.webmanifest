@@ -1,0 +1,17 @@
+{
+  "name": "太陽光訪問マップ",
+  "short_name": "訪問マップ",
+  "start_url": "./pin-status-map.html",
+  "display": "standalone",
+  "background_color": "#f3f5f7",
+  "theme_color": "#1f6fac",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "./pin-status-map-icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

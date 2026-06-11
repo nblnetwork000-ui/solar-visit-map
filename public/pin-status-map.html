@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>太陽光訪問マップ</title>
+    <meta name="theme-color" content="#1f6fac" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="太陽光訪問マップ" />
+    <link rel="manifest" href="./pin-status-map.webmanifest" />
+    <link rel="stylesheet" href="./pin-status-map.css" />
+  </head>
+  <body>
+    <main class="mapApp">
+      <section id="authPanel" class="setupPanel" hidden>
+        <form id="authForm" class="keyForm">
+          <h1>太陽光訪問マップ</h1>
+          <label>
+            共有パスワード
+            <input id="sharePassword" name="sharePassword" type="password" autocomplete="current-password" required />
+          </label>
+          <p id="authError" class="formError" role="alert"></p>
+          <button type="submit">ログイン</button>
+        </form>
+      </section>
+
+      <section id="setupPanel" class="setupPanel">
+        <form id="keyForm" class="keyForm">
+          <h1>太陽光訪問マップ</h1>
+          <label>
+            Google Maps APIキー
+            <input id="apiKey" name="apiKey" type="password" autocomplete="off" required />
+          </label>
+          <button type="submit">地図を開く</button>
+        </form>
+      </section>
+
+      <section class="mapShell" aria-label="顧客地図">
+        <div id="map" class="map"></div>
+
+        <div class="topbar">
+          <button id="menuButton" type="button" aria-label="一覧">一覧</button>
+          <button id="addPinButton" type="button" aria-pressed="false">ピン追加</button>
+          <button id="centerPinButton" type="button">中心にピン</button>
+          <button id="selectedDeleteButton" class="dangerButton" type="button" disabled>ピン削除</button>
+          <button id="mapTypeButton" type="button">通常地図</button>
+          <form id="locationSearchForm" class="locationSearch">
+            <input id="locationSearchText" type="search" placeholder="住所・地名" maxlength="120" aria-label="住所・地名検索" />
+            <button id="locationSearchButton" type="submit">検索</button>
+          </form>
+          <button id="locateButton" type="button">現在地</button>
+          <label class="fileButton">
+            読込
+            <input id="importFile" type="file" accept=".kml,.csv,application/vnd.google-earth.kml+xml,text/csv" />
+          </label>
+          <button id="exportButton" type="button">CSV</button>
+        </div>
+
+        <aside id="drawer" class="drawer">
+          <div class="drawerHead">
+            <strong id="totalCount">0件</strong>
+            <button id="closeDrawer" type="button" aria-label="閉じる">閉じる</button>
+          </div>
+          <label class="searchBox">
+            検索
+            <input id="searchText" type="search" maxlength="80" />
+          </label>
+          <div class="statusFilters" aria-label="状況フィルター">
+            <button type="button" data-filter="all">全て</button>
+            <button type="button" data-filter="unvisited">未訪問</button>
+            <button type="button" data-filter="appointment">アポ</button>
+            <button type="button" data-filter="initialKick">インキ</button>
+            <button type="button" data-filter="doorKick">ドアキ</button>
+            <button type="button" data-filter="application">アプ</button>
+            <button type="button" data-filter="revisit">再訪</button>
+            <button type="button" data-filter="excluded">対象外</button>
+            <button type="button" data-filter="away">留守</button>
+            <button type="button" data-filter="banned">禁止</button>
+          </div>
+          <ol id="placeList" class="placeList"></ol>
+        </aside>
+
+        <div id="pinPanel" class="pinPanel" hidden>
+          <div>
+            <strong id="pinName"></strong>
+            <p id="pinAddress"></p>
+            <div class="pinFields">
+              <label>
+                担当者
+                <input id="pinAssignee" type="text" maxlength="40" autocomplete="name" />
+              </label>
+              <label>
+                メモ
+                <input id="pinNote" type="text" maxlength="160" />
+              </label>
+            </div>
+          </div>
+          <div class="statusButtons">
+            <button class="status-appointment" type="button" data-status="appointment">アポ</button>
+            <button class="status-initialKick" type="button" data-status="initialKick">インキ</button>
+            <button class="status-doorKick" type="button" data-status="doorKick">ドアキ</button>
+            <button class="status-application" type="button" data-status="application">アプ</button>
+            <button class="status-revisit" type="button" data-status="revisit">再訪</button>
+            <button class="status-excluded" type="button" data-status="excluded">対象外</button>
+            <button class="status-away" type="button" data-status="away">留守</button>
+            <button class="status-banned" type="button" data-status="banned">禁止</button>
+            <button id="renamePinButton" type="button">名称</button>
+            <button id="deletePinButton" class="dangerButton" type="button">ピン削除</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./pin-status-map.js" type="module"></script>
+  </body>
+</html>

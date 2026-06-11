@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yahoo!ローカルサーチ to Google Sheets</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel">
+        <div class="heading">
+          <h1 id="pageTitle">店舗情報取得</h1>
+          <p id="sheetName"></p>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="検索種別">
+          <button class="tabButton is-active" type="button" data-mode="shops">店舗検索</button>
+          <button class="tabButton" type="button" data-mode="events">イベント検索</button>
+        </div>
+
+        <form id="shopForm" class="form searchForm" data-mode="shops">
+          <label>
+            キーワード
+            <input id="keyword" name="keyword" type="text" maxlength="80" placeholder="例: ラーメン" required />
+          </label>
+          <label>
+            エリア
+            <input id="area" name="area" type="text" maxlength="80" placeholder="例: 新宿" required />
+          </label>
+          <div class="grid grid-three">
+            <label>
+              件数
+              <input id="results" name="results" type="number" min="1" max="100" value="20" required />
+            </label>
+            <label>
+              開始位置
+              <input id="start" name="start" type="number" min="1" max="3000" value="1" step="100" required />
+            </label>
+            <label>
+              並び順
+              <select id="sort" name="sort">
+                <option value="hybrid">総合</option>
+                <option value="match">適合度</option>
+                <option value="rating">評価</option>
+                <option value="review">口コミ数</option>
+                <option value="kana">五十音</option>
+              </select>
+            </label>
+          </div>
+          <label class="check">
+            <input id="append" name="append" type="checkbox" checked />
+            Googleスプレッドシートに追記
+          </label>
+          <button id="submitButton" type="submit">検索して追記</button>
+        </form>
+
+        <form id="eventForm" class="form searchForm is-hidden" data-mode="events">
+          <label>
+            キーワード
+            <input id="eventKeyword" name="keyword" type="text" maxlength="80" placeholder="例: 交流会" value="交流会" required />
+          </label>
+          <label>
+            エリア
+            <input id="eventArea" name="area" type="text" maxlength="80" placeholder="例: 東京" />
+          </label>
+          <label>
+            検索元
+            <select id="eventSource" name="source">
+              <option value="all">全部</option>
+              <option value="kokuchpro">こくちーず</option>
+              <option value="connpass">connpass</option>
+              <option value="doorkeeper">Doorkeeper</option>
+            </select>
+          </label>
+          <div class="grid grid-three">
+            <label>
+              件数
+              <input id="eventResults" name="results" type="number" min="1" max="100" value="20" required />
+            </label>
+            <label>
+              開始位置
+              <input id="eventStart" name="start" type="number" min="1" max="1000" value="1" step="100" required />
+            </label>
+            <label class="check inline-check">
+              <input id="eventAppend" name="append" type="checkbox" checked />
+              追記
+            </label>
+          </div>
+          <label class="check">
+            <input id="eventFutureOnly" name="futureOnly" type="checkbox" checked />
+            今日以降のイベントのみ
+          </label>
+          <button id="eventSubmitButton" type="submit">イベント検索して追記</button>
+        </form>
+
+        <div id="status" class="status" role="status"></div>
+      </section>
+
+      <section class="results">
+        <div class="toolbar">
+          <h2>取得結果</h2>
+          <span id="summary"></span>
+        </div>
+        <div class="tableWrap">
+          <table>
+            <thead id="shopHead">
+              <tr>
+                <th>店舗名</th>
+                <th>住所</th>
+                <th>電話番号</th>
+                <th>最寄り駅</th>
+                <th>ジャンル</th>
+              </tr>
+            </thead>
+            <thead id="eventHead" class="is-hidden">
+              <tr>
+                <th>イベント名</th>
+                <th>開催開始</th>
+                <th>会場</th>
+                <th>住所</th>
+                <th>参加</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="/app.js?v=20260610-events-3" type="module"></script>
+  </body>
+</html>

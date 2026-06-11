@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: solar-visit-map
+    runtime: node
+    region: singapore
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: HOST
+        value: 0.0.0.0
+      - key: ALLOW_REMOTE_ACCESS
+        value: true
+      - key: DATA_DIR
+        value: /var/data
+      - key: REQUESTS_PER_15_MIN
+        value: 300
+      - key: SHARE_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: GOOGLE_MAPS_BROWSER_KEY
+        sync: false
+    disk:
+      name: pin-status-data
+      mountPath: /var/data
+      sizeGB: 5
