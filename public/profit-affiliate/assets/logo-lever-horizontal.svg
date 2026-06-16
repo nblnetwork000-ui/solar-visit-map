@@ -1,0 +1,21 @@
+<svg width="420" height="82" viewBox="0 0 420 82" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">L.EVER Inc. logo</title>
+  <desc id="desc">A refined wordmark for L.EVER Inc. with a minimal AI compass accent.</desc>
+  <defs>
+    <linearGradient id="leverAccent" x1="307" y1="17" x2="350" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DD7E8"/>
+      <stop offset="0.5" stop-color="#1688C8"/>
+      <stop offset="1" stop-color="#00265D"/>
+    </linearGradient>
+  </defs>
+  <g fill="#061739">
+    <text x="4" y="55" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="46" font-weight="600" letter-spacing="11">L.EVER</text>
+    <text x="236" y="55" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="28" font-weight="500" letter-spacing="1.5">Inc.</text>
+  </g>
+  <g transform="translate(316 19)">
+    <circle cx="22" cy="22" r="20.5" stroke="url(#leverAccent)" stroke-width="3"/>
+    <path d="M22 6.5C26.8 16.4 31.4 20.8 41.5 22C31.4 23.2 26.8 27.6 22 37.5C17.2 27.6 12.6 23.2 2.5 22C12.6 20.8 17.2 16.4 22 6.5Z" fill="url(#leverAccent)" fill-opacity="0.18"/>
+    <path d="M14.5 29.5L20.4 18.7C20.8 18 21.8 17.8 22.4 18.4L25.6 21.6C26.2 22.2 26 23.2 25.3 23.6L14.5 29.5Z" fill="#061739"/>
+    <circle cx="22" cy="22" r="2.4" fill="#10B86F"/>
+  </g>
+</svg>

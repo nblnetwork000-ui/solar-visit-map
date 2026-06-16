@@ -282,7 +282,13 @@ function readJsonBody(req, limit) {
 }
 
 async function serveStatic(pathname, res) {
-  const requested = pathname === '/' ? '/pin-status-map.html' : pathname === '/lever-lp' ? '/lever-lp/' : pathname;
+  const requested = pathname === '/'
+    ? '/pin-status-map.html'
+    : pathname === '/lever-lp'
+      ? '/lever-lp/'
+      : pathname === '/profit-affiliate'
+        ? '/profit-affiliate/'
+        : pathname;
   const normalized = normalize(decodeURIComponent(requested)).replace(/^(\.\.[/\\])+/, '');
   const filePath = join(publicDir, normalized.endsWith('/') ? join(normalized, 'index.html') : normalized);
   if (!filePath.startsWith(publicDir)) {
@@ -479,7 +485,11 @@ function contentType(filePath) {
     '.js': 'text/javascript; charset=utf-8',
     '.json': 'application/json; charset=utf-8',
     '.webmanifest': 'application/manifest+json; charset=utf-8',
-    '.svg': 'image/svg+xml; charset=utf-8'
+    '.svg': 'image/svg+xml; charset=utf-8',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.webp': 'image/webp'
   };
   return types[extname(filePath)] || 'application/octet-stream';
 }
