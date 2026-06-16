@@ -22,3 +22,21 @@ services:
         generateValue: true
       - key: GOOGLE_MAPS_BROWSER_KEY
         sync: false
+      - key: LINE_CHANNEL_ID
+        value: 2010401153
+      - key: LINE_CHANNEL_SECRET
+        sync: false
+      - key: LINE_CHANNEL_ACCESS_TOKEN
+        sync: false
+      - key: LINE_HOMEPAGE_URL
+        sync: false
+      - key: LINE_DIAGNOSIS_URL
+        sync: false
+      - key: LINE_SERVICE_URL
+        sync: false
+      - key: LINE_EVIDENCE_URL
+        sync: false
+      - key: LINE_CONSULTATION_URL
+        sync: false
+      - key: LINE_SUPPLEMENT_URL
+        sync: false

@@ -7,7 +7,8 @@ import { fileURLToPath } from 'node:url';
 import { loadConfig } from './config.js';
 import { InputError, parseSearchInput } from './validation.js';
 import { searchYahooLocal } from './yahooLocalSearch.js';
-import { appendItemsToSheet, createSheetsClient } from './sheets.js';
+import { appendItemsToSheet, appendLeverConsultation, createSheetsClient } from './sheets.js';
+import { handleLineWebhook, verifyLineSignature } from './lineMessaging.js';
 
 const config = loadConfig();
 const csrfToken = crypto.randomBytes(32).toString('hex');
@@ -27,6 +28,14 @@ const server = createServer(async (req, res) => {
     }
 
     const url = new URL(req.url, `http://${req.headers.host}`);
+    if (url.pathname === '/api/lever-consultation') {
+      setCorsHeaders(req, res);
+      if (req.method === 'OPTIONS') {
+        res.writeHead(204);
+        res.end();
+        return;
+      }
+    }
     if (isRateLimitedRequest(url, req) && !rateLimiter(req.socket.remoteAddress || 'local')) {
       sendJson(res, 429, { error: 'リクエスト数が多すぎます。少し待ってから再実行してください。' });
       return;
@@ -34,6 +43,11 @@ const server = createServer(async (req, res) => {
 
     if (req.method === 'GET' && url.pathname === '/healthz') {
       sendJson(res, 200, { ok: true });
+      return;
+    }
+
+    if (req.method === 'POST' && url.pathname === '/webhook/line') {
+      await handleLineCallback(req, res);
       return;
     }
 
@@ -91,6 +105,11 @@ const server = createServer(async (req, res) => {
 
     if (req.method === 'POST' && url.pathname === '/api/search-and-append') {
       await handleSearchAndAppend(req, res);
+      return;
+    }
+
+    if (req.method === 'POST' && url.pathname === '/api/lever-consultation') {
+      await handleLeverConsultation(req, res);
       return;
     }
 
@@ -156,6 +175,88 @@ async function handleSearchAndAppend(req, res) {
     appended: sheetResult.appended,
     skipped: sheetResult.skipped,
     items: result.items
+  });
+}
+
+async function handleLeverConsultation(req, res) {
+  const body = await readJsonBody(req, 32 * 1024);
+  const input = normalizeLeverConsultation(body, req);
+  if (!config.GOOGLE_SHEET_ID) {
+    throw new Error('環境変数 GOOGLE_SHEET_ID を設定してください。');
+  }
+  if (!config.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 && !config.GOOGLE_APPLICATION_CREDENTIALS) {
+    throw new Error('GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 または GOOGLE_APPLICATION_CREDENTIALS のどちらかを設定してください。');
+  }
+  sheets ||= await createSheetsClient(config);
+  await appendLeverConsultation({
+    sheets,
+    spreadsheetId: config.GOOGLE_SHEET_ID,
+    input,
+    receivedAt: new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })
+  });
+  sendJson(res, 200, { ok: true, message: '送信しました。' });
+}
+
+function normalizeLeverConsultation(body, req) {
+  const input = {
+    company: cleanText(body.company, 160),
+    name: cleanText(body.name, 100),
+    email: cleanText(body.email, 180),
+    tel: cleanText(body.tel, 60),
+    majorIndustry: cleanText(body.major_industry || body.majorIndustry, 120),
+    minorIndustry: cleanText(body.minor_industry || body.minorIndustry, 120),
+    message: cleanText(body.message, 1200),
+    source: cleanText(body.source, 80) || 'HPフォーム',
+    pageUrl: cleanText(body.page_url || body.pageUrl, 500),
+    userAgent: cleanText(req.headers['user-agent'], 300)
+  };
+
+  if (!input.company) throw new InputError('会社名を入力してください。');
+  if (!input.name) throw new InputError('担当者名を入力してください。');
+  if (!input.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email)) {
+    throw new InputError('メールアドレスを正しく入力してください。');
+  }
+  if (!input.majorIndustry) throw new InputError('大業種を選択してください。');
+  return input;
+}
+
+async function handleLineCallback(req, res) {
+  if (!config.LINE_CHANNEL_SECRET || !config.LINE_CHANNEL_ACCESS_TOKEN) {
+    sendJson(res, 503, { error: 'LINE Messaging API is not configured.' });
+    return;
+  }
+  const rawBody = await readRawBody(req, 1024 * 1024);
+  const signature = String(req.headers['x-line-signature'] || '');
+  if (!verifyLineSignature(rawBody, signature, config.LINE_CHANNEL_SECRET)) {
+    sendJson(res, 401, { error: 'Invalid LINE signature.' });
+    return;
+  }
+  let body;
+  try {
+    body = JSON.parse(rawBody.toString('utf8'));
+  } catch {
+    sendJson(res, 400, { error: 'Invalid JSON.' });
+    return;
+  }
+  await handleLineWebhook(body, config);
+  sendJson(res, 200, { ok: true });
+}
+
+function readRawBody(req, limit) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    let size = 0;
+    req.on('data', (chunk) => {
+      size += chunk.length;
+      if (size > limit) {
+        reject(new InputError('リクエストが大きすぎます。'));
+        req.destroy();
+        return;
+      }
+      chunks.push(chunk);
+    });
+    req.on('end', () => resolve(Buffer.concat(chunks)));
+    req.on('error', reject);
   });
 }
 
@@ -335,6 +436,14 @@ function setSecurityHeaders(res) {
   res.setHeader('Referrer-Policy', 'no-referrer');
   res.setHeader('Permissions-Policy', 'geolocation=(self), camera=(), microphone=()');
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+}
+
+function setCorsHeaders(req, res) {
+  const origin = req.headers.origin || '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Vary', 'Origin');
 }
 
 function isAllowedHost(hostHeader = '') {

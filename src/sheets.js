@@ -22,6 +22,20 @@ export const HEADERS = [
 ];
 
 export const PIN_STATUS_HEADERS = ['顧客名', '住所', '訪問状況', '緯度', '経度', 'ID', '更新日時'];
+export const LEVER_CONSULTATION_SHEET = '診断フォーム_回答';
+export const LEVER_CONSULTATION_HEADERS = [
+  '受付日時',
+  '会社名',
+  '担当者名',
+  'メールアドレス',
+  '電話番号',
+  '大業種',
+  '小業種',
+  'ご質問・ご要望など',
+  '流入元',
+  'ページURL',
+  'ユーザーエージェント'
+];
 
 export async function createSheetsClient(config) {
   const credentials = await loadServiceAccountCredentials(config);
@@ -124,6 +138,44 @@ export async function appendItemsToSheet({ sheets, spreadsheetId, sheetName, ite
   });
 
   return { appended: filtered.length, skipped: items.length - filtered.length };
+}
+
+export async function appendLeverConsultation({ sheets, spreadsheetId, input, receivedAt }) {
+  await ensureLeverConsultationHeaderRow(sheets, spreadsheetId);
+  await sheets.appendValues({
+    spreadsheetId,
+    range: quoteSheetName(LEVER_CONSULTATION_SHEET) + '!A:K',
+    valueInputOption: 'RAW',
+    insertDataOption: 'INSERT_ROWS',
+    values: [[
+      receivedAt,
+      input.company,
+      input.name,
+      input.email,
+      input.tel,
+      input.majorIndustry,
+      input.minorIndustry,
+      input.message,
+      input.source,
+      input.pageUrl,
+      input.userAgent
+    ]]
+  });
+  return { appended: 1 };
+}
+
+export async function ensureLeverConsultationHeaderRow(sheets, spreadsheetId) {
+  const range = quoteSheetName(LEVER_CONSULTATION_SHEET) + '!A1:K1';
+  const response = await sheets.getValues(spreadsheetId, range);
+  const values = response.values ?? [];
+  if (values.length === 0 || values[0].length === 0) {
+    await sheets.updateValues({
+      spreadsheetId,
+      range,
+      valueInputOption: 'RAW',
+      values: [LEVER_CONSULTATION_HEADERS]
+    });
+  }
 }
 
 async function readExistingKeys(sheets, spreadsheetId, sheetName) {
