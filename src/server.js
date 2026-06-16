@@ -282,9 +282,9 @@ function readJsonBody(req, limit) {
 }
 
 async function serveStatic(pathname, res) {
-  const requested = pathname === '/' ? '/pin-status-map.html' : pathname;
+  const requested = pathname === '/' ? '/pin-status-map.html' : pathname === '/lever-lp' ? '/lever-lp/' : pathname;
   const normalized = normalize(decodeURIComponent(requested)).replace(/^(\.\.[/\\])+/, '');
-  const filePath = join(publicDir, normalized);
+  const filePath = join(publicDir, normalized.endsWith('/') ? join(normalized, 'index.html') : normalized);
   if (!filePath.startsWith(publicDir)) {
     sendJson(res, 403, { error: '不正なパスです。' });
     return;
