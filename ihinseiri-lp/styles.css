@@ -31,6 +31,7 @@ html {
 
 body {
   margin: 0;
+  padding-bottom: 86px;
 }
 
 a {
@@ -628,6 +629,60 @@ h3 {
   color: rgb(255 255 255 / 68%);
 }
 
+.fixed-contact-bar {
+  position: fixed;
+  right: 18px;
+  bottom: 16px;
+  left: 18px;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: min(620px, calc(100% - 36px));
+  margin: 0 auto;
+  padding: 10px;
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 8px;
+  background: rgb(18 42 34 / 90%);
+  box-shadow: 0 18px 44px rgb(0 0 0 / 22%);
+  backdrop-filter: blur(16px);
+}
+
+.fixed-contact-bar a {
+  display: grid;
+  gap: 2px;
+  min-height: 56px;
+  place-items: center;
+  border-radius: 6px;
+  color: var(--white);
+  text-align: center;
+}
+
+.fixed-contact-bar span,
+.fixed-contact-bar strong {
+  display: block;
+  letter-spacing: 0;
+}
+
+.fixed-contact-bar span {
+  font-size: 11px;
+  font-weight: 800;
+  opacity: 0.9;
+}
+
+.fixed-contact-bar strong {
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.fixed-line {
+  background: #06c755;
+}
+
+.fixed-form {
+  background: var(--rust);
+}
+
 @media (max-width: 900px) {
   .site-header {
     min-height: 64px;
@@ -770,5 +825,25 @@ h3 {
 
   .contact-form {
     padding: 20px;
+  }
+
+  body {
+    padding-bottom: 82px;
+  }
+
+  .fixed-contact-bar {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    width: calc(100% - 20px);
+    padding: 8px;
+  }
+
+  .fixed-contact-bar a {
+    min-height: 54px;
+  }
+
+  .fixed-contact-bar strong {
+    font-size: 15px;
   }
 }

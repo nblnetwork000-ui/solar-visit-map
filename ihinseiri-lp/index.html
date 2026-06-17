@@ -8,7 +8,7 @@
       name="description"
       content="遺品整理・不用品回収から特殊清掃、消毒消臭、原状回復、売却や二次利用に向けたリフォームまで一括対応。見積もり無料、立会い不要相談可。"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260617e" />
+    <link rel="stylesheet" href="./styles.css?v=20260617f" />
   </head>
   <body>
     <header class="site-header">
@@ -49,6 +49,8 @@
               <span>見積もり無料</span>
               <span>消毒・消臭対応</span>
               <span>立会い不要OK</span>
+              <span>認定資格者在籍</span>
+              <span>古物商許可取得</span>
             </div>
           </div>
           <aside class="hero-card" aria-label="料金の目安">
@@ -109,6 +111,14 @@
             </p>
           </div>
           <div class="feature-list">
+            <div>
+              <strong>認定資格者が在籍</strong>
+              <span>財団法人認定の遺品整理資格者が、ご遺族の気持ちと現場状況に配慮して対応</span>
+            </div>
+            <div>
+              <strong>古物商許可取得</strong>
+              <span>買取できる家財や骨董品を適正に確認し、処分費用の負担軽減につなげます</span>
+            </div>
             <div>
               <strong>即日対応</strong>
               <span>空き状況により当日の訪問見積もり・作業も可能</span>
@@ -279,8 +289,43 @@
             </select>
           </label>
           <label>
-            市区町村・建物の状況
-            <input type="text" name="address_note" placeholder="杉並区 / マンション3階 / エレベーターあり など" />
+            市区町村
+            <select name="municipality">
+              <option value="">選択してください</option>
+              <option value="杉並区">杉並区</option>
+              <option value="世田谷区">世田谷区</option>
+              <option value="中野区">中野区</option>
+              <option value="練馬区">練馬区</option>
+              <option value="新宿区">新宿区</option>
+              <option value="渋谷区">渋谷区</option>
+              <option value="東京23区その他">東京23区その他</option>
+              <option value="東京都市部">東京都市部</option>
+              <option value="横浜市・川崎市">横浜市・川崎市</option>
+              <option value="神奈川県その他">神奈川県その他</option>
+              <option value="さいたま市">さいたま市</option>
+              <option value="埼玉県その他">埼玉県その他</option>
+              <option value="千葉市・船橋市・市川市">千葉市・船橋市・市川市</option>
+              <option value="千葉県その他">千葉県その他</option>
+              <option value="その他">その他・相談したい</option>
+            </select>
+          </label>
+          <label>
+            建物の状況
+            <select name="building_status">
+              <option value="">選択してください</option>
+              <option value="戸建て">戸建て</option>
+              <option value="マンション">マンション</option>
+              <option value="アパート">アパート</option>
+              <option value="団地">団地</option>
+              <option value="施設・老人ホーム">施設・老人ホーム</option>
+              <option value="空き家">空き家</option>
+              <option value="店舗・事務所">店舗・事務所</option>
+              <option value="その他">その他・不明</option>
+            </select>
+          </label>
+          <label>
+            階数・搬出状況など
+            <input type="text" name="address_note" placeholder="3階 / エレベーターあり / 駐車スペースあり など" />
           </label>
           <label>
             ご相談内容
@@ -297,5 +342,16 @@
       <span>遺品整理・不用品回収・特殊清掃・原状回復・リフォーム</span>
       <small>Copyright © Magokoro Cleanout Support. All rights reserved.</small>
     </footer>
+
+    <div class="fixed-contact-bar" aria-label="固定お問い合わせメニュー">
+      <a class="fixed-line" href="#" aria-label="公式LINEで相談する">
+        <span>写真相談OK</span>
+        <strong>公式LINE</strong>
+      </a>
+      <a class="fixed-form" href="#contact" aria-label="お問い合わせフォームへ移動">
+        <span>無料見積もり</span>
+        <strong>お問い合わせ</strong>
+      </a>
+    </div>
   </body>
 </html>
