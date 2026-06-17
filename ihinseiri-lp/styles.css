@@ -107,7 +107,8 @@ h3 {
 
 .header-cta,
 .btn,
-.contact-form button {
+.contact-form button,
+.line-submit {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -519,9 +520,19 @@ h3 {
   background: var(--white);
 }
 
+.contact-line {
+  margin-top: 14px;
+  padding: 22px;
+  border-left: 5px solid #06c755;
+  background: var(--white);
+}
+
 .contact-tel span,
 .contact-tel a,
-.contact-tel small {
+.contact-tel small,
+.contact-line span,
+.contact-line a,
+.contact-line small {
   display: block;
 }
 
@@ -532,7 +543,18 @@ h3 {
   font-weight: 900;
 }
 
-.contact-tel small {
+.contact-line a {
+  margin-top: 7px;
+  width: fit-content;
+  border-radius: 6px;
+  padding: 11px 16px;
+  background: #06c755;
+  color: var(--white);
+  font-weight: 900;
+}
+
+.contact-tel small,
+.contact-line small {
   margin-top: 4px;
   color: var(--muted);
 }
@@ -556,6 +578,7 @@ h3 {
 }
 
 .contact-form input,
+.contact-form select,
 .contact-form textarea {
   width: 100%;
   border: 1px solid #cfd8d0;
@@ -566,14 +589,29 @@ h3 {
   font: inherit;
 }
 
+.contact-form select {
+  appearance: none;
+  background:
+    linear-gradient(45deg, transparent 50%, var(--green) 50%) right 18px center / 7px 7px no-repeat,
+    linear-gradient(135deg, var(--green) 50%, transparent 50%) right 13px center / 7px 7px no-repeat,
+    #fffefa;
+  cursor: pointer;
+}
+
 .contact-form textarea {
   resize: vertical;
 }
 
 .contact-form input:focus,
+.contact-form select:focus,
 .contact-form textarea:focus {
   outline: 3px solid rgb(200 146 62 / 20%);
   border-color: var(--gold);
+}
+
+.line-submit {
+  background: #06c755;
+  color: var(--white);
 }
 
 .footer {
