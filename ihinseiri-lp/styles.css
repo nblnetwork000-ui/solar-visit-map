@@ -372,6 +372,74 @@ h3 {
   line-height: 1.7;
 }
 
+.credentials {
+  padding: 74px 0;
+  background: var(--white);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.credentials-inner {
+  width: min(1120px, calc(100% - 36px));
+  margin: 0 auto;
+}
+
+.credentials-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 34px;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.credentials h2 {
+  margin: 0;
+  font-size: clamp(26px, 3.4vw, 38px);
+  line-height: 1.32;
+  letter-spacing: 0;
+}
+
+.credentials-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.credentials-list article {
+  padding: 24px;
+  border: 1px solid rgb(47 107 79 / 16%);
+  border-radius: 8px;
+  background: #fbfaf4;
+}
+
+.credentials-list span {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.credentials-list h3 {
+  margin-top: 12px;
+  color: var(--green-dark);
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.credentials-list p,
+.credentials-note {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.credentials-list p {
+  margin-top: 10px;
+}
+
+.credentials-note {
+  margin-top: 14px;
+  font-size: 13px;
+}
+
 .price-grid article {
   padding: 22px;
 }
@@ -720,6 +788,8 @@ h3 {
   .price-grid,
   .service-grid,
   .features-inner,
+  .credentials-copy,
+  .credentials-list,
   .recovery,
   .contact {
     grid-template-columns: 1fr;
