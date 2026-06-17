@@ -1,0 +1,54 @@
+.hero-medal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 14px 18px;
+  background:
+    radial-gradient(circle at 28% 20%, rgb(255 248 201 / 52%) 0 9%, transparent 10%),
+    linear-gradient(135deg, #ffe37d 0%, #c88e28 48%, #805115 100%);
+  overflow: visible;
+}
+
+.hero-medal::before {
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px 999px 12px 12px;
+  background: linear-gradient(180deg, #fff7b5 0%, #e5aa28 76%, #9f6517 100%);
+  color: #86520f;
+  font-size: 22px;
+  text-shadow: 0 1px 0 rgb(255 255 255 / 45%);
+  box-shadow: 0 6px 14px rgb(48 32 10 / 22%);
+}
+
+.hero-medal span {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .hero-medal {
+    padding: 18px 10px 14px;
+  }
+
+  .hero-medal::before {
+    top: -13px;
+    width: 30px;
+    height: 24px;
+    font-size: 17px;
+  }
+
+  .hero-medal span {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-medal {
+    padding: 16px 8px 12px;
+  }
+}
