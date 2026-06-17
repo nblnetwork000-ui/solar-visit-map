@@ -173,17 +173,20 @@ h3 {
 
 .hero-medal {
   position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 132px;
   height: 132px;
-  padding: 20px 14px 14px;
+  padding: 22px 14px 18px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 32% 26%, #fff8c9 0 12%, transparent 13%),
+    radial-gradient(circle at 28% 20%, rgb(255 248 201 / 52%) 0 9%, transparent 10%),
     linear-gradient(135deg, #ffe37d 0%, #c88e28 48%, #805115 100%);
   color: #fffdf4;
   text-align: center;
+  overflow: visible;
   box-shadow:
     inset 0 0 0 6px rgb(255 255 255 / 35%),
     inset 0 0 0 12px rgb(119 72 16 / 16%),
@@ -193,10 +196,20 @@ h3 {
 .hero-medal::before {
   content: "♛";
   position: absolute;
-  top: 13px;
-  color: #fff4aa;
-  font-size: 24px;
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px 999px 12px 12px;
+  background: linear-gradient(180deg, #fff7b5 0%, #e5aa28 76%, #9f6517 100%);
+  color: #86520f;
+  font-size: 22px;
   line-height: 1;
+  text-shadow: 0 1px 0 rgb(255 255 255 / 45%);
+  box-shadow: 0 6px 14px rgb(48 32 10 / 22%);
 }
 
 .hero-medal::after {
@@ -219,7 +232,6 @@ h3 {
 }
 
 .hero-medal span {
-  margin-top: 18px;
   font-size: 12px;
   font-weight: 900;
 }
@@ -913,12 +925,14 @@ h3 {
   .hero-medal {
     width: 104px;
     height: 104px;
-    padding: 16px 10px 10px;
+    padding: 18px 10px 14px;
   }
 
   .hero-medal::before {
-    top: 10px;
-    font-size: 18px;
+    top: -13px;
+    width: 30px;
+    height: 24px;
+    font-size: 17px;
   }
 
   .hero-medal::after {
@@ -928,7 +942,6 @@ h3 {
   }
 
   .hero-medal span {
-    margin-top: 14px;
     font-size: 10px;
   }
 
@@ -1006,6 +1019,7 @@ h3 {
   .hero-medal {
     width: 92px;
     height: 92px;
+    padding: 16px 8px 12px;
   }
 
   .hero h1 {
