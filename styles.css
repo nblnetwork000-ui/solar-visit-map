@@ -454,31 +454,37 @@ textarea { min-height: 160px; resize: vertical; }
   .text-brand span { font-size: 28px; }
   .text-brand small { font-size: 15px; }
   .nav-tabs {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
+    display: flex;
+    gap: 18px;
     width: 100%;
-    overflow: visible;
-    padding: 0;
-    font-size: 11px;
-    line-height: 1.35;
-    white-space: normal;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 0 9px;
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar {
+    display: none;
   }
   .nav-tabs a {
-    display: grid;
-    place-items: center;
-    min-height: 34px;
-    padding: 6px 4px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.82);
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    min-height: 32px;
+    padding: 6px 0;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: transparent;
   }
   .nav-tabs a:hover,
   .nav-tabs a[aria-current="page"] {
-    color: var(--white);
+    color: var(--blue);
     border-color: var(--blue);
-    background: var(--blue);
+    background: transparent;
   }
   .header-actions { display: none; }
   .hero,
