@@ -160,6 +160,77 @@ h3 {
   background: linear-gradient(180deg, rgb(0 0 0 / 8%) 0%, rgb(0 0 0 / 34%) 100%);
 }
 
+.hero-medals {
+  position: absolute;
+  top: clamp(92px, 11vw, 126px);
+  left: clamp(22px, 5vw, 72px);
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 460px;
+}
+
+.hero-medal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 132px;
+  padding: 20px 14px 14px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 26%, #fff8c9 0 12%, transparent 13%),
+    linear-gradient(135deg, #ffe37d 0%, #c88e28 48%, #805115 100%);
+  color: #fffdf4;
+  text-align: center;
+  box-shadow:
+    inset 0 0 0 6px rgb(255 255 255 / 35%),
+    inset 0 0 0 12px rgb(119 72 16 / 16%),
+    0 18px 34px rgb(48 32 10 / 22%);
+}
+
+.hero-medal::before {
+  content: "♛";
+  position: absolute;
+  top: 13px;
+  color: #fff4aa;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.hero-medal::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  width: 72px;
+  height: 34px;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #b75840 0 50%, #8d342b 50% 100%);
+  clip-path: polygon(0 0, 48% 0, 50% 100%, 52% 0, 100% 0, 82% 100%, 50% 72%, 18% 100%);
+  z-index: -1;
+}
+
+.hero-medal span,
+.hero-medal strong {
+  display: block;
+  text-shadow: 0 1px 2px rgb(74 43 10 / 42%);
+}
+
+.hero-medal span {
+  margin-top: 18px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.hero-medal strong {
+  margin-top: 4px;
+  font-size: 17px;
+  line-height: 1.25;
+  font-weight: 900;
+}
+
 .hero-inner {
   position: relative;
   z-index: 1;
@@ -406,16 +477,73 @@ h3 {
 }
 
 .credentials-list article {
+  position: relative;
+  overflow: hidden;
   padding: 24px;
   border: 1px solid rgb(47 107 79 / 16%);
   border-radius: 8px;
-  background: #fbfaf4;
+  background:
+    linear-gradient(135deg, rgb(255 247 220 / 78%) 0%, rgb(255 255 255 / 96%) 46%, rgb(251 250 244 / 100%) 100%);
+  box-shadow: 0 18px 40px rgb(69 55 24 / 8%);
 }
 
-.credentials-list span {
-  color: var(--gold);
-  font-size: 13px;
+.credentials-list article::after {
+  content: "";
+  position: absolute;
+  top: -42px;
+  right: -42px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 215 128 / 44%) 0%, rgb(255 215 128 / 0%) 68%);
+}
+
+.medal-badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, #fff7ca 0 13%, transparent 14%),
+    linear-gradient(135deg, #f9d66d 0%, #c7912f 48%, #8e5e18 100%);
+  color: #fffdf1;
+  box-shadow:
+    inset 0 0 0 5px rgb(255 255 255 / 34%),
+    inset 0 0 0 9px rgb(118 72 18 / 16%),
+    0 14px 26px rgb(142 94 24 / 24%);
+}
+
+.medal-badge::before {
+  content: "♛";
+  position: absolute;
+  top: 8px;
+  color: #fff4b0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.medal-badge::after {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  left: 50%;
+  width: 42px;
+  height: 24px;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #b85740 0 50%, #8f372b 50% 100%);
+  clip-path: polygon(0 0, 48% 0, 50% 100%, 52% 0, 100% 0, 82% 100%, 50% 70%, 18% 100%);
+  z-index: -1;
+}
+
+.medal-badge span {
+  margin-top: 16px;
+  color: #fffdf4;
+  font-size: 17px;
   font-weight: 900;
+  text-shadow: 0 1px 2px rgb(74 43 10 / 38%);
 }
 
 .credentials-list h3 {
@@ -776,6 +904,38 @@ h3 {
     padding: 52px 0 32px;
   }
 
+  .hero-medals {
+    top: 86px;
+    left: 18px;
+    max-width: 290px;
+  }
+
+  .hero-medal {
+    width: 104px;
+    height: 104px;
+    padding: 16px 10px 10px;
+  }
+
+  .hero-medal::before {
+    top: 10px;
+    font-size: 18px;
+  }
+
+  .hero-medal::after {
+    bottom: -15px;
+    width: 54px;
+    height: 27px;
+  }
+
+  .hero-medal span {
+    margin-top: 14px;
+    font-size: 10px;
+  }
+
+  .hero-medal strong {
+    font-size: 13px;
+  }
+
   .lead {
     font-size: 16px;
   }
@@ -834,6 +994,18 @@ h3 {
   .hero-inner {
     min-height: auto;
     padding: 292px 0 26px;
+  }
+
+  .hero-medals {
+    top: 82px;
+    left: 16px;
+    gap: 8px;
+    max-width: 250px;
+  }
+
+  .hero-medal {
+    width: 92px;
+    height: 92px;
   }
 
   .hero h1 {
