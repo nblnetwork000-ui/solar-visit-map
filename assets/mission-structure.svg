@@ -1,0 +1,43 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">利益が積み上がる集客構造</title>
+  <desc id="desc">BtoB集客の構造化、改善、成長を表す抽象図。</desc>
+  <defs>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#7DD7E8" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#1688C8" stop-opacity="0.46"/>
+    </linearGradient>
+    <linearGradient id="line" x1="120" y1="530" x2="980" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DD7E8"/>
+      <stop offset="0.55" stop-color="#1688C8"/>
+      <stop offset="1" stop-color="#061739"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#061739" flood-opacity="0.13"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" rx="22" fill="#F8FCFE"/>
+  <path d="M80 505C224 335 336 582 496 398C662 208 774 360 1090 132" stroke="#BEDFED" stroke-width="18" stroke-linecap="round"/>
+  <path d="M70 570C232 394 365 603 530 430C710 242 792 344 1120 98" stroke="#D6ECF5" stroke-width="9" stroke-linecap="round"/>
+  <g filter="url(#shadow)">
+    <rect x="168" y="426" width="92" height="188" rx="14" fill="url(#bar)"/>
+    <rect x="306" y="360" width="92" height="254" rx="14" fill="url(#bar)"/>
+    <rect x="444" y="292" width="92" height="322" rx="14" fill="url(#bar)"/>
+    <rect x="582" y="224" width="92" height="390" rx="14" fill="url(#bar)"/>
+    <rect x="720" y="152" width="92" height="462" rx="14" fill="url(#bar)"/>
+  </g>
+  <path d="M150 520C292 480 358 415 474 392C612 364 696 252 790 206C884 160 972 142 1050 92" stroke="url(#line)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="150" cy="520" r="17" fill="#FFFFFF" stroke="#1688C8" stroke-width="7"/>
+  <circle cx="474" cy="392" r="17" fill="#FFFFFF" stroke="#1688C8" stroke-width="7"/>
+  <circle cx="790" cy="206" r="17" fill="#FFFFFF" stroke="#061739" stroke-width="7"/>
+  <path d="M1010 78L1076 76L1054 138" stroke="#061739" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <g opacity="1">
+    <rect x="822" y="412" width="214" height="74" rx="37" fill="#FFFFFF" stroke="#DCEAF3" stroke-width="3"/>
+    <circle cx="866" cy="449" r="15" fill="#10B86F"/>
+    <text x="898" y="459" fill="#061739" fill-opacity="0.82" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-size="30" font-weight="700">Profit Growth</text>
+  </g>
+  <g opacity="0.82">
+    <circle cx="1000" cy="278" r="74" stroke="#7DD7E8" stroke-width="6"/>
+    <circle cx="1000" cy="278" r="32" fill="#1688C8" fill-opacity="0.16"/>
+    <path d="M948 278H1052M1000 226V330" stroke="#1688C8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

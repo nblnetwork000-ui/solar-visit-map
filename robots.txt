@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nblnetwork000-ui.github.io/solar-visit-map/sitemap.xml
