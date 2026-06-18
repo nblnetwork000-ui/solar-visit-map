@@ -1569,3 +1569,26 @@ body {
     padding: 18px 0 18px 18px;
   }
 }
+
+/* Target page heading marker spacing */
+.target-page main > .section:nth-of-type(2) .card {
+  padding-top: 44px;
+}
+
+.target-page main > .section:nth-of-type(2) .card::before {
+  top: 30px;
+  left: 32px;
+  width: 44px;
+}
+
+@media (max-width: 760px) {
+  .target-page main > .section:nth-of-type(2) .card {
+    padding-top: 48px;
+  }
+
+  .target-page main > .section:nth-of-type(2) .card::before {
+    top: 26px;
+    left: 28px;
+    width: 38px;
+  }
+}
