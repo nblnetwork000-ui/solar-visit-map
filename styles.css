@@ -1391,3 +1391,181 @@ body {
     line-height: 1.8;
   }
 }
+
+/* Evidence page editorial report layout */
+.cases-page main > .section:nth-of-type(2) {
+  color: #eef5fb;
+  background:
+    radial-gradient(ellipse at 86% 4%, rgba(20,127,189,0.30), transparent 34%),
+    repeating-linear-gradient(110deg, transparent 0 20px, rgba(255,255,255,0.026) 21px, transparent 22px),
+    linear-gradient(145deg, #06162b, #0b2546 70%, #0b315d);
+}
+
+.cases-page main > .section:nth-of-type(2)::before {
+  opacity: 0.2;
+  background:
+    linear-gradient(116deg, transparent 0 54%, rgba(115,212,231,0.12) 54.4%, transparent 73%);
+}
+
+.cases-page main > .section:nth-of-type(2) h2 {
+  color: #fff;
+}
+
+.cases-page main > .section:nth-of-type(2) .section-head p,
+.cases-page .metric-note {
+  color: rgba(238,245,251,0.72);
+}
+
+.cases-page .metrics {
+  width: min(1120px, 100%);
+  margin-inline: auto;
+  grid-template-columns: minmax(320px, 1.1fr) repeat(2, minmax(220px, 0.9fr));
+  gap: 0;
+  border-top: 1px solid rgba(115,212,231,0.34);
+}
+
+.cases-page .metrics .card {
+  min-height: 0;
+  padding: 26px 28px;
+  border: 0;
+  border-right: 1px solid rgba(255,255,255,0.10);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cases-page .metrics .card::before,
+.cases-page .metrics .card::after {
+  display: none;
+}
+
+.cases-page .metrics .card:first-child {
+  grid-row: span 2;
+  display: grid;
+  align-content: end;
+  min-height: 320px;
+  padding: 38px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
+}
+
+.cases-page .metrics span {
+  color: rgba(238,245,251,0.72);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.cases-page .metrics strong {
+  color: #fff;
+  font-family: var(--serif);
+  font-size: clamp(38px, 5vw, 76px);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.cases-page .metrics .card:first-child strong {
+  font-size: clamp(58px, 8vw, 104px);
+}
+
+.cases-page .metrics em {
+  display: inline-flex;
+  width: max-content;
+  margin-top: 20px;
+  padding: 7px 12px;
+  border: 1px solid rgba(115,212,231,0.26);
+  border-radius: 999px;
+  color: rgba(115,212,231,0.94);
+  background: rgba(115,212,231,0.07);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.cases-page main > .section:nth-of-type(3) {
+  background:
+    linear-gradient(180deg, #f3f7fa, #fbfcfd);
+}
+
+.cases-page main > .section:nth-of-type(3) .plain-list article {
+  border: 0;
+  border-left: 2px solid rgba(20,127,189,0.36);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cases-page .graph-card {
+  border: 0;
+  border-radius: 0;
+  background: rgba(255,255,255,0.54);
+  box-shadow: 0 18px 48px rgba(4,22,51,0.05);
+}
+
+.cases-page .case-mini {
+  border: 0;
+  border-top: 1px solid rgba(20,127,189,0.22);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cases-page .case-mini::before,
+.cases-page .case-mini::after {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .cases-page main > .section:nth-of-type(2) {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .cases-page .metrics {
+    grid-template-columns: 1fr;
+    border-top-color: rgba(115,212,231,0.30);
+  }
+
+  .cases-page .metrics .card,
+  .cases-page .metrics .card:first-child {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 8px 16px;
+    min-height: 0;
+    padding: 20px 0;
+    border-right: 0;
+    background: transparent;
+  }
+
+  .cases-page .metrics span {
+    grid-column: 1 / -1;
+    font-size: 12px;
+  }
+
+  .cases-page .metrics strong,
+  .cases-page .metrics .card:first-child strong {
+    margin-top: 0;
+    font-size: clamp(38px, 11vw, 50px);
+    line-height: 1;
+  }
+
+  .cases-page .metrics em {
+    align-self: center;
+    margin-top: 0;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .cases-page .metric-note {
+    text-align: left;
+  }
+
+  .cases-page main > .section:nth-of-type(3) .split {
+    gap: 24px;
+  }
+
+  .cases-page main > .section:nth-of-type(3) .plain-list article {
+    padding: 18px 0 18px 18px;
+  }
+}
