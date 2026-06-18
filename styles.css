@@ -902,15 +902,18 @@ textarea { min-height: 160px; resize: vertical; }
       url("./assets/hero-architecture.jpg") right top / auto 42% no-repeat;
   }
   .hero {
-    background: linear-gradient(180deg, #f8fbfd, #fff);
+    background: #f8fbfd;
   }
   .hero-slide {
+    inset: 0 0 auto;
+    height: 56%;
     background-position: center top;
+    background-size: cover;
   }
   .hero-slideshow::after {
     background:
-      linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.88) 38%, rgba(255,255,255,0.94) 100%),
-      linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.72));
+      linear-gradient(180deg, rgba(255,255,255,0.56) 0%, rgba(255,255,255,0.66) 30%, rgba(255,255,255,0.94) 58%, #fff 100%),
+      linear-gradient(90deg, rgba(255,255,255,0.86), rgba(255,255,255,0.34));
   }
   .hero::before,
   .page-hero::before {
