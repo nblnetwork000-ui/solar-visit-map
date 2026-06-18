@@ -2117,3 +2117,176 @@ body {
     width: 38px;
   }
 }
+
+/* Distinct generated motion per key page */
+.home-page .hero {
+  background:
+    radial-gradient(circle at 16% 22%, rgba(115,212,231,0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 76% 34%, rgba(20,127,189,0.12) 0 2px, transparent 3px),
+    linear-gradient(122deg, transparent 0 48%, rgba(255,255,255,0.42) 54%, transparent 64%),
+    linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+  background-size: 110px 110px, 150px 150px, 100% 100%, 100% 100%;
+  animation: homeHeroAurora 16s ease-in-out infinite alternate;
+}
+
+.home-page .hero::before {
+  background:
+    radial-gradient(ellipse at 78% 28%, rgba(115,212,231,0.30), transparent 34%),
+    linear-gradient(116deg, transparent 0 42%, rgba(20,127,189,0.12) 48%, transparent 60%);
+  animation: homeHeroLight 12s ease-in-out infinite alternate;
+}
+
+.home-page .hero::after {
+  border-top-color: rgba(20,127,189,0.20);
+  border-bottom-color: rgba(115,212,231,0.10);
+  animation: homeHeroRibbon 13s ease-in-out infinite alternate;
+}
+
+.service-page .page-hero {
+  background:
+    conic-gradient(from 0deg at 76% 48%, transparent 0 42deg, rgba(20,127,189,0.16) 52deg, transparent 70deg 360deg),
+    radial-gradient(ellipse at 76% 48%, rgba(115,212,231,0.22), transparent 36%),
+    radial-gradient(circle at 82% 28%, rgba(20,127,189,0.14) 0 2px, transparent 3px),
+    linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+  background-size: 100% 100%, 100% 100%, 116px 116px, 100% 100%;
+  animation: serviceCompassField 18s linear infinite;
+}
+
+.service-page .page-hero::before {
+  background:
+    conic-gradient(from 0deg at 76% 48%, transparent 0 72deg, rgba(115,212,231,0.20) 86deg, transparent 112deg 360deg);
+  animation: serviceCompassSpin 22s linear infinite;
+}
+
+.service-page .page-hero::after {
+  right: 10%;
+  bottom: 16%;
+  width: min(38vw, 470px);
+  border-radius: 50%;
+  animation: serviceCompassRing 11s ease-in-out infinite alternate;
+}
+
+.target-page .page-hero {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 86px, rgba(20,127,189,0.10) 87px, transparent 90px),
+    linear-gradient(116deg, transparent 0 54%, rgba(115,212,231,0.13) 58%, transparent 72%),
+    linear-gradient(180deg, #f9fcfe 0%, #ffffff 100%);
+  animation: targetPanelRise 14s linear infinite;
+}
+
+.target-page .page-hero::before {
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(20,127,189,0.18) 46%, transparent 80%),
+    repeating-linear-gradient(90deg, transparent 0 54px, rgba(115,212,231,0.11) 55px, transparent 58px);
+  animation: targetScanRise 10s linear infinite;
+}
+
+.target-page .page-hero::after {
+  right: -3%;
+  bottom: 11%;
+  width: min(50vw, 640px);
+  height: 260px;
+  animation: targetArchitectureDrift 12s ease-in-out infinite alternate;
+}
+
+.ai-services-page .page-hero {
+  background:
+    radial-gradient(circle at 20% 28%, rgba(20,127,189,0.15) 0 2px, transparent 3px),
+    radial-gradient(circle at 64% 36%, rgba(115,212,231,0.18) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 68%, rgba(20,127,189,0.13) 0 1px, transparent 2px),
+    linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+  background-size: 140px 140px, 180px 180px, 96px 96px, 100% 100%;
+  animation: aiServiceNodesFlow 15s linear infinite;
+}
+
+.ai-services-page .page-hero::before {
+  background:
+    linear-gradient(120deg, transparent 0 40%, rgba(20,127,189,0.11) 44%, transparent 49%),
+    linear-gradient(62deg, transparent 0 56%, rgba(115,212,231,0.16) 60%, transparent 66%);
+  animation: aiServiceLinkDrift 9s ease-in-out infinite alternate;
+}
+
+.ai-services-page .page-hero::after {
+  right: 6%;
+  bottom: 20%;
+  width: min(44vw, 560px);
+  height: 220px;
+  animation: aiServiceNetworkPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes homeHeroAurora {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 110px 70px, -150px 120px, 0 0, 0 0; }
+}
+@keyframes homeHeroLight {
+  0% { transform: translate3d(-1%, 1%, 0) scale(1); opacity: 0.42; }
+  100% { transform: translate3d(2%, -2%, 0) scale(1.04); opacity: 0.78; }
+}
+@keyframes homeHeroRibbon {
+  0% { transform: translate3d(0, 0, 0) rotate(-8deg); opacity: 0.62; }
+  100% { transform: translate3d(-22px, -16px, 0) rotate(-4deg); opacity: 0.90; }
+}
+@keyframes serviceCompassField {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 0 0, 0 0, 116px -116px, 0 0; }
+}
+@keyframes serviceCompassSpin {
+  0% { transform: rotate(0deg); opacity: 0.48; }
+  100% { transform: rotate(360deg); opacity: 0.72; }
+}
+@keyframes serviceCompassRing {
+  0% { transform: rotate(-8deg) scale(0.96); opacity: 0.62; }
+  100% { transform: rotate(12deg) scale(1.05); opacity: 0.92; }
+}
+@keyframes targetPanelRise {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 0 -160px, 0 0, 0 0; }
+}
+@keyframes targetScanRise {
+  0% { transform: translateY(24px); opacity: 0.28; }
+  100% { transform: translateY(-24px); opacity: 0.68; }
+}
+@keyframes targetArchitectureDrift {
+  0% { transform: rotate(-8deg) translate3d(0, 0, 0); opacity: 0.58; }
+  100% { transform: rotate(-2deg) translate3d(-18px, -18px, 0); opacity: 0.86; }
+}
+@keyframes aiServiceNodesFlow {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 140px 80px, -180px 120px, 96px -96px, 0 0; }
+}
+@keyframes aiServiceLinkDrift {
+  0% { transform: translate3d(-1%, 1%, 0); opacity: 0.38; }
+  100% { transform: translate3d(2%, -1.5%, 0); opacity: 0.74; }
+}
+@keyframes aiServiceNetworkPulse {
+  0% { transform: rotate(-8deg) scale(0.98); opacity: 0.56; }
+  100% { transform: rotate(-11deg) scale(1.08); opacity: 0.86; }
+}
+
+@media (max-width: 760px) {
+  .home-page .hero {
+    animation-name: homeHeroAurora;
+  }
+
+  .service-page .page-hero.service-visual {
+    background:
+      conic-gradient(from 0deg at 78% 38%, transparent 0 48deg, rgba(20,127,189,0.16) 58deg, transparent 78deg 360deg),
+      radial-gradient(ellipse at 78% 38%, rgba(115,212,231,0.20), transparent 42%),
+      radial-gradient(circle at 82% 28%, rgba(20,127,189,0.14) 0 2px, transparent 3px),
+      linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+    background-size: 100% 100%, 100% 100%, 116px 116px, 100% 100%;
+    animation-name: serviceCompassField;
+  }
+
+  .target-page .page-hero.target-visual {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 70px, rgba(20,127,189,0.10) 71px, transparent 74px),
+      linear-gradient(116deg, transparent 0 50%, rgba(115,212,231,0.13) 56%, transparent 72%),
+      linear-gradient(180deg, #f9fcfe 0%, #ffffff 100%);
+    animation-name: targetPanelRise;
+  }
+
+  .ai-services-page .page-hero {
+    animation-name: aiServiceNodesFlow;
+  }
+}
