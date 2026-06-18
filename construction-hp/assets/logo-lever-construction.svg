@@ -1,0 +1,11 @@
+<svg width="420" height="96" viewBox="0 0 420 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">L.EVER Construction</title>
+  <desc id="desc">L.EVER建設事業の仮ロゴ。</desc>
+  <rect width="420" height="96" fill="#111111"/>
+  <rect x="18" y="18" width="60" height="60" stroke="#c8a45b" stroke-width="2"/>
+  <text x="34" y="60" fill="#f7f7f7" font-family="Georgia, Times New Roman, serif" font-size="34" font-weight="700">L</text>
+  <path d="M96 28H360" stroke="#6c7077" stroke-width="1"/>
+  <path d="M96 68H360" stroke="#c8a45b" stroke-width="1"/>
+  <text x="96" y="56" fill="#f7f7f7" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="4">L.EVER</text>
+  <text x="96" y="84" fill="#cfd2d6" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="3">CONSTRUCTION</text>
+</svg>
