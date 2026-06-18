@@ -460,6 +460,7 @@ h3 {
   border: 1px solid rgba(20,127,189,0.06);
   transform: rotate(18deg);
   background: rgba(20,127,189,0.025);
+  animation: cardAuraDrift 12s ease-in-out infinite alternate;
 }
 .card > * { position: relative; z-index: 1; }
 .card .icon {
@@ -473,6 +474,7 @@ h3 {
   background: #eef7fc;
   font-size: 24px;
   font-weight: 900;
+  animation: iconOrbFloat 9s ease-in-out infinite alternate;
 }
 .card-link {
   display: inline-flex;
@@ -510,6 +512,18 @@ h3 {
   margin-top: 24px;
   opacity: 0.78;
   filter: drop-shadow(0 10px 22px rgba(20, 127, 189, 0.08));
+  animation: lineIllustrationDrift 10s ease-in-out infinite alternate;
+}
+.illustrated-card:nth-child(2) .line-illustration,
+.service-card:nth-child(2) .icon {
+  animation-delay: -2.8s;
+}
+.illustrated-card:nth-child(3) .line-illustration,
+.service-card:nth-child(3) .icon {
+  animation-delay: -5.4s;
+}
+.service-card:nth-child(4) .icon {
+  animation-delay: -7.1s;
 }
 .compact-illustration .line-illustration {
   justify-self: start;
@@ -521,6 +535,7 @@ h3 {
     linear-gradient(180deg, rgba(246,249,251,0.96), rgba(255,255,255,0.98)),
     linear-gradient(90deg, rgba(20,127,189,0.08), transparent 32%, rgba(20,127,189,0.05)),
     url("./assets/mission-structure.svg") center / 740px auto no-repeat;
+  animation: philosophyStructureDrift 18s ease-in-out infinite alternate;
 }
 .statement {
   max-width: 920px;
@@ -559,6 +574,7 @@ h3 {
   border-radius: 50%;
   transform: rotate(-1.5deg);
   pointer-events: none;
+  animation: flowArcDrift 12s ease-in-out infinite alternate;
 }
 .step-flow article {
   position: relative;
@@ -580,7 +596,12 @@ h3 {
   transform: translateX(-50%);
   font-weight: 900;
   box-shadow: 0 12px 24px rgba(20,127,189,0.08);
+  animation: stepOrbFloat 9s ease-in-out infinite alternate;
 }
+.step-flow article:nth-child(2) span { animation-delay: -1.8s; }
+.step-flow article:nth-child(3) span { animation-delay: -3.4s; }
+.step-flow article:nth-child(4) span { animation-delay: -5.2s; }
+.step-flow article:nth-child(5) span { animation-delay: -6.8s; }
 .check-list {
   display: grid;
   gap: 14px;
@@ -663,6 +684,10 @@ h3 {
   background:
     linear-gradient(145deg, rgba(255,255,255,0.98), rgba(246,250,253,0.94));
   box-shadow: var(--shadow);
+  animation: graphPanelFloat 11s ease-in-out infinite alternate;
+}
+.graph-card img {
+  animation: graphImagePulse 10s ease-in-out infinite alternate;
 }
 .split {
   display: grid;
@@ -676,6 +701,16 @@ h3 {
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
   box-shadow: 0 18px 48px rgba(4, 22, 51, 0.045);
+  position: relative;
+  overflow: hidden;
+}
+.company-table::after {
+  content: "";
+  position: absolute;
+  inset: -30% -70%;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 34%, rgba(115,212,231,0.10) 48%, transparent 62%);
+  animation: tableLightSweep 13s ease-in-out infinite;
 }
 .company-table div {
   display: grid;
@@ -724,6 +759,16 @@ h3 {
   transform: rotate(-8deg);
   background: linear-gradient(90deg, transparent, rgba(20,127,189,0.10), transparent);
   pointer-events: none;
+  animation: ctaWaveDrift 11s ease-in-out infinite alternate;
+}
+.cta-band::before {
+  content: "";
+  position: absolute;
+  inset: -40% -30%;
+  pointer-events: none;
+  background: linear-gradient(112deg, transparent 35%, rgba(255,255,255,0.50) 48%, transparent 62%);
+  transform: translateX(-42%);
+  animation: ctaLightSweep 9s ease-in-out infinite;
 }
 .cta-band > * { position: relative; z-index: 1; }
 .cta-band.dark::after {
@@ -741,6 +786,8 @@ h3 {
 .cta-band.dark h2,
 .cta-band.dark p { color: var(--white); }
 .contact-form {
+  position: relative;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
@@ -751,6 +798,20 @@ h3 {
   background:
     linear-gradient(145deg, rgba(255,255,255,0.97), rgba(248,252,255,0.92));
   box-shadow: var(--shadow);
+}
+.contact-form::before {
+  content: "";
+  position: absolute;
+  inset: -26% -52%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 78% 28%, rgba(115,212,231,0.12), transparent 32%),
+    linear-gradient(110deg, transparent 38%, rgba(20,127,189,0.06) 50%, transparent 64%);
+  animation: formGlowDrift 12s ease-in-out infinite alternate;
+}
+.contact-form > * {
+  position: relative;
+  z-index: 1;
 }
 .contact-form label {
   display: grid;
@@ -776,6 +837,95 @@ textarea { min-height: 160px; resize: vertical; }
   margin: 0;
   color: var(--muted);
   font-size: 13px;
+}
+@keyframes cardAuraDrift {
+  0% { transform: rotate(16deg) translate3d(0, 0, 0) scale(1); opacity: 0.52; }
+  100% { transform: rotate(24deg) translate3d(-10px, -8px, 0) scale(1.08); opacity: 0.78; }
+}
+@keyframes iconOrbFloat {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); box-shadow: 0 0 0 rgba(20,127,189,0); }
+  45% { transform: translate3d(0, -5px, 0) rotate(3deg); box-shadow: 0 13px 28px rgba(20,127,189,0.10); }
+  100% { transform: translate3d(0, 3px, 0) rotate(-3deg); box-shadow: 0 8px 18px rgba(20,127,189,0.06); }
+}
+@keyframes lineIllustrationDrift {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0.68; }
+  100% { transform: translate3d(-6px, -8px, 0) rotate(1.5deg); opacity: 0.88; }
+}
+@keyframes philosophyStructureDrift {
+  0% { background-position: left top, left top, center center; }
+  100% { background-position: left top, left top, center 24px; }
+}
+@keyframes flowArcDrift {
+  0% { transform: rotate(-1.5deg) translateY(0); opacity: 0.78; }
+  100% { transform: rotate(1.5deg) translateY(5px); opacity: 0.95; }
+}
+@keyframes stepOrbFloat {
+  0% { transform: translateX(-50%) translateY(0) scale(1); }
+  100% { transform: translateX(-50%) translateY(-5px) scale(1.04); }
+}
+@keyframes serviceStepNumberFloat {
+  0% { transform: translate3d(0, 0, 0); opacity: 0.86; }
+  100% { transform: translate3d(0, -5px, 0); opacity: 1; }
+}
+@keyframes graphPanelFloat {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, -8px, 0); }
+}
+@keyframes graphImagePulse {
+  0% { transform: scale(1); filter: saturate(1); }
+  100% { transform: scale(1.012); filter: saturate(1.08); }
+}
+@keyframes tableLightSweep {
+  0% { transform: translateX(-34%); opacity: 0; }
+  18% { opacity: 1; }
+  56% { opacity: 0.75; }
+  100% { transform: translateX(34%); opacity: 0; }
+}
+@keyframes ctaWaveDrift {
+  0% { transform: translate3d(0, 0, 0) rotate(-8deg) scale(1); }
+  100% { transform: translate3d(-18px, -12px, 0) rotate(-5deg) scale(1.04); }
+}
+@keyframes ctaLightSweep {
+  0% { transform: translateX(-46%); opacity: 0; }
+  22% { opacity: 0.72; }
+  60% { opacity: 0.34; }
+  100% { transform: translateX(46%); opacity: 0; }
+}
+@keyframes formGlowDrift {
+  0% { transform: translate3d(-2%, 1%, 0); opacity: 0.52; }
+  100% { transform: translate3d(2%, -1%, 0); opacity: 0.86; }
+}
+@keyframes darkDataSweep {
+  0% { transform: translate3d(-2%, 0, 0); opacity: 0.18; }
+  100% { transform: translate3d(2%, -1%, 0); opacity: 0.34; }
+}
+@keyframes primaryMetricGlow {
+  0% { box-shadow: inset 0 0 0 rgba(115,212,231,0), 0 0 0 rgba(115,212,231,0); }
+  100% { box-shadow: inset 0 0 54px rgba(115,212,231,0.08), 0 18px 60px rgba(20,127,189,0.10); }
+}
+@keyframes metricBadgePulse {
+  0% { transform: translateY(0); border-color: rgba(115,212,231,0.24); }
+  100% { transform: translateY(-2px); border-color: rgba(115,212,231,0.48); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card::after,
+  .card .icon,
+  .line-illustration,
+  .philosophy-band,
+  .step-flow::before,
+  .step-flow article span,
+  .graph-card,
+  .graph-card img,
+  .company-table::after,
+  .cta-band::before,
+  .cta-band::after,
+  .contact-form::before,
+  .cases-page .metrics .card:first-child,
+  .cases-page .metrics em,
+  .service-page main > .section:nth-of-type(3)::before,
+  .cases-page main > .section:nth-of-type(2)::before {
+    animation: none;
+  }
 }
 .site-footer {
   position: relative;
@@ -1494,6 +1644,7 @@ body {
   opacity: 0.24;
   background:
     linear-gradient(116deg, transparent 0 52%, rgba(115,212,231,0.10) 52.4%, transparent 72%);
+  animation: darkDataSweep 14s ease-in-out infinite alternate;
 }
 
 .service-page main > .section:nth-of-type(3) h2,
@@ -1545,7 +1696,12 @@ body {
   font-size: 42px;
   font-weight: 500;
   line-height: 1;
+  animation: serviceStepNumberFloat 9s ease-in-out infinite alternate;
 }
+.service-page .step-flow article:nth-child(2) span { animation-delay: -1.8s; }
+.service-page .step-flow article:nth-child(3) span { animation-delay: -3.4s; }
+.service-page .step-flow article:nth-child(4) span { animation-delay: -5.2s; }
+.service-page .step-flow article:nth-child(5) span { animation-delay: -6.8s; }
 
 .service-page .step-flow article h3,
 .service-page .step-flow article p {
@@ -1629,6 +1785,7 @@ body {
   opacity: 0.2;
   background:
     linear-gradient(116deg, transparent 0 54%, rgba(115,212,231,0.12) 54.4%, transparent 73%);
+  animation: darkDataSweep 14s ease-in-out infinite alternate;
 }
 
 .cases-page main > .section:nth-of-type(2) h2 {
@@ -1672,6 +1829,7 @@ body {
   padding: 38px;
   background:
     linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
+  animation: primaryMetricGlow 9s ease-in-out infinite alternate;
 }
 
 .cases-page .metrics span {
@@ -1704,6 +1862,7 @@ body {
   font-size: 13px;
   font-style: normal;
   font-weight: 900;
+  animation: metricBadgePulse 8s ease-in-out infinite alternate;
 }
 
 .cases-page main > .section:nth-of-type(3) {
@@ -1724,6 +1883,7 @@ body {
   border-radius: 0;
   background: rgba(255,255,255,0.54);
   box-shadow: 0 18px 48px rgba(4,22,51,0.05);
+  animation: graphPanelFloat 12s ease-in-out infinite alternate;
 }
 
 .cases-page .case-mini {
