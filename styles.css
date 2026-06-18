@@ -1187,6 +1187,27 @@ body {
   }
 }
 
+.service-detail-page main > .section:nth-of-type(2) .card {
+  padding-top: 68px;
+}
+
+.service-detail-page main > .section:nth-of-type(2) .card::before {
+  top: 34px;
+  width: 36px;
+}
+
+@media (max-width: 760px) {
+  .service-detail-page main > .section:nth-of-type(2) .card {
+    padding-top: 68px;
+  }
+
+  .service-detail-page main > .section:nth-of-type(2) .card::before {
+    left: 28px;
+    top: 34px;
+    width: 36px;
+  }
+}
+
 .graph-card,
 .contact-form,
 .cta-band {
