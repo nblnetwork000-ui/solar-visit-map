@@ -1620,6 +1620,143 @@ h3 {
   box-shadow: 0 12px 24px rgb(24 63 49 / 12%);
 }
 
+.manga-reader {
+  position: relative;
+  margin-top: 30px;
+  padding: clamp(18px, 3vw, 34px);
+  border: 1px solid rgb(47 107 79 / 16%);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgb(24 63 49 / 5%) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(180deg, #fffefa 0%, #f5f3ea 100%);
+  box-shadow: 0 24px 58px rgb(47 58 52 / 10%);
+}
+
+.manga-reader::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgb(200 146 62 / 18%);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.manga-reader-head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+  color: var(--green-dark);
+}
+
+.manga-reader-head span {
+  display: inline-grid;
+  min-height: 32px;
+  place-items: center;
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: var(--green-dark);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.manga-reader-head strong {
+  font-size: clamp(18px, 2.2vw, 28px);
+  line-height: 1.35;
+  text-align: right;
+}
+
+.manga-panel-list {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+
+.manga-panel-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.96fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.manga-scroll-panel {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border: 3px solid #101815;
+  border-radius: 8px;
+  background: #fffefa;
+  box-shadow:
+    8px 8px 0 rgb(24 63 49 / 10%),
+    0 16px 34px rgb(47 58 52 / 12%);
+  opacity: 0;
+  transform: translateY(34px) scale(0.985);
+  animation: mangaPanelEntrance 0.72s ease forwards;
+  animation-timeline: view();
+  animation-range: entry 12% cover 34%;
+}
+
+.manga-scroll-panel:nth-child(2n) {
+  transform: translateY(34px) translateX(10px) scale(0.985);
+}
+
+.manga-scroll-panel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.manga-wide img {
+  height: auto;
+}
+
+.manga-final-panel {
+  margin-bottom: 8px;
+}
+
+.manga-reader-actions {
+  display: none;
+}
+
+@keyframes mangaPanelEntrance {
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  .manga-scroll-panel {
+    opacity: 1;
+    transform: none;
+    animation: mangaPanelSoftIn 0.72s ease both;
+  }
+
+  .manga-scroll-panel:nth-child(2n) {
+    transform: none;
+  }
+}
+
+@keyframes mangaPanelSoftIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes comicPanelSlide {
   0%,
   8% {
@@ -3034,6 +3171,92 @@ h3 {
   .comic-art-actions a {
     min-height: 40px;
     font-size: 12px;
+  }
+
+  .manga-reader {
+    margin-top: 22px;
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .manga-reader::before {
+    inset: 7px;
+  }
+
+  .manga-reader-head {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .manga-reader-head span {
+    justify-self: start;
+    min-height: 28px;
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  .manga-reader-head strong {
+    font-size: 17px;
+    text-align: left;
+  }
+
+  .manga-panel-list {
+    gap: 12px;
+  }
+
+  .manga-panel-pair {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .manga-scroll-panel {
+    border-width: 2px;
+    border-radius: 7px;
+    box-shadow:
+      5px 5px 0 rgb(24 63 49 / 10%),
+      0 12px 24px rgb(47 58 52 / 12%);
+    transform: translateY(42px) scale(0.98);
+    animation-range: entry 8% cover 30%;
+  }
+
+  .manga-scroll-panel:nth-child(2n) {
+    transform: translateY(42px) scale(0.98);
+  }
+
+  .manga-final-panel {
+    margin-bottom: 84px;
+  }
+
+  .manga-reader-actions {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    background: rgb(18 42 34 / 88%);
+    box-shadow: 0 14px 30px rgb(0 0 0 / 18%);
+  }
+
+  .manga-reader-actions a {
+    display: grid;
+    min-height: 42px;
+    place-items: center;
+    border-radius: 6px;
+    background: #06c755;
+    color: var(--white);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .manga-reader-actions a:last-child {
+    background: var(--rust);
   }
 
   .price-grid {
