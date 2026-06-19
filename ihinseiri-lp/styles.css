@@ -1528,6 +1528,80 @@ h3 {
   color: var(--white);
 }
 
+.comic-art {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.comic-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 4px solid #101815;
+  border-radius: 4px;
+  background: #fffefa;
+  box-shadow: 0 18px 38px rgb(24 63 49 / 12%);
+}
+
+.comic-caption {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: #101815;
+  text-align: center;
+  font-size: clamp(11px, 1.35vw, 18px);
+  font-weight: 900;
+  line-height: 1.55;
+  letter-spacing: 0;
+}
+
+.comic-caption-1 {
+  top: 9.2%;
+  left: 3.5%;
+  width: 16.2%;
+  min-height: 18%;
+}
+
+.comic-caption-2 {
+  top: 5.1%;
+  left: 63.7%;
+  width: 15.2%;
+  min-height: 15.5%;
+}
+
+.comic-caption-3 {
+  top: 51.7%;
+  left: 28.3%;
+  width: 21.5%;
+  min-height: 14.5%;
+}
+
+.comic-caption-4 {
+  top: 53.5%;
+  left: 78.4%;
+  width: 17.5%;
+  min-height: 15.8%;
+}
+
+.comic-art-actions {
+  position: static;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: min(520px, 100%);
+  margin: 16px auto 0;
+}
+
+.comic-art-actions a {
+  min-height: 50px;
+  border-width: 2px;
+  box-shadow: 0 12px 24px rgb(24 63 49 / 12%);
+}
+
 @keyframes comicPanelSlide {
   0%,
   8% {
@@ -2885,6 +2959,52 @@ h3 {
     min-height: 34px;
     border-width: 2px;
     font-size: 11px;
+  }
+
+  .comic-art img {
+    border-width: 3px;
+  }
+
+  .comic-caption {
+    font-size: clamp(7px, 2.05vw, 10px);
+    line-height: 1.42;
+  }
+
+  .comic-caption-1 {
+    top: 9.5%;
+    left: 3.2%;
+    width: 16.5%;
+  }
+
+  .comic-caption-2 {
+    top: 5.5%;
+    left: 63.5%;
+    width: 15.5%;
+  }
+
+  .comic-caption-3 {
+    top: 52%;
+    left: 28%;
+    width: 22%;
+  }
+
+  .comic-caption-4 {
+    top: 54%;
+    left: 78%;
+    width: 18%;
+  }
+
+  .comic-art-actions {
+    position: static;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    margin-top: 12px;
+    transform: none;
+  }
+
+  .comic-art-actions a {
+    min-height: 40px;
+    font-size: 12px;
   }
 
   .price-grid {
