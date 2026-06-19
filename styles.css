@@ -12,6 +12,113 @@
   --sans: "Avenir Next", "Helvetica Neue", Arial, "Hiragino Sans", "Yu Gothic", sans-serif;
 }
 
+/* A pattern mobile final lock v39
+   The selected image-based TOP must stay strong after page returns. */
+@media (max-width: 760px) {
+  body.home-page.pattern-a .hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0.70) 58%, #fff 100%),
+      url("./assets/hero-architecture-clean.jpg") right -24px top -4px / 132% auto no-repeat,
+      linear-gradient(180deg, #d2eefb 0%, #ffffff 100%) !important;
+    animation: none !important;
+  }
+
+  body.home-page.pattern-a .hero-slideshow,
+  body.home-page.pattern-a .hero-slide {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    animation: none !important;
+  }
+
+  body.home-page.pattern-a .hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    pointer-events: none !important;
+    background:
+      linear-gradient(115deg, transparent 0 34%, rgba(20,127,189,0.78) 49%, rgba(115,212,231,0.52) 62%, transparent 79%),
+      repeating-linear-gradient(90deg, transparent 0 38px, rgba(20,127,189,0.36) 39px, transparent 42px),
+      radial-gradient(ellipse at 76% 18%, rgba(20,127,189,0.70), transparent 34%),
+      radial-gradient(ellipse at 90% 40%, rgba(115,212,231,0.62), transparent 40%) !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    filter: none !important;
+  }
+
+  body.home-page.pattern-a .hero::after {
+    content: "" !important;
+    position: absolute !important;
+    right: -10% !important;
+    bottom: 12% !important;
+    display: block !important;
+    width: 86vw !important;
+    height: 220px !important;
+    pointer-events: none !important;
+    border-top: 1px solid rgba(20,127,189,0.84) !important;
+    border-bottom: 1px solid rgba(115,212,231,0.64) !important;
+    border-radius: 50% !important;
+    opacity: 1 !important;
+    transform: rotate(-8deg) !important;
+    animation: none !important;
+  }
+}
+
+/* A pattern mobile absolute final lock v39 */
+@media (max-width: 760px) {
+  body.home-page.pattern-a .hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0.70) 58%, #fff 100%),
+      url("./assets/hero-architecture-clean.jpg") right -24px top -4px / 132% auto no-repeat,
+      linear-gradient(180deg, #d2eefb 0%, #ffffff 100%) !important;
+    animation: none !important;
+  }
+
+  body.home-page.pattern-a .hero-slideshow,
+  body.home-page.pattern-a .hero-slide {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    animation: none !important;
+  }
+
+  body.home-page.pattern-a .hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    pointer-events: none !important;
+    background:
+      linear-gradient(115deg, transparent 0 34%, rgba(20,127,189,0.78) 49%, rgba(115,212,231,0.52) 62%, transparent 79%),
+      repeating-linear-gradient(90deg, transparent 0 38px, rgba(20,127,189,0.36) 39px, transparent 42px),
+      radial-gradient(ellipse at 76% 18%, rgba(20,127,189,0.70), transparent 34%),
+      radial-gradient(ellipse at 90% 40%, rgba(115,212,231,0.62), transparent 40%) !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    filter: none !important;
+  }
+
+  body.home-page.pattern-a .hero::after {
+    content: "" !important;
+    position: absolute !important;
+    right: -10% !important;
+    bottom: 12% !important;
+    display: block !important;
+    width: 86vw !important;
+    height: 220px !important;
+    pointer-events: none !important;
+    border-top: 1px solid rgba(20,127,189,0.84) !important;
+    border-bottom: 1px solid rgba(115,212,231,0.64) !important;
+    border-radius: 50% !important;
+    opacity: 1 !important;
+    transform: rotate(-8deg) !important;
+    animation: none !important;
+  }
+}
+
 /* Page-role motion override v22: evidence graph, AI services constellation */
 .cases-page .page-hero.evidence-visual {
   overflow: hidden;
@@ -4349,6 +4456,59 @@ h3 {
     pointer-events: none !important;
     border-top: 1px solid rgba(20,127,189,0.78) !important;
     border-bottom: 1px solid rgba(115,212,231,0.58) !important;
+    border-radius: 50% !important;
+    opacity: 1 !important;
+    transform: rotate(-8deg) !important;
+    animation: none !important;
+  }
+}
+
+/* A pattern mobile absolute final lock v39 */
+@media (max-width: 760px) {
+  body.home-page.pattern-a .hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0.70) 58%, #fff 100%),
+      url("./assets/hero-architecture-clean.jpg") right -24px top -4px / 132% auto no-repeat,
+      linear-gradient(180deg, #d2eefb 0%, #ffffff 100%) !important;
+    animation: none !important;
+  }
+
+  body.home-page.pattern-a .hero-slideshow,
+  body.home-page.pattern-a .hero-slide {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    animation: none !important;
+  }
+
+  body.home-page.pattern-a .hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    pointer-events: none !important;
+    background:
+      linear-gradient(115deg, transparent 0 34%, rgba(20,127,189,0.78) 49%, rgba(115,212,231,0.52) 62%, transparent 79%),
+      repeating-linear-gradient(90deg, transparent 0 38px, rgba(20,127,189,0.36) 39px, transparent 42px),
+      radial-gradient(ellipse at 76% 18%, rgba(20,127,189,0.70), transparent 34%),
+      radial-gradient(ellipse at 90% 40%, rgba(115,212,231,0.62), transparent 40%) !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    filter: none !important;
+  }
+
+  body.home-page.pattern-a .hero::after {
+    content: "" !important;
+    position: absolute !important;
+    right: -10% !important;
+    bottom: 12% !important;
+    display: block !important;
+    width: 86vw !important;
+    height: 220px !important;
+    pointer-events: none !important;
+    border-top: 1px solid rgba(20,127,189,0.84) !important;
+    border-bottom: 1px solid rgba(115,212,231,0.64) !important;
     border-radius: 50% !important;
     opacity: 1 !important;
     transform: rotate(-8deg) !important;
