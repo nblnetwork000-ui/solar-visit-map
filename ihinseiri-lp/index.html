@@ -22,7 +22,7 @@
       name="twitter:description"
       content="認定遺品整理士と古物商許可のある体制で、遺品整理・買取相談・特殊清掃・原状回復まで安心して相談できます。"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260619t" />
+    <link rel="stylesheet" href="./styles.css?v=20260619u" />
     <link rel="stylesheet" href="./badge-fix.css?v=20260619c" />
   </head>
   <body>
@@ -235,10 +235,6 @@
             </figure>
             <figure class="manga-scroll-panel manga-wide manga-final-panel">
               <img src="./assets/manga-panels/ihin-manga-panel-08.png" alt="電話、LINE、メールで無料相談できる案内の漫画の8コマ目" />
-              <div class="manga-reader-actions">
-                <a href="https://lin.ee/YHK7maP" target="_blank" rel="noopener">LINEで相談する</a>
-                <a href="#contact">無料見積もりへ</a>
-              </div>
             </figure>
           </div>
         </div>
@@ -541,5 +537,33 @@
         <strong>お問い合わせ</strong>
       </a>
     </div>
+    <script>
+      (() => {
+        const panels = document.querySelectorAll(".manga-scroll-panel");
+        if (!panels.length) return;
+
+        if (!("IntersectionObserver" in window)) {
+          panels.forEach((panel) => panel.classList.add("is-visible"));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.18,
+            rootMargin: "0px 0px -12% 0px",
+          }
+        );
+
+        panels.forEach((panel) => observer.observe(panel));
+      })();
+    </script>
   </body>
 </html>
