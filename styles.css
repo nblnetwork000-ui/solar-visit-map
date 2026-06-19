@@ -2446,7 +2446,7 @@ body {
   min-height: 720px;
   background:
     linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 42%, rgba(255,255,255,0.30) 100%),
-    url("./assets/hero-architecture-extracted.jpg") right center / auto 100% no-repeat,
+    url("./assets/hero-architecture-clean.jpg") right center / auto 100% no-repeat,
     linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
   animation: none;
 }
@@ -2566,7 +2566,7 @@ body {
     min-height: auto;
     background:
       linear-gradient(180deg, rgba(255,255,255,0.54) 0%, rgba(255,255,255,0.80) 32%, rgba(255,255,255,0.98) 58%, #fff 100%),
-      url("./assets/hero-architecture-extracted.jpg") right 18px top 18px / 84% auto no-repeat,
+      url("./assets/hero-architecture-clean.jpg") right 18px top 18px / 84% auto no-repeat,
       linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
   }
 
