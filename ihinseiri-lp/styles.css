@@ -1580,10 +1580,11 @@ h3 {
 }
 
 .comic-caption-2 {
-  top: 5.8%;
-  left: 66.1%;
-  width: 10.2%;
-  min-height: 10.2%;
+  top: 5.4%;
+  left: 63.7%;
+  width: 14.4%;
+  min-height: 11.4%;
+  font-size: clamp(9px, 0.98vw, 14px);
 }
 
 .comic-caption-3 {
@@ -2996,9 +2997,10 @@ h3 {
   }
 
   .comic-caption-2 {
-    top: 6%;
-    left: 65.9%;
-    width: 10.5%;
+    top: 5.6%;
+    left: 63.5%;
+    width: 14.7%;
+    font-size: clamp(6px, 1.78vw, 8px);
   }
 
   .comic-caption-3 {
