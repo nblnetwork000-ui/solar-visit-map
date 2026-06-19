@@ -4296,3 +4296,62 @@ h3 {
     transform: rotate(-8deg);
   }
 }
+
+/* A pattern mobile hard override v37
+   Forces the selected visual on every return to TOP. */
+@media (max-width: 760px) {
+  body.home-page.pattern-a .hero,
+  body.pattern-a .hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.26) 25%, rgba(255,255,255,0.78) 58%, #fff 100%),
+      url("./assets/hero-architecture-clean.jpg") right -24px top -4px / 132% auto no-repeat,
+      linear-gradient(180deg, #d2eefb 0%, #ffffff 100%) !important;
+    animation: none !important;
+  }
+
+  body.home-page.pattern-a .hero-slideshow,
+  body.home-page.pattern-a .hero-slide,
+  body.pattern-a .hero-slideshow,
+  body.pattern-a .hero-slide {
+    display: none !important;
+    opacity: 0 !important;
+    animation: none !important;
+  }
+
+  body.home-page.pattern-a .hero::before,
+  body.pattern-a .hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    pointer-events: none !important;
+    background:
+      linear-gradient(115deg, transparent 0 35%, rgba(20,127,189,0.70) 49%, rgba(115,212,231,0.44) 62%, transparent 79%),
+      repeating-linear-gradient(90deg, transparent 0 38px, rgba(20,127,189,0.30) 39px, transparent 42px),
+      radial-gradient(ellipse at 76% 18%, rgba(20,127,189,0.62), transparent 34%),
+      radial-gradient(ellipse at 90% 40%, rgba(115,212,231,0.52), transparent 40%),
+      radial-gradient(circle at 18% 72%, rgba(20,127,189,0.28) 0 4px, transparent 5px) !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    filter: none !important;
+  }
+
+  body.home-page.pattern-a .hero::after,
+  body.pattern-a .hero::after {
+    content: "" !important;
+    position: absolute !important;
+    right: -10% !important;
+    bottom: 12% !important;
+    display: block !important;
+    width: 86vw !important;
+    height: 220px !important;
+    pointer-events: none !important;
+    border-top: 1px solid rgba(20,127,189,0.78) !important;
+    border-bottom: 1px solid rgba(115,212,231,0.58) !important;
+    border-radius: 50% !important;
+    opacity: 1 !important;
+    transform: rotate(-8deg) !important;
+    animation: none !important;
+  }
+}
