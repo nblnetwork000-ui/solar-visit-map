@@ -1134,62 +1134,46 @@ h3 {
 
 .area-map {
   position: relative;
+  display: grid;
+  gap: 14px;
+  place-items: center;
   min-height: 320px;
+  padding: 20px;
   border-radius: 8px;
   background:
-    radial-gradient(circle at 50% 45%, rgb(47 107 79 / 10%) 0 58%, transparent 59%),
+    radial-gradient(circle at 50% 50%, rgb(47 107 79 / 8%) 0 48%, transparent 49%),
     linear-gradient(180deg, #fffdf8 0%, #f5f3ea 100%);
   border: 1px solid rgb(47 107 79 / 18%);
 }
 
-.area-pref {
-  position: absolute;
-  display: grid;
-  min-width: 86px;
-  min-height: 54px;
+.area-map img {
+  display: block;
+  width: min(100%, 500px);
+  height: auto;
+  border-radius: 8px;
+  filter: drop-shadow(0 16px 26px rgb(47 107 79 / 12%));
+}
+
+.area-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 420px;
+}
+
+.area-chip-row span {
+  display: inline-grid;
+  min-height: 32px;
   place-items: center;
-  border: 1px solid rgb(47 107 79 / 20%);
+  border: 1px solid rgb(47 107 79 / 16%);
   border-radius: 999px;
+  padding: 6px 12px;
   background: var(--white);
   color: var(--green-dark);
+  font-size: 13px;
   font-weight: 900;
-  box-shadow: 0 10px 20px rgb(47 107 79 / 10%);
-}
-
-.area-pref.tokyo {
-  left: 35%;
-  top: 47%;
-  background: rgb(200 146 62 / 18%);
-}
-
-.area-pref.kanagawa {
-  left: 24%;
-  top: 67%;
-}
-
-.area-pref.saitama {
-  left: 24%;
-  top: 26%;
-}
-
-.area-pref.chiba {
-  right: 12%;
-  top: 58%;
-}
-
-.area-pref.ibaraki {
-  right: 14%;
-  top: 26%;
-}
-
-.area-pref.tochigi {
-  left: 48%;
-  top: 12%;
-}
-
-.area-pref.gunma {
-  left: 12%;
-  top: 12%;
+  box-shadow: 0 8px 16px rgb(47 107 79 / 7%);
 }
 
 .area .btn {
@@ -1508,12 +1492,6 @@ h3 {
     min-height: 280px;
   }
 
-  .area-pref {
-    min-width: 74px;
-    min-height: 46px;
-    font-size: 13px;
-  }
-
   .price-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
@@ -1752,19 +1730,32 @@ h3 {
     font-size: 12px;
   }
 
+  .section,
+  .features-inner,
+  .credentials-inner,
+  .recovery,
+  .area,
+  .contact {
+    width: min(1120px, calc(100% - 46px));
+  }
+
   .area {
     padding: 26px 18px;
   }
 
   .area-map {
-    min-height: 245px;
-    border-width: 3px;
+    min-height: 230px;
+    padding: 12px;
   }
 
-  .area-pref {
-    min-width: 63px;
-    min-height: 40px;
-    font-size: 12px;
+  .area-chip-row {
+    gap: 6px;
+  }
+
+  .area-chip-row span {
+    min-height: 28px;
+    padding: 5px 9px;
+    font-size: 11px;
   }
 
   .lead {
