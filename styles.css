@@ -2191,19 +2191,24 @@ body {
 
 .ai-services-page .page-hero {
   background:
-    radial-gradient(circle at 20% 28%, rgba(20,127,189,0.15) 0 2px, transparent 3px),
-    radial-gradient(circle at 64% 36%, rgba(115,212,231,0.18) 0 2px, transparent 3px),
-    radial-gradient(circle at 82% 68%, rgba(20,127,189,0.13) 0 1px, transparent 2px),
+    linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 42%, rgba(255,255,255,0.48) 100%),
+    url("./assets/ai-services-graph-extracted.jpg") right center / min(58vw, 760px) auto no-repeat,
+    radial-gradient(circle at 20% 28%, rgba(20,127,189,0.18) 0 2px, transparent 3px),
+    radial-gradient(circle at 64% 36%, rgba(115,212,231,0.20) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 68%, rgba(20,127,189,0.16) 0 1px, transparent 2px),
     linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
-  background-size: 140px 140px, 180px 180px, 96px 96px, 100% 100%;
-  animation: aiServiceNodesFlow 15s linear infinite;
+  background-size: auto, min(58vw, 760px) auto, 140px 140px, 180px 180px, 96px 96px, 100% 100%;
+  animation: aiServiceGraphField 10s ease-in-out infinite alternate;
 }
 
 .ai-services-page .page-hero::before {
   background:
-    linear-gradient(120deg, transparent 0 40%, rgba(20,127,189,0.11) 44%, transparent 49%),
-    linear-gradient(62deg, transparent 0 56%, rgba(115,212,231,0.16) 60%, transparent 66%);
-  animation: aiServiceLinkDrift 9s ease-in-out infinite alternate;
+    linear-gradient(34deg, transparent 0 56%, rgba(20,127,189,0.22) 57%, rgba(20,127,189,0.22) 58.5%, transparent 60%),
+    linear-gradient(34deg, transparent 0 46%, rgba(115,212,231,0.20) 47%, rgba(115,212,231,0.20) 48.2%, transparent 50%),
+    radial-gradient(circle at 68% 58%, rgba(20,127,189,0.22) 0 5px, transparent 7px),
+    radial-gradient(circle at 76% 48%, rgba(20,127,189,0.28) 0 5px, transparent 7px),
+    radial-gradient(circle at 84% 34%, rgba(20,127,189,0.34) 0 6px, transparent 8px);
+  animation: aiServiceGraphRise 6.8s ease-in-out infinite alternate;
 }
 
 .ai-services-page .page-hero::after {
@@ -2211,7 +2216,9 @@ body {
   bottom: 20%;
   width: min(44vw, 560px);
   height: 220px;
-  animation: aiServiceNetworkPulse 8s ease-in-out infinite alternate;
+  border-top-color: rgba(20,127,189,0.28);
+  border-bottom-color: rgba(115,212,231,0.20);
+  animation: aiServiceChartSweep 7.2s ease-in-out infinite alternate;
 }
 
 @keyframes homeHeroAurora {
@@ -2254,13 +2261,26 @@ body {
   0% { background-position: 0 0, 0 0, 0 0, 0 0; }
   100% { background-position: 140px 80px, -180px 120px, 96px -96px, 0 0; }
 }
+@keyframes aiServiceGraphField {
+  0% { background-position: 0 0, right center, 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 0 0, right 42% center, 140px 80px, -180px 120px, 96px -96px, 0 0; }
+}
 @keyframes aiServiceLinkDrift {
   0% { transform: translate3d(-1%, 1%, 0); opacity: 0.38; }
   100% { transform: translate3d(2%, -1.5%, 0); opacity: 0.74; }
 }
+@keyframes aiServiceGraphRise {
+  0% { transform: translate3d(-28px, 24px, 0) scale(0.98); opacity: 0.36; }
+  50% { transform: translate3d(8px, -8px, 0) scale(1.02); opacity: 0.84; }
+  100% { transform: translate3d(34px, -32px, 0) scale(1.06); opacity: 1; }
+}
 @keyframes aiServiceNetworkPulse {
   0% { transform: rotate(-8deg) scale(0.98); opacity: 0.56; }
   100% { transform: rotate(-11deg) scale(1.08); opacity: 0.86; }
+}
+@keyframes aiServiceChartSweep {
+  0% { transform: rotate(-10deg) translate3d(0, 0, 0) scale(0.96); opacity: 0.52; }
+  100% { transform: rotate(-4deg) translate3d(24px, -22px, 0) scale(1.06); opacity: 0.92; }
 }
 
 @media (max-width: 760px) {
@@ -2287,7 +2307,14 @@ body {
   }
 
   .ai-services-page .page-hero {
-    animation-name: aiServiceNodesFlow;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 48%, rgba(255,255,255,0.98) 100%),
+      url("./assets/ai-services-graph-extracted.jpg") center top / 100% auto no-repeat,
+      radial-gradient(circle at 20% 28%, rgba(20,127,189,0.18) 0 2px, transparent 3px),
+      radial-gradient(circle at 64% 36%, rgba(115,212,231,0.20) 0 2px, transparent 3px),
+      linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+    background-size: auto, 100% auto, 120px 120px, 150px 150px, 100% 100%;
+    animation-name: aiServiceGraphField;
   }
 }
 
@@ -2418,9 +2445,8 @@ body {
 .pattern-a .hero {
   min-height: 720px;
   background:
-    linear-gradient(90deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.88) 42%, rgba(255,255,255,0.22) 100%),
-    url("./assets/hero-pattern-b-source.jpg") right top / auto 58% no-repeat,
-    url("./assets/hero-pattern-a-source.jpg") right top / auto 100% no-repeat,
+    linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 42%, rgba(255,255,255,0.30) 100%),
+    url("./assets/hero-architecture-extracted.jpg") right center / auto 100% no-repeat,
     linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
   animation: none;
 }
@@ -2444,12 +2470,14 @@ body {
   color: var(--ink);
   min-height: 720px;
   background:
-    radial-gradient(circle at 16% 22%, rgba(115,212,231,0.36) 0 2px, transparent 3px),
-    radial-gradient(circle at 76% 34%, rgba(20,127,189,0.30) 0 3px, transparent 4px),
-    linear-gradient(122deg, transparent 0 42%, rgba(20,127,189,0.20) 50%, transparent 64%),
+    radial-gradient(ellipse at 74% 38%, rgba(255,255,255,0.76) 0 8%, rgba(115,212,231,0.44) 18%, transparent 36%),
+    conic-gradient(from 0deg at 75% 42%, transparent 0 48deg, rgba(20,127,189,0.34) 56deg, transparent 76deg 136deg, rgba(115,212,231,0.20) 146deg, transparent 176deg 360deg),
+    radial-gradient(circle at 16% 22%, rgba(115,212,231,0.40) 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 34%, rgba(20,127,189,0.34) 0 3px, transparent 4px),
+    linear-gradient(122deg, transparent 0 42%, rgba(20,127,189,0.24) 50%, transparent 64%),
     linear-gradient(180deg, #edf8fc 0%, #ffffff 100%);
-  background-size: 92px 92px, 128px 128px, 100% 100%, 100% 100%;
-  animation: patternBVividAurora 10s ease-in-out infinite alternate;
+  background-size: 100% 100%, 100% 100%, 92px 92px, 128px 128px, 100% 100%, 100% 100%;
+  animation: patternBVisionField 9s ease-in-out infinite alternate;
 }
 
 .pattern-b .hero-slideshow {
@@ -2466,19 +2494,22 @@ body {
 
 .pattern-b .hero-slideshow::before {
   background:
-    radial-gradient(ellipse at 72% 30%, rgba(20,127,189,0.46), transparent 34%),
+    conic-gradient(from 0deg at 76% 42%, transparent 0 42deg, rgba(20,127,189,0.36) 52deg, transparent 72deg 360deg),
+    radial-gradient(ellipse at 72% 36%, rgba(20,127,189,0.42), transparent 34%),
     radial-gradient(ellipse at 88% 72%, rgba(115,212,231,0.44), transparent 38%),
     linear-gradient(118deg, transparent 0 40%, rgba(20,127,189,0.24) 46%, transparent 58%);
   opacity: 1;
-  animation: patternBVividLight 6.5s ease-in-out infinite alternate;
+  animation: patternBVisionSweep 5.8s ease-in-out infinite alternate;
 }
 
 .pattern-b .hero::before {
   background:
+    radial-gradient(ellipse at 75% 42%, transparent 0 20%, rgba(20,127,189,0.22) 21%, transparent 23%, rgba(115,212,231,0.18) 24%, transparent 27%),
     linear-gradient(115deg, transparent 0 35%, rgba(20,127,189,0.20) 38%, transparent 52%),
     repeating-linear-gradient(90deg, transparent 0 72px, rgba(20,127,189,0.12) 73px, transparent 75px),
     radial-gradient(ellipse at 78% 62%, rgba(20,127,189,0.34), transparent 34%);
   opacity: 0.92;
+  animation: patternBFocusPulse 4.8s ease-in-out infinite alternate;
 }
 
 .pattern-b .hero::after {
@@ -2509,14 +2540,20 @@ body {
   backdrop-filter: none;
 }
 
-@keyframes patternBVividAurora {
-  0% { background-position: 0 0, 0 0, 0 0, 0 0; }
-  100% { background-position: 92px 72px, -128px 96px, 0 0, 0 0; }
+@keyframes patternBVisionField {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 0 0, 0 0, 92px 72px, -128px 96px, 0 0, 0 0; }
 }
 
-@keyframes patternBVividLight {
-  0% { transform: translate3d(-3%, 2%, 0) rotate(-3deg) scale(1); opacity: 0.62; }
-  100% { transform: translate3d(4%, -3%, 0) rotate(3deg) scale(1.08); opacity: 1; }
+@keyframes patternBVisionSweep {
+  0% { transform: translate3d(-4%, 2%, 0) rotate(-12deg) scale(0.98); opacity: 0.58; }
+  50% { transform: translate3d(3%, -2%, 0) rotate(8deg) scale(1.08); opacity: 1; }
+  100% { transform: translate3d(1%, -1%, 0) rotate(16deg) scale(1.12); opacity: 0.82; }
+}
+
+@keyframes patternBFocusPulse {
+  0% { transform: scale(0.98); opacity: 0.52; }
+  100% { transform: scale(1.08); opacity: 0.96; }
 }
 
 @keyframes patternBVividRibbon {
@@ -2529,8 +2566,7 @@ body {
     min-height: auto;
     background:
       linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.88) 46%, rgba(255,255,255,0.98) 100%),
-      url("./assets/hero-pattern-b-source.jpg") center top / 100% auto no-repeat,
-      url("./assets/hero-pattern-a-source.jpg") center top / 100% auto no-repeat,
+      url("./assets/hero-architecture-extracted.jpg") center top / 100% auto no-repeat,
       linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
   }
 
@@ -2543,11 +2579,13 @@ body {
   .pattern-b .hero {
     min-height: auto;
     background:
-      radial-gradient(circle at 18% 24%, rgba(115,212,231,0.36) 0 2px, transparent 3px),
-      radial-gradient(circle at 78% 38%, rgba(20,127,189,0.34) 0 3px, transparent 4px),
+      radial-gradient(ellipse at 72% 28%, rgba(255,255,255,0.70) 0 8%, rgba(115,212,231,0.42) 19%, transparent 38%),
+      conic-gradient(from 0deg at 74% 32%, transparent 0 46deg, rgba(20,127,189,0.32) 56deg, transparent 78deg 360deg),
+      radial-gradient(circle at 18% 24%, rgba(115,212,231,0.40) 0 2px, transparent 3px),
+      radial-gradient(circle at 78% 38%, rgba(20,127,189,0.36) 0 3px, transparent 4px),
       linear-gradient(118deg, transparent 0 50%, rgba(20,127,189,0.22) 58%, transparent 74%),
       linear-gradient(180deg, #edf8fc 0%, #ffffff 100%);
-    background-size: 88px 88px, 112px 112px, 100% 100%, 100% 100%;
+    background-size: 100% 100%, 100% 100%, 88px 88px, 112px 112px, 100% 100%, 100% 100%;
   }
 
   .pattern-b .hero-inner {
