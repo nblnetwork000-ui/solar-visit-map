@@ -1,0 +1,134 @@
+.hero-medals {
+  top: clamp(66px, 7vw, 104px);
+  left: calc(50% + 180px);
+  display: grid;
+  gap: 10px;
+  width: 236px;
+}
+
+.hero-medal,
+.hero-medal-wide {
+  width: 100%;
+  height: auto;
+  min-height: 76px;
+  padding: 14px 16px 13px 52px;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgb(255 253 248 / 96%) 0%, rgb(247 241 220 / 94%) 100%);
+  overflow: hidden;
+}
+
+.hero-medal::before {
+  top: 50%;
+  left: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+}
+
+.hero-medal::after {
+  display: block;
+  top: calc(50% + 12px);
+  left: 21px;
+  width: 18px;
+  height: 14px;
+}
+
+.hero-medal span {
+  margin-top: 0;
+}
+
+.hero-medal-wide span {
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.hero-medal-wide strong {
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+@media (max-width: 900px) {
+  .hero-medals {
+    top: 86px;
+    left: 18px;
+    width: 214px;
+  }
+
+  .hero-medal,
+  .hero-medal-wide {
+    min-height: 68px;
+    padding: 12px 12px 11px 46px;
+  }
+
+  .hero-medal::before {
+    top: 50%;
+    left: 11px;
+    width: 29px;
+    height: 29px;
+    font-size: 12px;
+  }
+
+  .hero-medal::after {
+    top: calc(50% + 11px);
+    left: 18px;
+    width: 16px;
+    height: 12px;
+  }
+
+  .hero-medal-wide span {
+    font-size: 9px;
+    line-height: 1.25;
+  }
+
+  .hero-medal-wide strong {
+    margin-top: 3px;
+    font-size: 13px;
+    line-height: 1.16;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .hero-medals {
+    top: 56px;
+    right: 28px;
+    left: auto;
+    width: 222px;
+  }
+
+  .hero-medal,
+  .hero-medal-wide {
+    min-height: 70px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-medals {
+    top: 34px;
+    left: 18px;
+    width: 202px;
+  }
+
+  .hero-medal,
+  .hero-medal-wide {
+    min-height: 64px;
+    padding: 10px 10px 10px 42px;
+  }
+
+  .hero-medal::before {
+    left: 10px;
+    width: 26px;
+    height: 26px;
+    font-size: 11px;
+  }
+
+  .hero-medal::after {
+    top: calc(50% + 10px);
+    left: 16px;
+    width: 15px;
+    height: 11px;
+  }
+}
