@@ -192,102 +192,92 @@ h3 {
   top: clamp(66px, 7vw, 104px);
   left: calc(50% + 180px);
   z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  max-width: 460px;
+  display: grid;
+  gap: 10px;
+  width: 236px;
 }
 
 .hero-medal {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  align-content: center;
   justify-content: center;
-  width: 132px;
-  height: 132px;
-  padding: 22px 14px 18px;
-  border-radius: 50%;
+  min-height: 76px;
+  width: 100%;
+  padding: 14px 16px 13px 52px;
+  border: 1px solid rgb(200 146 62 / 72%);
+  border-radius: 8px;
   background:
-    radial-gradient(circle at 28% 20%, rgb(255 248 201 / 52%) 0 9%, transparent 10%),
-    linear-gradient(135deg, #ffe37d 0%, #c88e28 48%, #805115 100%);
-  color: #fffdf4;
-  text-align: center;
-  overflow: visible;
+    linear-gradient(135deg, rgb(255 253 248 / 96%) 0%, rgb(247 241 220 / 94%) 100%);
+  color: var(--green-dark);
+  text-align: left;
+  overflow: hidden;
   box-shadow:
-    inset 0 0 0 6px rgb(255 255 255 / 35%),
-    inset 0 0 0 12px rgb(119 72 16 / 16%),
-    0 18px 34px rgb(48 32 10 / 22%);
+    inset 0 0 0 1px rgb(255 255 255 / 62%),
+    0 18px 34px rgb(24 63 49 / 18%);
 }
 
 .hero-medal-wide {
-  width: 148px;
-  height: 132px;
-  border-radius: 46% 46% 50% 50% / 50%;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
   padding-right: 16px;
-  padding-left: 16px;
+  padding-left: 52px;
 }
 
 .hero-medal::before {
-  content: "♛";
+  content: "認";
   position: absolute;
-  top: -17px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 38px;
-  height: 30px;
+  top: 50%;
+  left: 14px;
+  width: 28px;
+  height: 28px;
   display: grid;
   place-items: center;
-  border-radius: 999px 999px 12px 12px;
+  border-radius: 50%;
   background: linear-gradient(180deg, #fff7b5 0%, #e5aa28 76%, #9f6517 100%);
   color: #86520f;
-  font-size: 22px;
+  font-size: 14px;
   line-height: 1;
+  font-weight: 900;
+  transform: translateY(-50%);
   text-shadow: 0 1px 0 rgb(255 255 255 / 45%);
-  box-shadow: 0 6px 14px rgb(48 32 10 / 22%);
+  box-shadow: 0 6px 14px rgb(48 32 10 / 16%);
 }
 
 .hero-medal::after {
-  content: "";
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  width: 72px;
-  height: 34px;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #b75840 0 50%, #8d342b 50% 100%);
-  clip-path: polygon(0 0, 48% 0, 50% 100%, 52% 0, 100% 0, 82% 100%, 50% 72%, 18% 100%);
-  z-index: -1;
+  display: none;
 }
 
 .hero-medal span,
 .hero-medal strong {
   display: block;
-  text-shadow: 0 1px 2px rgb(74 43 10 / 42%);
+  text-shadow: none;
 }
 
 .hero-medal span {
-  font-size: 12px;
-  line-height: 1.25;
+  color: var(--gold);
+  font-size: 11px;
+  line-height: 1.35;
   font-weight: 900;
 }
 
 .hero-medal strong {
-  margin-top: 4px;
-  font-size: 17px;
-  line-height: 1.25;
+  margin-top: 3px;
+  font-size: 16px;
+  line-height: 1.22;
   font-weight: 900;
 }
 
 .hero-medal-wide span {
-  font-size: 10.5px;
-  line-height: 1.28;
+  font-size: 10px;
+  line-height: 1.35;
 }
 
 .hero-medal-wide strong {
-  margin-top: 6px;
-  font-size: 16px;
-  line-height: 1.18;
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.2;
 }
 
 .hero-inner {
@@ -628,7 +618,7 @@ h3 {
 }
 
 .price {
-  background: #fffdf8;
+  background: var(--paper);
 }
 
 .price-grid {
@@ -641,14 +631,15 @@ h3 {
   align-content: center;
   min-height: 230px;
   padding: 24px 18px 22px;
-  border: 6px solid #55bd68;
-  background: #fffbc7;
+  border: 1px solid rgb(200 146 62 / 44%);
+  background:
+    linear-gradient(180deg, rgb(255 253 248 / 100%) 0%, rgb(247 241 220 / 100%) 100%);
   text-align: center;
-  box-shadow: none;
+  box-shadow: 0 18px 44px rgb(47 58 52 / 7%);
 }
 
 .price-grid h3 {
-  color: #15953f;
+  color: var(--green);
   font-size: clamp(40px, 5.2vw, 64px);
   line-height: 1;
   font-weight: 900;
@@ -658,7 +649,7 @@ h3 {
 .price-grid strong {
   display: block;
   margin-top: 24px;
-  color: #f06b18;
+  color: var(--rust);
   font-size: clamp(28px, 3.2vw, 42px);
   line-height: 1;
   font-weight: 900;
@@ -672,7 +663,7 @@ h3 {
 .price-grid p {
   min-height: 78px;
   margin-top: 22px;
-  color: #2f3833;
+  color: var(--green-dark);
   font-size: 18px;
   font-weight: 900;
   line-height: 1.7;
@@ -688,7 +679,7 @@ h3 {
 .price-includes {
   margin-top: 28px;
   padding: 28px;
-  border: 1px solid rgb(47 107 79 / 14%);
+  border: 1px solid rgb(200 146 62 / 26%);
   border-radius: 8px;
   background: var(--white);
 }
@@ -712,8 +703,9 @@ h3 {
   min-height: 48px;
   place-items: center;
   border-radius: 999px;
-  background: #55bd68;
-  color: var(--white);
+  border: 1px solid rgb(47 107 79 / 14%);
+  background: var(--soft);
+  color: var(--green-dark);
   text-align: center;
   font-size: 15px;
   font-weight: 900;
@@ -837,7 +829,7 @@ h3 {
   right: -34px;
   width: 120px;
   height: 58px;
-  background: rgb(255 251 199 / 90%);
+  background: rgb(200 146 62 / 16%);
   transform: skewX(-22deg);
 }
 
@@ -847,7 +839,7 @@ h3 {
   height: auto;
   border-radius: 0;
   padding: 15px 20px;
-  background: #55bd68;
+  background: var(--green-dark);
   color: var(--white);
   text-align: left;
   font-size: 20px;
@@ -881,8 +873,8 @@ h3 {
   margin: 0 auto 82px;
   padding: 38px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #fffdf8 0%, #f6ffe8 100%);
-  border: 1px solid rgb(47 107 79 / 14%);
+  background: linear-gradient(135deg, var(--paper) 0%, var(--soft) 100%);
+  border: 1px solid rgb(200 146 62 / 26%);
   color: var(--ink);
 }
 
@@ -899,9 +891,9 @@ h3 {
   min-height: 320px;
   border-radius: 8px;
   background:
-    radial-gradient(circle at 50% 45%, rgb(85 189 104 / 12%) 0 58%, transparent 59%),
-    linear-gradient(180deg, #fff 0%, #f7ffe4 100%);
-  border: 4px solid #55bd68;
+    radial-gradient(circle at 50% 45%, rgb(47 107 79 / 10%) 0 58%, transparent 59%),
+    linear-gradient(180deg, #fffdf8 0%, #f5f3ea 100%);
+  border: 1px solid rgb(47 107 79 / 18%);
 }
 
 .area-pref {
@@ -910,9 +902,9 @@ h3 {
   min-width: 86px;
   min-height: 54px;
   place-items: center;
-  border: 2px solid rgb(24 149 63 / 36%);
+  border: 1px solid rgb(47 107 79 / 20%);
   border-radius: 999px;
-  background: #dff694;
+  background: var(--white);
   color: var(--green-dark);
   font-weight: 900;
   box-shadow: 0 10px 20px rgb(47 107 79 / 10%);
@@ -921,7 +913,7 @@ h3 {
 .area-pref.tokyo {
   left: 35%;
   top: 47%;
-  background: #c8ef6e;
+  background: rgb(200 146 62 / 18%);
 }
 
 .area-pref.kanagawa {
@@ -1172,23 +1164,23 @@ h3 {
   }
 
   .hero-medal {
-    width: 104px;
-    height: 104px;
-    padding: 18px 10px 14px;
+    width: 100%;
+    min-height: 68px;
+    padding: 12px 12px 11px 46px;
   }
 
   .hero-medal-wide {
-    width: 116px;
-    height: 104px;
+    width: 100%;
+    height: auto;
     padding-right: 10px;
-    padding-left: 10px;
+    padding-left: 46px;
   }
 
   .hero-medal::before {
-    top: -13px;
-    width: 30px;
-    height: 24px;
-    font-size: 17px;
+    top: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
   }
 
   .hero-medal::after {
@@ -1202,17 +1194,17 @@ h3 {
   }
 
   .hero-medal strong {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .hero-medal-wide span {
-    font-size: 8px;
+    font-size: 9px;
     line-height: 1.25;
   }
 
   .hero-medal-wide strong {
-    margin-top: 4px;
-    font-size: 12px;
+    margin-top: 3px;
+    font-size: 13px;
     line-height: 1.16;
   }
 
@@ -1306,14 +1298,14 @@ h3 {
   }
 
   .hero-medal {
-    width: 112px;
-    height: 112px;
-    padding: 18px 10px 14px;
+    width: 100%;
+    min-height: 70px;
+    padding: 12px 12px 11px 46px;
   }
 
   .hero-medal-wide {
-    width: 128px;
-    height: 112px;
+    width: 100%;
+    height: auto;
   }
 
   .hero-medal strong {
@@ -1373,16 +1365,16 @@ h3 {
   }
 
   .hero-medal {
-    width: 92px;
-    height: 92px;
-    padding: 16px 8px 12px;
+    width: 100%;
+    min-height: 64px;
+    padding: 10px 10px 10px 42px;
   }
 
   .hero-medal-wide {
-    width: 106px;
-    height: 92px;
+    width: 100%;
+    height: auto;
     padding-right: 8px;
-    padding-left: 8px;
+    padding-left: 42px;
   }
 
   .hero h1 {
