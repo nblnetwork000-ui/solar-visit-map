@@ -6,6 +6,6 @@
   <text x="34" y="60" fill="#f7f7f7" font-family="Georgia, Times New Roman, serif" font-size="34" font-weight="700">L</text>
   <path d="M96 28H360" stroke="#6c7077" stroke-width="1"/>
   <path d="M96 68H360" stroke="#c8a45b" stroke-width="1"/>
-  <text x="96" y="56" fill="#f7f7f7" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="4">L.EVER</text>
-  <text x="96" y="84" fill="#cfd2d6" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="3">DESIGN / RENOVATION</text>
+  <text x="96" y="55" fill="#f7f7f7" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="1.6">株式会社L.EVER</text>
+  <text x="96" y="84" fill="#cfd2d6" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="2.2">DESIGN / RENOVATION</text>
 </svg>
