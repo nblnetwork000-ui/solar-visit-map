@@ -87,17 +87,23 @@ h3 {
   stroke-width: 2;
 }
 
-.brand-mark-roof,
-.brand-mark-home {
-  fill: none;
-  stroke: #fffdf8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 3.4;
+.brand-mark-calligraphy {
+  fill: #fffdf8;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: rgb(24 63 49 / 26%);
+  stroke-width: 0.7px;
 }
 
-.brand-mark-heart {
-  fill: var(--gold);
+.brand-mark-stroke {
+  fill: none;
+  stroke: var(--gold);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
 }
 
 .brand strong,
