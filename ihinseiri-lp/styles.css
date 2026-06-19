@@ -1553,38 +1553,51 @@ h3 {
   margin: 0;
   color: #101815;
   text-align: center;
-  font-size: clamp(11px, 1.35vw, 18px);
+  font-size: clamp(10px, 1.05vw, 15px);
   font-weight: 900;
-  line-height: 1.55;
+  line-height: 1.45;
   letter-spacing: 0;
+  font-family:
+    "Hiragino Sans",
+    "Yu Gothic",
+    "Noto Sans JP",
+    sans-serif;
+  text-shadow: 0 1px 0 rgb(255 255 255 / 80%);
 }
 
 .comic-caption-1 {
-  top: 9.2%;
-  left: 3.5%;
-  width: 16.2%;
-  min-height: 18%;
+  top: 12.1%;
+  left: 5.5%;
+  width: 10.8%;
+  min-height: 10.2%;
+}
+
+.comic-caption-1b {
+  top: 4.8%;
+  left: 36.1%;
+  width: 10.5%;
+  min-height: 8.5%;
 }
 
 .comic-caption-2 {
-  top: 5.1%;
-  left: 63.7%;
-  width: 15.2%;
-  min-height: 15.5%;
+  top: 5.8%;
+  left: 66.1%;
+  width: 10.2%;
+  min-height: 10.2%;
 }
 
 .comic-caption-3 {
-  top: 51.7%;
-  left: 28.3%;
-  width: 21.5%;
-  min-height: 14.5%;
+  top: 52.7%;
+  left: 70.1%;
+  width: 19.2%;
+  min-height: 10.8%;
 }
 
 .comic-caption-4 {
-  top: 53.5%;
-  left: 78.4%;
-  width: 17.5%;
-  min-height: 15.8%;
+  top: 55.4%;
+  left: 81.8%;
+  width: 12.8%;
+  min-height: 8.5%;
 }
 
 .comic-art-actions {
@@ -2966,32 +2979,38 @@ h3 {
   }
 
   .comic-caption {
-    font-size: clamp(7px, 2.05vw, 10px);
-    line-height: 1.42;
+    font-size: clamp(7px, 1.95vw, 9px);
+    line-height: 1.38;
   }
 
   .comic-caption-1 {
-    top: 9.5%;
-    left: 3.2%;
-    width: 16.5%;
+    top: 12.2%;
+    left: 5.3%;
+    width: 11%;
+  }
+
+  .comic-caption-1b {
+    top: 5%;
+    left: 35.9%;
+    width: 10.7%;
   }
 
   .comic-caption-2 {
-    top: 5.5%;
-    left: 63.5%;
-    width: 15.5%;
+    top: 6%;
+    left: 65.9%;
+    width: 10.5%;
   }
 
   .comic-caption-3 {
-    top: 52%;
-    left: 28%;
-    width: 22%;
+    top: 52.9%;
+    left: 70%;
+    width: 19.5%;
   }
 
   .comic-caption-4 {
-    top: 54%;
-    left: 78%;
-    width: 18%;
+    top: 55.6%;
+    left: 81.5%;
+    width: 13.2%;
   }
 
   .comic-art-actions {
