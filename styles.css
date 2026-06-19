@@ -194,6 +194,294 @@
   }
 }
 
+/* Desktop page-hero true final winner v41 */
+@media (min-width: 761px) {
+  body.home-page.pattern-a .hero {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.84) 34%, rgba(255,255,255,0.12) 76%, rgba(255,255,255,0.02) 100%),
+      url("./assets/hero-architecture-clean.jpg") right center / auto 114% no-repeat,
+      linear-gradient(180deg, #e7f7fe 0%, #ffffff 100%) !important;
+  }
+
+  body.home-page.pattern-a .hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    background:
+      linear-gradient(115deg, transparent 0 41%, rgba(20,127,189,0.48) 53%, rgba(115,212,231,0.34) 64%, transparent 79%),
+      repeating-linear-gradient(90deg, transparent 0 78px, rgba(20,127,189,0.20) 79px, transparent 82px),
+      radial-gradient(ellipse at 77% 24%, rgba(20,127,189,0.50), transparent 34%),
+      radial-gradient(ellipse at 92% 46%, rgba(115,212,231,0.46), transparent 42%) !important;
+    animation: pageHeroDesktopLayerV41 9.5s ease-in-out infinite alternate !important;
+  }
+
+  body.home-page.pattern-a .hero::after {
+    opacity: 1 !important;
+    border-top-color: rgba(20,127,189,0.76) !important;
+    border-bottom-color: rgba(115,212,231,0.58) !important;
+    animation: pageHeroDesktopArcV41 10.5s ease-in-out infinite alternate !important;
+  }
+
+  .page-hero {
+    overflow: hidden !important;
+    background:
+      radial-gradient(ellipse at 78% 50%, rgba(20,127,189,0.38), transparent 42%),
+      linear-gradient(118deg, transparent 0 48%, rgba(115,212,231,0.26) 58%, transparent 74%),
+      repeating-linear-gradient(90deg, transparent 0 96px, rgba(20,127,189,0.12) 97px, transparent 100px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+    animation: pageHeroDesktopDepthV41 13s ease-in-out infinite alternate !important;
+  }
+
+  .page-hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    pointer-events: none !important;
+    opacity: 0.98 !important;
+    background:
+      linear-gradient(116deg, transparent 0 46%, rgba(20,127,189,0.40) 53%, rgba(115,212,231,0.28) 61%, transparent 76%),
+      radial-gradient(ellipse at 78% 38%, rgba(20,127,189,0.40), transparent 36%) !important;
+    animation: pageHeroDesktopLayerV41 9.5s ease-in-out infinite alternate !important;
+  }
+
+  .page-hero::after {
+    opacity: 0.98 !important;
+    border-top-color: rgba(20,127,189,0.58) !important;
+    border-bottom-color: rgba(115,212,231,0.42) !important;
+    animation: pageHeroDesktopArcV41 10.5s ease-in-out infinite alternate !important;
+  }
+
+  .service-page .page-hero.service-visual,
+  .service-detail-page .page-hero.diagnosis-visual {
+    background:
+      conic-gradient(from 0deg at 76% 48%, transparent 0 42deg, rgba(20,127,189,0.38) 54deg, transparent 76deg 360deg),
+      radial-gradient(ellipse at 76% 48%, rgba(115,212,231,0.40), transparent 38%),
+      radial-gradient(circle at 82% 28%, rgba(20,127,189,0.30) 0 3px, transparent 4px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+  }
+
+  .target-page .page-hero.target-visual,
+  .service-detail-page .page-hero.target-visual,
+  .page-hero.company-visual,
+  .diagnosis-page .page-hero.diagnosis-visual {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 84px, rgba(20,127,189,0.24) 85px, rgba(20,127,189,0.10) 90px, transparent 96px),
+      linear-gradient(116deg, transparent 0 52%, rgba(115,212,231,0.30) 58%, transparent 74%),
+      radial-gradient(ellipse at 78% 42%, rgba(20,127,189,0.34), transparent 38%),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+  }
+
+  .cases-page .page-hero.evidence-visual,
+  .service-detail-page .page-hero.evidence-visual {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.88) 38%, rgba(255,255,255,0.46) 70%, rgba(255,255,255,0.86) 100%),
+      radial-gradient(ellipse at 78% 58%, rgba(115,212,231,0.44), transparent 42%),
+      repeating-linear-gradient(90deg, transparent 0 96px, rgba(20,127,189,0.12) 97px, transparent 100px),
+      repeating-linear-gradient(0deg, transparent 0 74px, rgba(20,127,189,0.09) 75px, transparent 78px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+    animation: evidenceBarFieldV31 9s ease-in-out infinite alternate !important;
+  }
+
+  .cases-page .page-hero.evidence-visual::before,
+  .service-detail-page .page-hero.evidence-visual::before {
+    opacity: 0.98 !important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.08)),
+      linear-gradient(180deg, rgba(20,127,189,0.40), rgba(20,127,189,0.10)) !important;
+    animation: evidenceBarPanelV31 6.8s ease-in-out infinite alternate !important;
+  }
+
+  .cases-page .page-hero.evidence-visual::after,
+  .service-detail-page .page-hero.evidence-visual::after {
+    opacity: 1 !important;
+    background:
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 78%, rgba(20,127,189,0.30) 78% 100%) 0 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 68%, rgba(20,127,189,0.42) 68% 100%) 14% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 58%, rgba(20,127,189,0.52) 58% 100%) 28% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 46%, rgba(20,127,189,0.64) 46% 100%) 42% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 36%, rgba(20,127,189,0.76) 36% 100%) 56% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 24%, rgba(20,127,189,0.86) 24% 100%) 70% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 12%, rgba(20,127,189,0.94) 12% 100%) 84% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 6%, rgba(20,127,189,1.00) 6% 100%) 98% 0 / 8% 100% no-repeat,
+      linear-gradient(90deg, rgba(20,127,189,0.44), rgba(115,212,231,0.56), rgba(20,127,189,0.34)) left bottom / 100% 2px no-repeat !important;
+    animation: evidenceBarsRiseV31 4.6s cubic-bezier(.42,0,.18,1) infinite alternate !important;
+  }
+
+  .ai-services-page .page-hero {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.86) 40%, rgba(255,255,255,0.34) 100%),
+      url("./assets/ai-services-graph-extracted.jpg") right center / min(62vw, 820px) auto no-repeat,
+      radial-gradient(circle at 20% 28%, rgba(20,127,189,0.34) 0 3px, transparent 4px),
+      radial-gradient(circle at 64% 36%, rgba(115,212,231,0.38) 0 3px, transparent 4px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+    animation: aiServiceGraphField 9s ease-in-out infinite alternate !important;
+  }
+
+  .ai-services-page .page-hero::before {
+    opacity: 1 !important;
+    background:
+      linear-gradient(34deg, transparent 0 54%, rgba(20,127,189,0.46) 55%, rgba(20,127,189,0.46) 57%, transparent 59%),
+      linear-gradient(34deg, transparent 0 44%, rgba(115,212,231,0.38) 45%, rgba(115,212,231,0.38) 47%, transparent 49%),
+      radial-gradient(circle at 68% 58%, rgba(20,127,189,0.44) 0 6px, transparent 8px),
+      radial-gradient(circle at 76% 48%, rgba(20,127,189,0.56) 0 6px, transparent 8px),
+      radial-gradient(circle at 84% 34%, rgba(20,127,189,0.66) 0 7px, transparent 9px) !important;
+    animation: aiServiceGraphRise 6.2s ease-in-out infinite alternate !important;
+  }
+}
+
+/* Desktop hero depth final winner v41 */
+@media (min-width: 761px) {
+  body.home-page.pattern-a .hero {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.86) 34%, rgba(255,255,255,0.14) 76%, rgba(255,255,255,0.02) 100%),
+      url("./assets/hero-architecture-clean.jpg") right center / auto 112% no-repeat,
+      linear-gradient(180deg, #e7f7fe 0%, #ffffff 100%) !important;
+  }
+
+  body.home-page.pattern-a .hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background:
+      linear-gradient(115deg, transparent 0 41%, rgba(20,127,189,0.44) 53%, rgba(115,212,231,0.30) 64%, transparent 79%),
+      repeating-linear-gradient(90deg, transparent 0 78px, rgba(20,127,189,0.18) 79px, transparent 82px),
+      radial-gradient(ellipse at 77% 24%, rgba(20,127,189,0.46), transparent 34%),
+      radial-gradient(ellipse at 92% 46%, rgba(115,212,231,0.42), transparent 42%) !important;
+    opacity: 1 !important;
+    animation: pageHeroDesktopLayerV41 10s ease-in-out infinite alternate !important;
+  }
+
+  body.home-page.pattern-a .hero::after {
+    border-top-color: rgba(20,127,189,0.72) !important;
+    border-bottom-color: rgba(115,212,231,0.54) !important;
+    opacity: 1 !important;
+    animation: pageHeroDesktopArcV41 11s ease-in-out infinite alternate !important;
+  }
+
+  .page-hero {
+    overflow: hidden !important;
+    background:
+      radial-gradient(ellipse at 78% 50%, rgba(20,127,189,0.34), transparent 42%),
+      linear-gradient(118deg, transparent 0 48%, rgba(115,212,231,0.22) 58%, transparent 74%),
+      repeating-linear-gradient(90deg, transparent 0 96px, rgba(20,127,189,0.10) 97px, transparent 100px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+    animation: pageHeroDesktopDepthV41 14s ease-in-out infinite alternate !important;
+  }
+
+  .page-hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    pointer-events: none !important;
+    opacity: 0.94 !important;
+    background:
+      linear-gradient(116deg, transparent 0 46%, rgba(20,127,189,0.36) 53%, rgba(115,212,231,0.24) 61%, transparent 76%),
+      radial-gradient(ellipse at 78% 38%, rgba(20,127,189,0.36), transparent 36%) !important;
+    animation: pageHeroDesktopLayerV41 10s ease-in-out infinite alternate !important;
+  }
+
+  .page-hero::after {
+    opacity: 0.94 !important;
+    border-top-color: rgba(20,127,189,0.54) !important;
+    border-bottom-color: rgba(115,212,231,0.38) !important;
+    animation: pageHeroDesktopArcV41 11s ease-in-out infinite alternate !important;
+  }
+
+  .service-page .page-hero.service-visual,
+  .service-detail-page .page-hero.diagnosis-visual {
+    background:
+      conic-gradient(from 0deg at 76% 48%, transparent 0 42deg, rgba(20,127,189,0.34) 54deg, transparent 76deg 360deg),
+      radial-gradient(ellipse at 76% 48%, rgba(115,212,231,0.36), transparent 38%),
+      radial-gradient(circle at 82% 28%, rgba(20,127,189,0.26) 0 3px, transparent 4px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+  }
+
+  .target-page .page-hero.target-visual,
+  .service-detail-page .page-hero.target-visual,
+  .page-hero.company-visual,
+  .diagnosis-page .page-hero.diagnosis-visual {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 84px, rgba(20,127,189,0.20) 85px, rgba(20,127,189,0.08) 90px, transparent 96px),
+      linear-gradient(116deg, transparent 0 52%, rgba(115,212,231,0.26) 58%, transparent 74%),
+      radial-gradient(ellipse at 78% 42%, rgba(20,127,189,0.30), transparent 38%),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+  }
+
+  .cases-page .page-hero.evidence-visual,
+  .service-detail-page .page-hero.evidence-visual {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.90) 38%, rgba(255,255,255,0.50) 70%, rgba(255,255,255,0.88) 100%),
+      radial-gradient(ellipse at 78% 58%, rgba(115,212,231,0.40), transparent 42%),
+      repeating-linear-gradient(90deg, transparent 0 96px, rgba(20,127,189,0.10) 97px, transparent 100px),
+      repeating-linear-gradient(0deg, transparent 0 74px, rgba(20,127,189,0.07) 75px, transparent 78px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+    animation: evidenceBarFieldV31 10s ease-in-out infinite alternate !important;
+  }
+
+  .cases-page .page-hero.evidence-visual::before,
+  .service-detail-page .page-hero.evidence-visual::before {
+    opacity: 0.96 !important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.08)),
+      linear-gradient(180deg, rgba(20,127,189,0.36), rgba(20,127,189,0.08)) !important;
+    animation: evidenceBarPanelV31 7.2s ease-in-out infinite alternate !important;
+  }
+
+  .cases-page .page-hero.evidence-visual::after,
+  .service-detail-page .page-hero.evidence-visual::after {
+    opacity: 0.98 !important;
+    background:
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 78%, rgba(20,127,189,0.28) 78% 100%) 0 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 68%, rgba(20,127,189,0.38) 68% 100%) 14% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 58%, rgba(20,127,189,0.48) 58% 100%) 28% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 46%, rgba(20,127,189,0.58) 46% 100%) 42% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 36%, rgba(20,127,189,0.70) 36% 100%) 56% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 24%, rgba(20,127,189,0.80) 24% 100%) 70% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 12%, rgba(20,127,189,0.90) 12% 100%) 84% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 6%, rgba(20,127,189,0.98) 6% 100%) 98% 0 / 8% 100% no-repeat,
+      linear-gradient(90deg, rgba(20,127,189,0.40), rgba(115,212,231,0.52), rgba(20,127,189,0.30)) left bottom / 100% 2px no-repeat !important;
+    animation: evidenceBarsRiseV31 4.8s cubic-bezier(.42,0,.18,1) infinite alternate !important;
+  }
+
+  .ai-services-page .page-hero {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.88) 40%, rgba(255,255,255,0.40) 100%),
+      url("./assets/ai-services-graph-extracted.jpg") right center / min(60vw, 800px) auto no-repeat,
+      radial-gradient(circle at 20% 28%, rgba(20,127,189,0.30) 0 3px, transparent 4px),
+      radial-gradient(circle at 64% 36%, rgba(115,212,231,0.34) 0 3px, transparent 4px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+    animation: aiServiceGraphField 10s ease-in-out infinite alternate !important;
+  }
+
+  .ai-services-page .page-hero::before {
+    opacity: 0.98 !important;
+    background:
+      linear-gradient(34deg, transparent 0 54%, rgba(20,127,189,0.40) 55%, rgba(20,127,189,0.40) 57%, transparent 59%),
+      linear-gradient(34deg, transparent 0 44%, rgba(115,212,231,0.34) 45%, rgba(115,212,231,0.34) 47%, transparent 49%),
+      radial-gradient(circle at 68% 58%, rgba(20,127,189,0.40) 0 6px, transparent 8px),
+      radial-gradient(circle at 76% 48%, rgba(20,127,189,0.50) 0 6px, transparent 8px),
+      radial-gradient(circle at 84% 34%, rgba(20,127,189,0.60) 0 7px, transparent 9px) !important;
+    animation: aiServiceGraphRise 6.8s ease-in-out infinite alternate !important;
+  }
+}
+
+@keyframes pageHeroDesktopDepthV41 {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 0 0, 0 0, 72px 0, 0 0; }
+}
+
+@keyframes pageHeroDesktopLayerV41 {
+  0% { transform: translate3d(-10px, 8px, 0); opacity: 0.84; }
+  100% { transform: translate3d(18px, -16px, 0); opacity: 1; }
+}
+
+@keyframes pageHeroDesktopArcV41 {
+  0% { transform: rotate(-8deg) translate3d(0, 0, 0) scale(0.98); opacity: 0.86; }
+  100% { transform: rotate(-4deg) translate3d(-18px, -18px, 0) scale(1.04); opacity: 1; }
+}
+
 /* Mobile hero absolute final depth lock v40 */
 @media (max-width: 760px) {
   .page-hero {
@@ -4975,6 +5263,143 @@ h3 {
   }
 }
 
+
+/* Desktop page-hero actual final winner v41 */
+@media (min-width: 761px) {
+  body.home-page.pattern-a .hero {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.84) 34%, rgba(255,255,255,0.12) 76%, rgba(255,255,255,0.02) 100%),
+      url("./assets/hero-architecture-clean.jpg") right center / auto 114% no-repeat,
+      linear-gradient(180deg, #e7f7fe 0%, #ffffff 100%) !important;
+  }
+
+  body.home-page.pattern-a .hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    background:
+      linear-gradient(115deg, transparent 0 41%, rgba(20,127,189,0.50) 53%, rgba(115,212,231,0.36) 64%, transparent 79%),
+      repeating-linear-gradient(90deg, transparent 0 78px, rgba(20,127,189,0.21) 79px, transparent 82px),
+      radial-gradient(ellipse at 77% 24%, rgba(20,127,189,0.52), transparent 34%),
+      radial-gradient(ellipse at 92% 46%, rgba(115,212,231,0.48), transparent 42%) !important;
+    animation: pageHeroDesktopLayerV41 9.5s ease-in-out infinite alternate !important;
+  }
+
+  body.home-page.pattern-a .hero::after {
+    opacity: 1 !important;
+    border-top-color: rgba(20,127,189,0.78) !important;
+    border-bottom-color: rgba(115,212,231,0.60) !important;
+    animation: pageHeroDesktopArcV41 10.5s ease-in-out infinite alternate !important;
+  }
+
+  .page-hero {
+    overflow: hidden !important;
+    background:
+      radial-gradient(ellipse at 78% 50%, rgba(20,127,189,0.40), transparent 42%),
+      linear-gradient(118deg, transparent 0 48%, rgba(115,212,231,0.28) 58%, transparent 74%),
+      repeating-linear-gradient(90deg, transparent 0 96px, rgba(20,127,189,0.13) 97px, transparent 100px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+    animation: pageHeroDesktopDepthV41 13s ease-in-out infinite alternate !important;
+  }
+
+  .page-hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    pointer-events: none !important;
+    opacity: 1 !important;
+    background:
+      linear-gradient(116deg, transparent 0 46%, rgba(20,127,189,0.42) 53%, rgba(115,212,231,0.30) 61%, transparent 76%),
+      radial-gradient(ellipse at 78% 38%, rgba(20,127,189,0.42), transparent 36%) !important;
+    animation: pageHeroDesktopLayerV41 9.5s ease-in-out infinite alternate !important;
+  }
+
+  .page-hero::after {
+    opacity: 1 !important;
+    border-top-color: rgba(20,127,189,0.60) !important;
+    border-bottom-color: rgba(115,212,231,0.44) !important;
+    animation: pageHeroDesktopArcV41 10.5s ease-in-out infinite alternate !important;
+  }
+
+  .service-page .page-hero.service-visual,
+  .service-detail-page .page-hero.diagnosis-visual {
+    background:
+      conic-gradient(from 0deg at 76% 48%, transparent 0 42deg, rgba(20,127,189,0.40) 54deg, transparent 76deg 360deg),
+      radial-gradient(ellipse at 76% 48%, rgba(115,212,231,0.42), transparent 38%),
+      radial-gradient(circle at 82% 28%, rgba(20,127,189,0.32) 0 3px, transparent 4px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+  }
+
+  .target-page .page-hero.target-visual,
+  .service-detail-page .page-hero.target-visual,
+  .page-hero.company-visual,
+  .diagnosis-page .page-hero.diagnosis-visual {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 84px, rgba(20,127,189,0.26) 85px, rgba(20,127,189,0.11) 90px, transparent 96px),
+      linear-gradient(116deg, transparent 0 52%, rgba(115,212,231,0.32) 58%, transparent 74%),
+      radial-gradient(ellipse at 78% 42%, rgba(20,127,189,0.36), transparent 38%),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+  }
+
+  .cases-page .page-hero.evidence-visual,
+  .service-detail-page .page-hero.evidence-visual {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.88) 38%, rgba(255,255,255,0.46) 70%, rgba(255,255,255,0.86) 100%),
+      radial-gradient(ellipse at 78% 58%, rgba(115,212,231,0.46), transparent 42%),
+      repeating-linear-gradient(90deg, transparent 0 96px, rgba(20,127,189,0.13) 97px, transparent 100px),
+      repeating-linear-gradient(0deg, transparent 0 74px, rgba(20,127,189,0.10) 75px, transparent 78px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+    animation: evidenceBarFieldV31 9s ease-in-out infinite alternate !important;
+  }
+
+  .cases-page .page-hero.evidence-visual::before,
+  .service-detail-page .page-hero.evidence-visual::before {
+    opacity: 1 !important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.08)),
+      linear-gradient(180deg, rgba(20,127,189,0.42), rgba(20,127,189,0.11)) !important;
+    animation: evidenceBarPanelV31 6.8s ease-in-out infinite alternate !important;
+  }
+
+  .cases-page .page-hero.evidence-visual::after,
+  .service-detail-page .page-hero.evidence-visual::after {
+    opacity: 1 !important;
+    background:
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 78%, rgba(20,127,189,0.32) 78% 100%) 0 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 68%, rgba(20,127,189,0.44) 68% 100%) 14% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 58%, rgba(20,127,189,0.54) 58% 100%) 28% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 46%, rgba(20,127,189,0.66) 46% 100%) 42% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 36%, rgba(20,127,189,0.78) 36% 100%) 56% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 24%, rgba(20,127,189,0.88) 24% 100%) 70% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 12%, rgba(20,127,189,0.96) 12% 100%) 84% 0 / 8% 100% no-repeat,
+      linear-gradient(180deg, rgba(20,127,189,0.00) 0 6%, rgba(20,127,189,1.00) 6% 100%) 98% 0 / 8% 100% no-repeat,
+      linear-gradient(90deg, rgba(20,127,189,0.46), rgba(115,212,231,0.58), rgba(20,127,189,0.36)) left bottom / 100% 2px no-repeat !important;
+    animation: evidenceBarsRiseV31 4.6s cubic-bezier(.42,0,.18,1) infinite alternate !important;
+  }
+
+  .ai-services-page .page-hero {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.86) 40%, rgba(255,255,255,0.34) 100%),
+      url("./assets/ai-services-graph-extracted.jpg") right center / min(62vw, 820px) auto no-repeat,
+      radial-gradient(circle at 20% 28%, rgba(20,127,189,0.36) 0 3px, transparent 4px),
+      radial-gradient(circle at 64% 36%, rgba(115,212,231,0.40) 0 3px, transparent 4px),
+      linear-gradient(180deg, #f1fbff 0%, #ffffff 100%) !important;
+    animation: aiServiceGraphField 9s ease-in-out infinite alternate !important;
+  }
+
+  .ai-services-page .page-hero::before {
+    opacity: 1 !important;
+    background:
+      linear-gradient(34deg, transparent 0 54%, rgba(20,127,189,0.48) 55%, rgba(20,127,189,0.48) 57%, transparent 59%),
+      linear-gradient(34deg, transparent 0 44%, rgba(115,212,231,0.40) 45%, rgba(115,212,231,0.40) 47%, transparent 49%),
+      radial-gradient(circle at 68% 58%, rgba(20,127,189,0.46) 0 6px, transparent 8px),
+      radial-gradient(circle at 76% 48%, rgba(20,127,189,0.58) 0 6px, transparent 8px),
+      radial-gradient(circle at 84% 34%, rgba(20,127,189,0.68) 0 7px, transparent 9px) !important;
+    animation: aiServiceGraphRise 6.2s ease-in-out infinite alternate !important;
+  }
+}
 
 /* Mobile page-hero true final winner v40 */
 @media (max-width: 760px) {
