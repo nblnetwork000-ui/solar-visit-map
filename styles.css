@@ -346,6 +346,56 @@
   }
 }
 
+/* A pattern mobile-only stronger visual v33 last-win override */
+@media (max-width: 760px) {
+  .pattern-a .hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.52) 30%, rgba(255,255,255,0.93) 62%, #fff 100%),
+      url("./assets/hero-architecture-clean.jpg") right -12px top 2px / 118% auto no-repeat,
+      linear-gradient(180deg, #e2f5fd 0%, #ffffff 100%);
+  }
+
+  .pattern-a .hero::before {
+    background:
+      linear-gradient(115deg, transparent 0 41%, rgba(20,127,189,0.46) 52%, rgba(115,212,231,0.28) 62%, transparent 77%),
+      repeating-linear-gradient(90deg, transparent 0 46px, rgba(20,127,189,0.18) 47px, transparent 49px),
+      radial-gradient(ellipse at 78% 22%, rgba(20,127,189,0.38), transparent 34%),
+      radial-gradient(ellipse at 88% 42%, rgba(115,212,231,0.32), transparent 38%);
+    opacity: 0.94;
+  }
+
+  .pattern-a .hero::after {
+    border-top-color: rgba(20,127,189,0.52);
+    border-bottom-color: rgba(115,212,231,0.38);
+    opacity: 0.86;
+  }
+}
+
+/* A pattern mobile-only stronger visual v33 */
+@media (max-width: 760px) {
+  .pattern-a .hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.58) 30%, rgba(255,255,255,0.94) 62%, #fff 100%),
+      url("./assets/hero-architecture-clean.jpg") right -10px top 4px / 116% auto no-repeat,
+      linear-gradient(180deg, #e6f6fd 0%, #ffffff 100%);
+  }
+
+  .pattern-a .hero::before {
+    background:
+      linear-gradient(115deg, transparent 0 42%, rgba(20,127,189,0.40) 53%, rgba(115,212,231,0.24) 62%, transparent 77%),
+      repeating-linear-gradient(90deg, transparent 0 48px, rgba(20,127,189,0.16) 49px, transparent 51px),
+      radial-gradient(ellipse at 78% 22%, rgba(20,127,189,0.34), transparent 34%),
+      radial-gradient(ellipse at 88% 42%, rgba(115,212,231,0.28), transparent 38%);
+    opacity: 0.90;
+  }
+
+  .pattern-a .hero::after {
+    border-top-color: rgba(20,127,189,0.48);
+    border-bottom-color: rgba(115,212,231,0.34);
+    opacity: 0.82;
+  }
+}
+
 /* A pattern final polish v32 override */
 .pattern-a .hero {
   background:
@@ -4161,5 +4211,29 @@ h3 {
 
   .pattern-a .hero::after {
     opacity: 0.66;
+  }
+}
+/* A pattern mobile-only stronger visual v33 absolute final override */
+@media (max-width: 760px) {
+  .pattern-a .hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.52) 30%, rgba(255,255,255,0.93) 62%, #fff 100%),
+      url("./assets/hero-architecture-clean.jpg") right -12px top 2px / 118% auto no-repeat,
+      linear-gradient(180deg, #e2f5fd 0%, #ffffff 100%);
+  }
+
+  .pattern-a .hero::before {
+    background:
+      linear-gradient(115deg, transparent 0 41%, rgba(20,127,189,0.46) 52%, rgba(115,212,231,0.28) 62%, transparent 77%),
+      repeating-linear-gradient(90deg, transparent 0 46px, rgba(20,127,189,0.18) 47px, transparent 49px),
+      radial-gradient(ellipse at 78% 22%, rgba(20,127,189,0.38), transparent 34%),
+      radial-gradient(ellipse at 88% 42%, rgba(115,212,231,0.32), transparent 38%);
+    opacity: 0.94;
+  }
+
+  .pattern-a .hero::after {
+    border-top-color: rgba(20,127,189,0.52);
+    border-bottom-color: rgba(115,212,231,0.38);
+    opacity: 0.86;
   }
 }
