@@ -3673,3 +3673,22 @@ h3 {
     padding-top: 176px;
   }
 }
+
+/* Targeted mobile copy breaks v27 */
+.note-copy {
+  line-height: 1.85;
+}
+
+@media (max-width: 760px) {
+  .target-page .page-hero h1 {
+    font-size: clamp(22px, 5.7vw, 25px);
+    line-height: 1.62;
+  }
+
+  .diagnosis-page .page-hero .note-copy {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.9;
+    font-weight: 700;
+  }
+}
