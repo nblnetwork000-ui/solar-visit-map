@@ -2565,15 +2565,39 @@ body {
   .pattern-a .hero {
     min-height: auto;
     background:
-      linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.88) 46%, rgba(255,255,255,0.98) 100%),
-      url("./assets/hero-architecture-extracted.jpg") center top / 100% auto no-repeat,
+      linear-gradient(180deg, rgba(255,255,255,0.54) 0%, rgba(255,255,255,0.80) 32%, rgba(255,255,255,0.98) 58%, #fff 100%),
+      url("./assets/hero-architecture-extracted.jpg") right 18px top 18px / 84% auto no-repeat,
       linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+  }
+
+  .pattern-a .hero::before {
+    opacity: 0.28;
+    background:
+      linear-gradient(115deg, transparent 0 56%, rgba(20,127,189,0.10) 58%, transparent 72%),
+      repeating-linear-gradient(90deg, transparent 0 70px, rgba(20,127,189,0.045) 71px, transparent 72px);
+  }
+
+  .pattern-a .hero::after {
+    bottom: 9%;
+    opacity: 0.34;
   }
 
   .pattern-a .hero-inner {
     min-height: auto;
-    padding-top: 70px;
-    padding-bottom: 58px;
+    padding-top: 238px;
+    padding-bottom: 52px;
+  }
+
+  .pattern-a .hero h1,
+  .pattern-b .hero h1 {
+    font-size: clamp(34px, 9.8vw, 42px);
+    line-height: 1.34;
+  }
+
+  .pattern-a .hero .lead,
+  .pattern-b .hero .lead {
+    font-size: 15px;
+    line-height: 1.9;
   }
 
   .pattern-b .hero {
@@ -2588,9 +2612,50 @@ body {
     background-size: 100% 100%, 100% 100%, 88px 88px, 112px 112px, 100% 100%, 100% 100%;
   }
 
+  .pattern-b .hero-slideshow {
+    opacity: 0.42;
+  }
+
+  .pattern-b .hero-slideshow::before {
+    inset: -4% -28% 34%;
+    opacity: 0.86;
+  }
+
+  .pattern-b .hero::before {
+    opacity: 0.68;
+  }
+
+  .pattern-b .hero::after {
+    bottom: 10%;
+    opacity: 0.72;
+  }
+
   .pattern-b .hero-inner {
     min-height: auto;
-    padding-top: 70px;
-    padding-bottom: 58px;
+    padding-top: 78px;
+    padding-bottom: 56px;
+  }
+
+  .ai-services-page .page-hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.88) 36%, rgba(255,255,255,0.99) 62%, #fff 100%),
+      url("./assets/ai-services-graph-extracted.jpg") center top 18px / 94% auto no-repeat,
+      radial-gradient(circle at 20% 28%, rgba(20,127,189,0.18) 0 2px, transparent 3px),
+      radial-gradient(circle at 64% 36%, rgba(115,212,231,0.20) 0 2px, transparent 3px),
+      linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+    background-size: auto, 94% auto, 120px 120px, 150px 150px, 100% 100%;
+  }
+
+  .ai-services-page .page-hero-inner {
+    padding-top: 212px;
+  }
+
+  .ai-services-page .page-hero::before {
+    opacity: 0.64;
+  }
+
+  .ai-services-page .page-hero::after {
+    bottom: 8%;
+    opacity: 0.58;
   }
 }
