@@ -220,6 +220,14 @@ h3 {
     0 18px 34px rgb(48 32 10 / 22%);
 }
 
+.hero-medal-wide {
+  width: 148px;
+  height: 132px;
+  border-radius: 46% 46% 50% 50% / 50%;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
 .hero-medal::before {
   content: "♛";
   position: absolute;
@@ -260,6 +268,7 @@ h3 {
 
 .hero-medal span {
   font-size: 12px;
+  line-height: 1.25;
   font-weight: 900;
 }
 
@@ -268,6 +277,17 @@ h3 {
   font-size: 17px;
   line-height: 1.25;
   font-weight: 900;
+}
+
+.hero-medal-wide span {
+  font-size: 10.5px;
+  line-height: 1.28;
+}
+
+.hero-medal-wide strong {
+  margin-top: 6px;
+  font-size: 16px;
+  line-height: 1.18;
 }
 
 .hero-inner {
@@ -955,6 +975,13 @@ h3 {
     padding: 18px 10px 14px;
   }
 
+  .hero-medal-wide {
+    width: 116px;
+    height: 104px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
   .hero-medal::before {
     top: -13px;
     width: 30px;
@@ -974,6 +1001,17 @@ h3 {
 
   .hero-medal strong {
     font-size: 13px;
+  }
+
+  .hero-medal-wide span {
+    font-size: 8px;
+    line-height: 1.25;
+  }
+
+  .hero-medal-wide strong {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.16;
   }
 
   .lead {
@@ -1013,8 +1051,21 @@ h3 {
     padding: 18px 10px 14px;
   }
 
+  .hero-medal-wide {
+    width: 128px;
+    height: 112px;
+  }
+
   .hero-medal strong {
     font-size: 14px;
+  }
+
+  .hero-medal-wide span {
+    font-size: 9px;
+  }
+
+  .hero-medal-wide strong {
+    font-size: 13px;
   }
 }
 
@@ -1065,6 +1116,13 @@ h3 {
     width: 92px;
     height: 92px;
     padding: 16px 8px 12px;
+  }
+
+  .hero-medal-wide {
+    width: 106px;
+    height: 92px;
+    padding-right: 8px;
+    padding-left: 8px;
   }
 
   .hero h1 {
