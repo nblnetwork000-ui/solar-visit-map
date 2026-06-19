@@ -4263,3 +4263,36 @@ h3 {
     opacity: 0.96;
   }
 }
+
+/* A pattern mobile persistent visual depth v35 */
+@media (max-width: 760px) {
+  .pattern-a .hero::before,
+  .pattern-a .hero::after {
+    animation: none;
+  }
+
+  .pattern-a .hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.34) 28%, rgba(255,255,255,0.86) 60%, #fff 100%),
+      url("./assets/hero-architecture-clean.jpg") right -18px top 0 / 126% auto no-repeat,
+      linear-gradient(180deg, #d9f2fc 0%, #ffffff 100%);
+  }
+
+  .pattern-a .hero::before {
+    background:
+      linear-gradient(115deg, transparent 0 38%, rgba(20,127,189,0.58) 51%, rgba(115,212,231,0.36) 63%, transparent 78%),
+      repeating-linear-gradient(90deg, transparent 0 42px, rgba(20,127,189,0.24) 43px, transparent 45px),
+      radial-gradient(ellipse at 77% 20%, rgba(20,127,189,0.50), transparent 34%),
+      radial-gradient(ellipse at 88% 42%, rgba(115,212,231,0.42), transparent 38%),
+      radial-gradient(circle at 18% 74%, rgba(20,127,189,0.22) 0 3px, transparent 4px);
+    opacity: 1;
+    transform: none;
+  }
+
+  .pattern-a .hero::after {
+    border-top-color: rgba(20,127,189,0.64);
+    border-bottom-color: rgba(115,212,231,0.46);
+    opacity: 0.96;
+    transform: rotate(-8deg);
+  }
+}
