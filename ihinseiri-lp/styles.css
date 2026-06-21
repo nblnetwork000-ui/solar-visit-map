@@ -3713,3 +3713,57 @@ h3 {
   width: 108%;
   justify-self: center;
 }
+
+/* Final manga paper-fit tuning */
+.manga-layout-consult-flow .manga-phone-panel {
+  width: 136%;
+  margin-right: -18%;
+}
+
+.manga-layout-consult-flow .manga-fee-panel {
+  width: 76%;
+  max-width: none;
+  justify-self: end;
+  margin-top: -32px;
+  margin-right: 12%;
+}
+
+.manga-layout-estimate-flow .manga-scroll-panel {
+  width: 104%;
+}
+
+.manga-panel-story .manga-layout-single:not(.manga-layout-estimate-flow) {
+  margin-top: -4px;
+}
+
+@media (max-width: 900px) {
+  .manga-layout-consult-flow .manga-phone-panel {
+    width: 132%;
+    margin-left: -18%;
+    margin-right: 0;
+  }
+
+  .manga-layout-consult-flow .manga-fee-panel {
+    width: 82%;
+    margin-top: -24px;
+    margin-left: 3%;
+    margin-right: 0;
+  }
+
+  .manga-layout-estimate-flow .manga-scroll-panel {
+    width: 102%;
+  }
+}
+
+@media (max-width: 520px) {
+  .manga-layout-consult-flow .manga-phone-panel {
+    width: 136%;
+    margin-left: -20%;
+  }
+
+  .manga-layout-consult-flow .manga-fee-panel {
+    width: 86%;
+    margin-top: -24px;
+    margin-left: 2%;
+  }
+}
