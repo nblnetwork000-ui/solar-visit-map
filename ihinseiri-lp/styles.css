@@ -3403,6 +3403,10 @@ h3 {
   align-items: stretch;
 }
 
+.manga-layout-single {
+  grid-template-columns: 1fr;
+}
+
 .manga-layout-hero-row {
   grid-template-columns: minmax(0, 1.78fr) minmax(220px, 1fr);
 }
@@ -3428,6 +3432,14 @@ h3 {
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.94fr) minmax(160px, 0.7fr);
 }
 
+.manga-layout-four {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.94fr) minmax(0, 0.98fr) minmax(160px, 1.2fr);
+}
+
+.manga-layout-before-after {
+  grid-template-columns: minmax(0, 1.05fr) minmax(160px, 0.78fr) minmax(0, 1.42fr);
+}
+
 
 .manga-scroll-panel[class*="manga-cut-"] {
   overflow: hidden;
@@ -3451,6 +3463,18 @@ h3 {
 
 .manga-cut-left-soft {
   clip-path: polygon(2% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.manga-panel-cutout {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.manga-panel-cutout img {
+  filter: drop-shadow(8px 10px 0 rgb(24 63 49 / 8%)) drop-shadow(0 14px 24px rgb(47 58 52 / 12%));
 }
 
 .manga-enter-left {
@@ -3491,10 +3515,13 @@ h3 {
   }
 
   .manga-layout-hero-row,
+  .manga-layout-single,
   .manga-layout-two,
   .manga-layout-balanced,
   .manga-layout-wide-left,
-  .manga-layout-three {
+  .manga-layout-three,
+  .manga-layout-four,
+  .manga-layout-before-after {
     grid-template-columns: 1fr;
   }
 
