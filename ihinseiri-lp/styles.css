@@ -3861,3 +3861,74 @@ h3 {
     box-shadow: 0 12px 28px rgba(24, 63, 49, 0.12);
   }
 }
+
+/* Full manga links and section gap polish v20260621o */
+.comic-opening {
+  padding-bottom: 18px;
+}
+
+.comic-opening + .hero {
+  margin-top: 0;
+}
+
+.manga-full-reader {
+  padding-bottom: 10px;
+}
+
+.manga-full-frame {
+  position: relative;
+  display: block;
+}
+
+.manga-hotspot,
+.manga-final-hotspot {
+  cursor: pointer;
+}
+
+.manga-final-hotspot-frame {
+  position: relative;
+}
+
+.manga-final-hotspot {
+  position: absolute;
+  z-index: 4;
+  display: block;
+  border-radius: 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.manga-final-hotspot:focus-visible {
+  outline: 3px solid rgba(186, 83, 54, 0.9);
+  outline-offset: 3px;
+}
+
+.manga-final-hotspot-phone {
+  left: 18.8%;
+  top: 30%;
+  width: 37%;
+  height: 34%;
+}
+
+.manga-final-hotspot-line {
+  left: 59%;
+  top: 34%;
+  width: 20%;
+  height: 34%;
+}
+
+.manga-final-hotspot-mail {
+  left: 80.6%;
+  top: 34%;
+  width: 18.5%;
+  height: 34%;
+}
+
+@media (max-width: 640px) {
+  .comic-opening {
+    padding-bottom: 8px;
+  }
+
+  .manga-full-reader {
+    padding-bottom: 4px;
+  }
+}
