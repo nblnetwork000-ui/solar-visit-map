@@ -289,7 +289,7 @@ h3 {
 }
 
 .hero-medal small {
-  margin-top: 4px;
+  margin-top: 0;
   color: rgb(24 63 49 / 72%);
   font-size: 10px;
   line-height: 1.2;
@@ -302,7 +302,7 @@ h3 {
 }
 
 .hero-medal-wide strong {
-  margin-top: 4px;
+  margin-top: 0;
   font-size: 15px;
   line-height: 1.2;
 }
@@ -2335,7 +2335,7 @@ h3 {
 
 .contact-tel small,
 .contact-line small {
-  margin-top: 4px;
+  margin-top: 0;
   color: var(--muted);
 }
 
@@ -2652,7 +2652,7 @@ h3 {
 
   .price-includes div {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+    gap: 6px;
   }
 
   .price-includes span {
@@ -2828,7 +2828,7 @@ h3 {
 
   .manga-track {
     --manga-step: calc(100vw - 82px);
-    gap: 12px;
+    gap: 7px;
   }
 
   .manga-panel {
@@ -2971,7 +2971,7 @@ h3 {
   }
 
   .comic-grid {
-    gap: 10px;
+    gap: 6px;
   }
 
   .comic-panel {
@@ -3394,12 +3394,12 @@ h3 {
 }
 
 .manga-panel-story {
-  gap: 16px;
+  gap: 8px;
 }
 
 .manga-layout-row {
   display: grid;
-  gap: 16px;
+  gap: 8px;
   align-items: stretch;
 }
 
@@ -3413,7 +3413,7 @@ h3 {
 
 .manga-layout-stack {
   display: grid;
-  gap: 16px;
+  gap: 8px;
 }
 
 .manga-layout-two {
@@ -3439,6 +3439,66 @@ h3 {
 
 .manga-layout-before-after {
   grid-template-columns: minmax(0, 1.05fr) minmax(160px, 0.78fr) minmax(0, 1.42fr);
+}
+
+.manga-layout-consult-flow {
+  width: min(760px, 88%);
+  margin: -8px auto 8px;
+  gap: 0 10px;
+  align-items: center;
+}
+
+.manga-layout-consult-flow .manga-scroll-panel:nth-child(1) {
+  width: 96%;
+  justify-self: end;
+  margin-top: 0;
+}
+
+.manga-layout-consult-flow .manga-scroll-panel:nth-child(2) {
+  width: 98%;
+  justify-self: start;
+  margin-top: -38px;
+}
+
+.manga-layout-consult-flow .manga-scroll-panel:nth-child(3) {
+  width: 112%;
+  justify-self: end;
+  margin-top: -24px;
+}
+
+.manga-layout-consult-flow .manga-scroll-panel:nth-child(4) {
+  width: 102%;
+  justify-self: start;
+  margin-top: -32px;
+}
+
+.manga-layout-work-flow {
+  width: min(760px, 88%);
+  margin: -2px auto 8px;
+}
+
+.manga-layout-result-flow {
+  width: min(790px, 90%);
+  margin: -8px auto 8px;
+  gap: 2px;
+  grid-template-columns: minmax(0, 0.98fr) minmax(130px, 0.66fr) minmax(0, 1.36fr);
+  align-items: center;
+}
+
+.manga-layout-result-flow .manga-scroll-panel:nth-child(1) {
+  justify-self: end;
+  width: 102%;
+}
+
+.manga-layout-result-flow .manga-scroll-panel:nth-child(2) {
+  justify-self: center;
+  width: 108%;
+  margin-top: -16px;
+}
+
+.manga-layout-result-flow .manga-scroll-panel:nth-child(3) {
+  justify-self: start;
+  width: 104%;
 }
 
 
@@ -3535,7 +3595,7 @@ h3 {
   .manga-layout-row,
   .manga-layout-stack,
   .manga-panel-story {
-    gap: 12px;
+    gap: 7px;
   }
 
   .manga-enter-left {
@@ -3551,11 +3611,11 @@ h3 {
 
 @media (max-width: 520px) {
   .manga-panel-story {
-    gap: 10px;
+    gap: 6px;
   }
 
   .manga-layout-row {
-    gap: 10px;
+    gap: 6px;
   }
 
   .manga-layout-two,
@@ -3568,6 +3628,60 @@ h3 {
   .manga-layout-three,
   .manga-layout-before-after {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr) minmax(0, 1.25fr);
+  }
+
+
+  .manga-layout-consult-flow {
+    width: 100%;
+    gap: 0 4px;
+    margin: -6px auto 6px;
+  }
+
+  .manga-layout-consult-flow .manga-scroll-panel:nth-child(1) {
+    width: 106%;
+    margin-left: -6%;
+  }
+
+  .manga-layout-consult-flow .manga-scroll-panel:nth-child(2) {
+    width: 101%;
+    margin-top: -22px;
+  }
+
+  .manga-layout-consult-flow .manga-scroll-panel:nth-child(3) {
+    width: 112%;
+    margin-top: -14px;
+    margin-left: -8%;
+  }
+
+  .manga-layout-consult-flow .manga-scroll-panel:nth-child(4) {
+    width: 106%;
+    margin-top: -20px;
+  }
+
+  .manga-layout-work-flow {
+    width: 100%;
+    margin: -4px auto 6px;
+  }
+
+  .manga-layout-result-flow {
+    width: 100%;
+    gap: 0;
+    grid-template-columns: minmax(0, 0.98fr) minmax(70px, 0.58fr) minmax(0, 1.34fr);
+    margin: -6px auto 6px;
+  }
+
+  .manga-layout-result-flow .manga-scroll-panel:nth-child(1) {
+    width: 108%;
+    margin-left: -6%;
+  }
+
+  .manga-layout-result-flow .manga-scroll-panel:nth-child(2) {
+    width: 116%;
+    margin-top: -10px;
+  }
+
+  .manga-layout-result-flow .manga-scroll-panel:nth-child(3) {
+    width: 108%;
   }
 
   .manga-panel-cutout img {
