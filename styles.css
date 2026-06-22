@@ -6725,3 +6725,59 @@ br.pc-optional-break,
 .form-note br.copy-break {
   display: block !important;
 }
+
+/* Sato mobile optical right balance v29 */
+@media (max-width: 760px) {
+  .home-page .philosophy-band .statement,
+  .home-page .section > .section-head,
+  .home-page .section > .statement,
+  .home-page .grid-3 .illustrated-card,
+  .home-page .grid-3 .compact-illustration {
+    transform: translateX(8px);
+  }
+  .home-page .section {
+    padding-right: 18px !important;
+    padding-left: 26px !important;
+  }
+}
+
+/* Sato iPhone 17 reading measure v30 */
+.nobr {
+  white-space: nowrap;
+}
+.mobile-break {
+  display: none;
+}
+@media (max-width: 430px) {
+  .page-hero-inner,
+  .hero-inner {
+    width: min(100%, calc(100% - 44px)) !important;
+  }
+  .service-page .page-hero .page-hero-inner {
+    min-height: auto !important;
+    padding-top: 68px !important;
+    padding-bottom: 78px !important;
+  }
+  .service-page .page-hero h1 {
+    max-width: 100% !important;
+    font-size: clamp(38px, 9.35vw, 41px) !important;
+    line-height: 1.48 !important;
+    letter-spacing: 0 !important;
+    text-wrap: pretty !important;
+  }
+  .service-page .page-hero h1 .mobile-break {
+    display: block !important;
+  }
+  .service-page .page-hero .lead {
+    max-width: 100% !important;
+    font-size: clamp(16px, 4.05vw, 17px) !important;
+    line-height: 1.86 !important;
+    letter-spacing: 0 !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    text-wrap: pretty !important;
+  }
+  .service-page .page-hero .hero-actions {
+    margin-top: 28px !important;
+  }
+}
