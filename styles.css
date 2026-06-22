@@ -7475,3 +7475,172 @@ br.pc-optional-break,
     white-space: normal !important;
   }
 }
+
+/* Sato display recovery v45
+   Keep the requested copy untouched, but stop mobile typography rules from
+   hiding CTA buttons or forcing unnatural layout breaks. */
+@media (max-width: 640px) {
+  .mobile-break,
+  .mobile-break br,
+  .service-page .page-hero h1 .mobile-break {
+    display: none !important;
+  }
+
+  .page-hero .lead br.copy-break,
+  .hero .lead br.copy-break,
+  .section-head p br.copy-break,
+  .card p br.copy-break,
+  .plain-list p br.copy-break,
+  .check-list br.copy-break,
+  .cta-band p br.copy-break,
+  .metric-note br.copy-break,
+  .note-copy br.copy-break,
+  .form-note br.copy-break,
+  .service-emphasis br.copy-break {
+    display: none !important;
+  }
+
+  .hero h1 br.copy-break,
+  .page-hero h1 br.copy-break,
+  .section-head h2 br.copy-break,
+  .target-page .page-hero h1 br.pc-optional-break {
+    display: block !important;
+  }
+
+  .hero-inner,
+  .page-hero-inner,
+  .section > .section-head,
+  .home-page .philosophy-band .statement,
+  .home-page .grid-3 .illustrated-card,
+  .home-page .grid-3 .compact-illustration {
+    transform: none !important;
+  }
+
+  .home-page .section,
+  .section {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .hero-inner,
+  .page-hero-inner {
+    width: calc(100% - 36px) !important;
+    max-width: 420px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .page-hero h1,
+  .hero h1,
+  .section-head h2 {
+    word-break: auto-phrase !important;
+    overflow-wrap: normal !important;
+    line-break: strict !important;
+    text-wrap: balance !important;
+  }
+
+  .page-hero .lead,
+  .hero .lead,
+  .section-head p,
+  .card p,
+  .plain-list p,
+  .cta-band p,
+  .check-list li,
+  .form-note,
+  .note-copy,
+  .metric-note {
+    word-break: auto-phrase !important;
+    overflow-wrap: normal !important;
+    line-break: strict !important;
+    text-wrap: pretty !important;
+    max-width: 100% !important;
+  }
+
+  .hero-actions,
+  .cta-actions,
+  .contact-form .form-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .button,
+  a.button,
+  button.button,
+  .hero-actions .button,
+  .cta-actions .button,
+  .contact-form .form-actions .button {
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 52px !important;
+    padding: 14px 16px !important;
+    font-family: var(--font-sans) !important;
+    font-size: clamp(12px, 3.2vw, 13.5px) !important;
+    font-weight: 600 !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-align: center !important;
+  }
+
+  .button.line,
+  .hero-actions .button.line,
+  .cta-actions .button.line,
+  .contact-form .form-actions .button.line {
+    display: inline-flex !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+
+  .header-actions {
+    display: none !important;
+  }
+
+  .menu-toggle {
+    margin-left: auto !important;
+    width: 58px !important;
+    min-width: 58px !important;
+    max-width: 58px !important;
+  }
+}
+
+/* Sato cases hero final cleanup v45 */
+.cases-page .page-hero.evidence-visual::before,
+.cases-page .page-hero.evidence-visual .page-hero-inner::before,
+.cases-page .page-hero.evidence-visual .page-hero-inner::after {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+.cases-page .page-hero.evidence-visual .page-hero-inner {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.cases-page .page-hero.evidence-visual::after {
+  display: block !important;
+  content: "" !important;
+  opacity: 1 !important;
+  animation: satoCasesGraphGrow 4.8s cubic-bezier(.22,.74,.22,1) infinite !important;
+}
+
