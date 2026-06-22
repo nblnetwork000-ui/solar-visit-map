@@ -6836,3 +6836,74 @@ br.pc-optional-break,
     line-height: 1.75 !important;
   }
 }
+
+
+/* Sato cases hero: remove left panel permanently v36 */
+.cases-page .page-hero.evidence-visual .page-hero-inner,
+.cases-page .page-hero.evidence-visual .page-hero-inner:hover,
+.cases-page .page-hero.evidence-visual .page-hero-inner:focus-within {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.cases-page .page-hero.evidence-visual .page-hero-inner::before,
+.cases-page .page-hero.evidence-visual .page-hero-inner::after,
+.cases-page .page-hero.evidence-visual .eyebrow::before,
+.cases-page .page-hero.evidence-visual h1::before,
+.cases-page .page-hero.evidence-visual .lead::before {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.cases-page .page-hero.evidence-visual .page-hero-inner > * {
+  background: transparent !important;
+}
+
+
+/* Sato mobile natural line breaks v37
+   PC keeps requested copy breaks. Mobile lets body copy wrap naturally,
+   while preserving headline breaks that define the design. */
+@media (max-width: 640px) {
+  .page-hero .lead br.copy-break,
+  .hero .lead br.copy-break,
+  .section-head p br.copy-break,
+  .card p br.copy-break,
+  .plain-list p br.copy-break,
+  .check-list br.copy-break,
+  .cta-band p br.copy-break,
+  .metric-note br.copy-break,
+  .note-copy br.copy-break,
+  .form-note br.copy-break,
+  .service-emphasis br.copy-break {
+    display: none !important;
+  }
+
+  .hero h1 br.copy-break,
+  .page-hero h1 br.copy-break,
+  .section-head h2 br.copy-break,
+  .service-detail-page .page-hero h1 br.copy-break,
+  .target-page .page-hero h1 br.pc-optional-break {
+    display: block !important;
+  }
+
+  .page-hero .lead,
+  .hero .lead,
+  .section-head p,
+  .card p,
+  .plain-list p,
+  .cta-band p {
+    word-break: normal !important;
+    overflow-wrap: anywhere;
+    line-break: strict;
+    text-wrap: pretty;
+  }
+}
