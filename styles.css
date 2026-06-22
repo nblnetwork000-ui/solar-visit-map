@@ -6709,3 +6709,19 @@ button.button,
     display: block;
   }
 }
+
+/* Sato PC specified line breaks final v28 */
+br.copy-break,
+br.pc-optional-break,
+.hero h1 br.copy-break,
+.page-hero h1 br.copy-break,
+.hero h1 br.pc-optional-break,
+.page-hero h1 br.pc-optional-break,
+.hero .lead br.copy-break,
+.page-hero .lead br.copy-break,
+.section-head h2 br.copy-break,
+.section-head p br.copy-break,
+.card p br.copy-break,
+.form-note br.copy-break {
+  display: block !important;
+}
