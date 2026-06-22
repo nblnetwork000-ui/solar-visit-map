@@ -6781,3 +6781,58 @@ br.pc-optional-break,
     margin-top: 28px !important;
   }
 }
+
+
+/* Sato note sizing and copy rhythm v33 */
+.metric-note {
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0 !important;
+  font-weight: 400 !important;
+  color: rgba(93, 111, 130, 0.78) !important;
+  max-width: 760px;
+}
+.cases-page main > .section:nth-of-type(2) .metric-note {
+  margin-top: 24px;
+}
+@media (max-width: 640px) {
+  .metric-note {
+    font-size: 11px !important;
+    line-height: 1.75 !important;
+    max-width: 100%;
+  }
+}
+
+
+/* Sato AI services alignment and text sizing v34 */
+@media (min-width: 901px) {
+  .ai-services-page main > .section:nth-of-type(2) .section-head h2 {
+    white-space: normal !important;
+    max-width: 760px !important;
+    line-height: 1.42 !important;
+  }
+  .ai-services-page main > .section:nth-of-type(2) .section-head p {
+    max-width: 980px !important;
+    font-size: clamp(14px, 0.92vw, 16px) !important;
+    line-height: 1.8 !important;
+  }
+  .service-detail-page .page-hero .page-hero-inner,
+  .service-detail-page .section > .section-head {
+    transform: translateX(22px) !important;
+  }
+  .service-detail-page .section > .section-head h2,
+  .service-detail-page .section > .section-head p,
+  .service-detail-page .section > .section-head .eyebrow {
+    transform: none !important;
+  }
+}
+@media (max-width: 900px) {
+  .ai-services-page main > .section:nth-of-type(2) .section-head h2 {
+    line-height: 1.5 !important;
+  }
+  .ai-services-page main > .section:nth-of-type(2) .section-head p {
+    font-size: 13px !important;
+    line-height: 1.75 !important;
+  }
+}
