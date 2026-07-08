@@ -290,6 +290,7 @@ const defaultState = {
   lastVisitByCharacter: {},
   loginPoints: 0,
   lastLoginPointDate: "",
+  dailyPointAwards: {},
   streak: 0
 };
 
@@ -344,7 +345,7 @@ state.activeDateKey = state.activeDateKey || getDateKey();
 applyAffectionVersion();
 ensureCharacterAffectionState();
 applyAffectionDrift();
-grantDailyLoginPoints();
+settleDailyPointAwards();
 reminderTime.value = state.reminderTime;
 calendarDate.value = state.activeDateKey;
 renderCharacterTabs();
@@ -507,7 +508,7 @@ function renderGifts() {
   const character = getActiveCharacter();
   state.loginPoints = Math.max(0, Math.round(Number(state.loginPoints) || 0));
   pointBalance.textContent = `${state.loginPoints} pt`;
-  giftNote.textContent = `${character.name}にプレゼントできます。毎日ログインで10ptもらえます。`;
+  giftNote.textContent = `${character.name}にプレゼントできます。毎日の3項目を全部達成すると、翌日以降に10pt確定します。`;
   giftGrid.replaceChildren();
 
   gifts.forEach((gift) => {
@@ -876,15 +877,35 @@ function applyAffectionDrift() {
   saveState();
 }
 
-function grantDailyLoginPoints() {
+function settleDailyPointAwards() {
   const todayKey = getDateKey();
   state.loginPoints = Math.max(0, Math.round(Number(state.loginPoints) || 0));
+  state.dailyPointAwards = state.dailyPointAwards || {};
+  let awardedCount = 0;
 
-  if (state.lastLoginPointDate === todayKey) return;
+  Object.keys(state.doneByDate || {}).forEach((dateKey) => {
+    if (dateKey >= todayKey || state.dailyPointAwards[dateKey]) return;
+    if (!isDailyItemsComplete(dateKey)) return;
 
-  state.loginPoints += 10;
-  state.lastLoginPointDate = todayKey;
-  saveState();
+    state.dailyPointAwards[dateKey] = true;
+    state.loginPoints += 10;
+    awardedCount += 1;
+  });
+
+  if (awardedCount > 0) {
+    saveState();
+    window.setTimeout(() => {
+      const pointText = awardedCount * 10;
+      setMascotLine(`昨日までの毎日メニュー達成分で${pointText}pt確定したよ。プレゼントに使えるね。`);
+      updateStatus(`${pointText}pt 獲得しました`);
+      renderGifts();
+    }, 600);
+  }
+}
+
+function isDailyItemsComplete(dateKey) {
+  const doneIds = new Set(state.doneByDate[dateKey] || []);
+  return dailyItems.every((item) => doneIds.has(item.id));
 }
 
 function calculateTrainingXp(amount, character) {
