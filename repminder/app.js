@@ -337,6 +337,7 @@ let selectedVoice = null;
 let voiceUnlocked = false;
 let mascotAudio = null;
 let dialoguePack = null;
+let lastDialogueAudioSrc = "";
 
 state.activeDateKey = state.activeDateKey || getDateKey();
 applyAffectionVersion();
@@ -1169,7 +1170,14 @@ function pickDialogue(context = "login", options = {}) {
   }
 
   if (!candidates || candidates.length === 0) return null;
-  const text = candidates[Math.floor(Math.random() * candidates.length)];
+  const index = 0;
+  const text = candidates[index];
+  const audioSrc =
+    eventKey && characterNode.special_lines?.[eventKey]?.[affinityNode.stage_key]
+      ? getDialogueAudioSrc(characterName, "special", { specialKey: eventKey, stageKey: affinityNode.stage_key, index })
+      : seasonKey && characterNode.special_lines?.[seasonKey]?.[affinityNode.stage_key]
+        ? getDialogueAudioSrc(characterName, "special", { specialKey: seasonKey, stageKey: affinityNode.stage_key, index })
+        : getDialogueAudioSrc(characterName, "normal", { score, context, index });
 
   return {
     character: characterName,
@@ -1178,6 +1186,7 @@ function pickDialogue(context = "login", options = {}) {
     stageKey: affinityNode.stage_key,
     expression: affinityNode.expression,
     relationship: affinityNode.relationship,
+    audioSrc,
     text
   };
 }
@@ -1186,6 +1195,17 @@ function getDialogueCharacterName(characterId) {
   if (characterId === "mermaid") return "マーメイド";
   if (characterId === "lilian") return "リリアン";
   return "SIN";
+}
+
+function getDialogueAudioSrc(characterName, type, options) {
+  const characterId =
+    characterName === "マーメイド" ? "mermaid" : characterName === "リリアン" ? "lilian" : "sin";
+
+  if (type === "special") {
+    return `./assets/dialogue-voices/${characterId}/s-${options.specialKey}-${options.stageKey}-${options.index}.m4a`;
+  }
+
+  return `./assets/dialogue-voices/${characterId}/a-${options.score}-${options.context}-${options.index}.m4a`;
 }
 
 function clampDialogueScore(value) {
@@ -1222,7 +1242,12 @@ function getMascotMessage(type) {
   const dialogue = pickDialogue(getDialogueContext(type), {
     eventKey: type === "level_up" ? "level_up" : ""
   });
-  if (dialogue) return dialogue.text;
+  if (dialogue) {
+    lastDialogueAudioSrc = dialogue.audioSrc;
+    return dialogue.text;
+  }
+
+  lastDialogueAudioSrc = "";
 
   const day = getActiveDay();
   const dateKey = getSelectedDateKey();
@@ -1386,6 +1411,8 @@ function speakWithSystemVoice(message) {
 }
 
 function getMascotAudioSrc(voiceKey) {
+  if (lastDialogueAudioSrc) return lastDialogueAudioSrc;
+
   const character = getActiveCharacter();
   const baseVoiceKey = voiceKey && voiceKey.startsWith("day-") ? "hello" : voiceKey;
   const sinAudioMap = {
