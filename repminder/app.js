@@ -340,6 +340,7 @@ let selectedVoice = null;
 let voiceUnlocked = false;
 let mascotAudio = null;
 let deferredInstallPrompt = null;
+let dialoguePack = null;
 
 state.activeDateKey = state.activeDateKey || getDateKey();
 applyAffectionVersion();
@@ -353,6 +354,7 @@ applyCharacterTheme(false);
 renderGifts();
 renderDayTabs();
 render();
+loadDialoguePack();
 initLiveWallpaper();
 initMascotVoice();
 scheduleReminder();
@@ -371,7 +373,7 @@ notifyButton.addEventListener("click", async () => {
 
 voiceButton.addEventListener("click", () => {
   voiceUnlocked = true;
-  speakMascot(getMascotMessage("hello"), "hello");
+  speakMascot(getMascotMessage("tap"), "tap");
 });
 
 saveTimeButton.addEventListener("click", () => {
@@ -552,7 +554,9 @@ function giveGift(giftId) {
   render();
   renderGifts();
   const levelText = result.levelsGained > 0 ? ` Lv.${getCharacterAffection(character.id)}に上がったよ。` : "";
-  const message = `${gift.name}を${character.name}にプレゼントしたよ。${effect.label}で+${effect.totalXp} EXP。${levelText}`;
+  const levelDialogue = result.levelsGained > 0 ? pickDialogue("support", { eventKey: "level_up" }) : null;
+  const message =
+    levelDialogue?.text || `${gift.name}を${character.name}にプレゼントしたよ。${effect.label}で+${effect.totalXp} EXP。${levelText}`;
   setMascotLine(message);
   updateStatus("プレゼントしました");
 }
@@ -1001,15 +1005,21 @@ function isDateFullyComplete(dateKey) {
 }
 
 function getBondStage(affection) {
+  const dialogue = pickDialogue("login", { eventKey: "" });
+  if (dialogue?.stage) return dialogue.stage;
   return getStageValue(getActiveCharacter().stages, affection);
 }
 
 function getBondNote(affection) {
+  const dialogue = pickDialogue("login", { eventKey: "" });
+  if (dialogue?.relationship) return dialogue.relationship;
   return getStageValue(getActiveCharacter().notes, affection);
 }
 
 function getMascotExpression(affection) {
-  const face = getStageValue(getActiveCharacter().expressions, affection);
+  const dialogue = pickDialogue("login", { eventKey: "" });
+  const packExpression = dialogue?.expression || "";
+  const face = packExpression.length <= 7 ? packExpression : getStageValue(getActiveCharacter().expressions, affection);
   const className = affection >= 75 ? "is-love" : affection >= 55 ? "is-happy" : "is-shy";
   return { face, className };
 }
@@ -1147,7 +1157,97 @@ function initMascotVoice() {
   }
 }
 
+function loadDialoguePack() {
+  fetch("./assets/dialogue-pack.json")
+    .then((response) => (response.ok ? response.json() : null))
+    .then((pack) => {
+      if (!pack || !pack.characters) return;
+      dialoguePack = pack;
+      renderBond();
+      setMascotLine(getMascotMessage("login"));
+    })
+    .catch(() => {});
+}
+
+function pickDialogue(context = "login", options = {}) {
+  if (!dialoguePack) return null;
+
+  const characterName = getDialogueCharacterName(getActiveCharacter().id);
+  const characterNode = dialoguePack.characters[characterName];
+  if (!characterNode) return null;
+
+  const score = clampDialogueScore(getActiveAffection());
+  const affinityNode = characterNode.affinity_lines[String(score)] || characterNode.affinity_lines["1"];
+  if (!affinityNode) return null;
+
+  const eventKey = options.eventKey || getCurrentEventKey();
+  const seasonKey = options.seasonKey || getCurrentSeasonKey();
+  let candidates = null;
+
+  if (eventKey && characterNode.special_lines?.[eventKey]?.[affinityNode.stage_key]) {
+    candidates = characterNode.special_lines[eventKey][affinityNode.stage_key].lines;
+  } else if (seasonKey && characterNode.special_lines?.[seasonKey]?.[affinityNode.stage_key]) {
+    candidates = characterNode.special_lines[seasonKey][affinityNode.stage_key].lines;
+  } else {
+    candidates = affinityNode.lines_by_context?.[context] || affinityNode.lines_by_context?.login;
+  }
+
+  if (!candidates || candidates.length === 0) return null;
+  const text = candidates[Math.floor(Math.random() * candidates.length)];
+
+  return {
+    character: characterName,
+    score,
+    stage: affinityNode.stage_name,
+    stageKey: affinityNode.stage_key,
+    expression: affinityNode.expression,
+    relationship: affinityNode.relationship,
+    text
+  };
+}
+
+function getDialogueCharacterName(characterId) {
+  if (characterId === "mermaid") return "マーメイド";
+  if (characterId === "lilian") return "リリアン";
+  return "SIN";
+}
+
+function clampDialogueScore(value) {
+  return Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
+}
+
+function getDialogueContext(type) {
+  if (type === "tap") return "tap";
+  if (type === "done" || type === "complete" || type === "reminder" || type === "day") return "support";
+  if (type === "idle") return "idle";
+  return "login";
+}
+
+function getCurrentSeasonKey(date = new Date()) {
+  const month = date.getMonth() + 1;
+  if (month >= 3 && month <= 5) return "spring";
+  if (month >= 6 && month <= 8) return "summer";
+  if (month >= 9 && month <= 11) return "autumn";
+  return "winter";
+}
+
+function getCurrentEventKey(date = new Date()) {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  if (month === 1 && day <= 3) return "new_year";
+  if (month === 2 && day === 14) return "valentine";
+  if (month === 3 && day === 14) return "white_day";
+  if (month === 10 && day === 31) return "halloween";
+  if (month === 12 && day === 25) return "christmas";
+  return "";
+}
+
 function getMascotMessage(type) {
+  const dialogue = pickDialogue(getDialogueContext(type), {
+    eventKey: type === "level_up" ? "level_up" : ""
+  });
+  if (dialogue) return dialogue.text;
+
   const day = getActiveDay();
   const dateKey = getSelectedDateKey();
   const currentItems = getCurrentItems(day);
@@ -1273,6 +1373,7 @@ function getMascotAudioSrc(voiceKey) {
   const baseVoiceKey = voiceKey && voiceKey.startsWith("day-") ? "hello" : voiceKey;
   const sinAudioMap = {
     hello: "./assets/voice-hello.m4a",
+    tap: "./assets/voice-tap.m4a",
     done: "./assets/voice-done.m4a",
     complete: "./assets/voice-complete.m4a",
     reminder: "./assets/voice-reminder.m4a",
@@ -1291,6 +1392,7 @@ function getMascotAudioSrc(voiceKey) {
 
   const characterAudioMap = {
     hello: `./assets/voice-${character.audioPrefix}-hello.m4a`,
+    tap: `./assets/voice-${character.audioPrefix}-tap.m4a`,
     done: `./assets/voice-${character.audioPrefix}-done.m4a`,
     complete: `./assets/voice-${character.audioPrefix}-complete.m4a`,
     reminder: `./assets/voice-${character.audioPrefix}-reminder.m4a`
