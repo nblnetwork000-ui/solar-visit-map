@@ -333,13 +333,9 @@ const giftNote = document.querySelector("#gift-note");
 const brandMark = document.querySelector(".brand-mark");
 const emotionChip = document.querySelector("#emotion-chip");
 const resetAffectionButton = document.querySelector("#reset-affection");
-const installPanel = document.querySelector("#install-panel");
-const installButton = document.querySelector("#install-button");
-const installCopy = document.querySelector("#install-copy");
 let selectedVoice = null;
 let voiceUnlocked = false;
 let mascotAudio = null;
-let deferredInstallPrompt = null;
 let dialoguePack = null;
 
 state.activeDateKey = state.activeDateKey || getDateKey();
@@ -359,7 +355,6 @@ initLiveWallpaper();
 initMascotVoice();
 scheduleReminder();
 registerServiceWorker();
-initInstallPrompt();
 
 notifyButton.addEventListener("click", async () => {
   if (!("Notification" in window)) {
@@ -420,21 +415,6 @@ resetAffectionButton.addEventListener("click", () => {
   const message = `${character.name}の好感度をLv.1に戻したよ。ここからまた少しずつ取り返そ。`;
   setMascotLine(message);
   updateStatus("好感度をリセットしました");
-});
-
-installButton.addEventListener("click", async () => {
-  if (!deferredInstallPrompt) {
-    updateStatus("共有からホーム画面に追加できます");
-    setMascotLine("iPhoneなら共有ボタンから、ホーム画面に追加してね。");
-    return;
-  }
-
-  deferredInstallPrompt.prompt();
-  const result = await deferredInstallPrompt.userChoice;
-  deferredInstallPrompt = null;
-  installButton.disabled = true;
-  installButton.textContent = result.outcome === "accepted" ? "追加済み" : "あとで";
-  updateStatus(result.outcome === "accepted" ? "アプリを追加しました" : "追加をキャンセルしました");
 });
 
 function renderCharacterTabs() {
@@ -1478,40 +1458,4 @@ function registerServiceWorker() {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./sw.js");
   }
-}
-
-function initInstallPrompt() {
-  const isStandalone =
-    window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone === true;
-  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
-
-  if (isStandalone) {
-    installPanel.hidden = true;
-    return;
-  }
-
-  if (isIos) {
-    installCopy.textContent = "共有ボタンから「ホーム画面に追加」でアプリ化できます。";
-    installButton.textContent = "手順";
-    return;
-  }
-
-  installCopy.textContent = "対応ブラウザなら、このボタンからスマホに追加できます。";
-  installButton.disabled = true;
-  installButton.textContent = "準備中";
-
-  window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-    deferredInstallPrompt = event;
-    installButton.disabled = false;
-    installButton.textContent = "追加";
-  });
-
-  window.addEventListener("appinstalled", () => {
-    deferredInstallPrompt = null;
-    installButton.disabled = true;
-    installButton.textContent = "追加済み";
-    installCopy.textContent = "ホーム画面からRepMinderを開けます。";
-  });
 }

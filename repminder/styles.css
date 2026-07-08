@@ -100,7 +100,6 @@ button:focus-visible {
 .bond-panel,
 .gift-panel,
 .mascot-panel,
-.install-panel,
 .calendar-panel,
 .reminder-panel,
 .day-panel,
@@ -253,49 +252,6 @@ h1 {
   padding: 14px;
   background: rgba(20, 15, 36, 0.16);
   backdrop-filter: blur(6px);
-}
-
-.install-panel {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 14px;
-  padding: 14px;
-  background: rgba(20, 15, 36, 0.16);
-  backdrop-filter: blur(6px);
-}
-
-.install-panel[hidden] {
-  display: none;
-}
-
-.install-copy {
-  flex: 1;
-  min-width: 0;
-}
-
-.install-copy p {
-  color: #fff8ff;
-  font-size: 14px;
-  line-height: 1.55;
-}
-
-.install-button {
-  min-width: 70px;
-  min-height: 46px;
-  border: 1px solid rgba(255, 248, 255, 0.36);
-  border-radius: 999px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.32), transparent 36%),
-    linear-gradient(135deg, var(--accent-2), var(--accent-3));
-  color: #190f2b;
-  font-weight: 900;
-  box-shadow: var(--button-shadow), 0 0 22px rgba(141, 244, 255, 0.16);
-}
-
-.install-button:disabled {
-  cursor: default;
-  opacity: 0.58;
 }
 
 .bond-panel,
