@@ -1170,7 +1170,7 @@ function pickDialogue(context = "login", options = {}) {
   }
 
   if (!candidates || candidates.length === 0) return null;
-  const index = 0;
+  const index = Math.floor(Math.random() * candidates.length);
   const text = candidates[index];
   const audioSrc =
     eventKey && characterNode.special_lines?.[eventKey]?.[affinityNode.stage_key]
