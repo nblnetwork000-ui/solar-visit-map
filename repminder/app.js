@@ -154,17 +154,87 @@ const trainingDays = [
   }
 ];
 
+const characters = [
+  {
+    id: "sin",
+    name: "SIN",
+    mood: "静かに見守る",
+    profile: "継続すると少しずつ距離が近づくタイプ。",
+    voiceLabel: "SIN voice",
+    poster: "./assets/SINEDITOR_1080-1920.png",
+    video: "./assets/sineditor-live-wallpaper.mp4",
+    audioPrefix: "",
+    speech: { pitch: 1.32, rate: 0.92 },
+    stages: ["拒絶", "まだ嫌い", "警戒解除中", "仲良し", "信頼", "最高の相棒"],
+    notes: [
+      "マジで嫌われています。まずは1種目だけでも見返してください。",
+      "かなり塩対応です。完了記録で少しずつ信用を取り戻してください。",
+      "まだ警戒されています。継続すると少しずつ態度がやわらぎます。",
+      "少しずつ距離が近づいています。いい流れです。",
+      "信頼度が高めです。今日の一歩もちゃんと見ています。",
+      "かなり懐いています。継続がしっかり伝わっています。"
+    ],
+    expressions: ["x_x", "-_-", "._.", "^_^", "^-^", "☆▽☆"]
+  },
+  {
+    id: "mermaid",
+    name: "マーメイド",
+    mood: "おっとり",
+    profile: "おとなしい性格。しんみりした距離感から、少しずつ嬉しそうになっていく。",
+    voiceLabel: "mermaid voice",
+    poster: "./assets/mermaid-1080-1920.jpg",
+    video: "./assets/mermaid-live-wallpaper.mp4",
+    audioPrefix: "mermaid",
+    speech: { pitch: 1.22, rate: 0.82 },
+    stages: ["しんみり", "まだ遠い", "少し安心", "嬉しい", "信頼", "大胆"],
+    notes: [
+      "しんみりした表情です。まだ距離があります。",
+      "少しだけこちらを見ています。焦らず積み上げてください。",
+      "声が少しやわらぎました。継続が伝わり始めています。",
+      "嬉しそうに見守っています。今日もちゃんと届いています。",
+      "かなり心を開いています。静かに近くで応援しています。",
+      "最後は大胆です。あなたの継続を、かなり特別に思っています。"
+    ],
+    expressions: ["..", "._.", "u_u", "^_^", "^-^", "//▽//"]
+  },
+  {
+    id: "lilian",
+    name: "リリアン",
+    mood: "ハキハキ",
+    profile: "元気で距離感はあるタイプ。最初は別々に、最後は一緒にトレーニングしてくれる。",
+    voiceLabel: "lilian voice",
+    poster: "./assets/lilian-1080-1920.png",
+    video: "./assets/lilian-live-wallpaper.mp4",
+    audioPrefix: "lilian",
+    speech: { pitch: 1.38, rate: 1.05 },
+    stages: ["別メニュー", "距離あり", "横で応援", "一緒に準備", "一緒に練習", "大胆ペア"],
+    notes: [
+      "元気だけど、まだ別々にトレーニングする距離感です。",
+      "ハキハキ応援してくれますが、まだ少し線を引いています。",
+      "隣で声をかけるくらいには近づいてきました。",
+      "一緒に準備運動してくれる距離です。かなり良い流れです。",
+      "もう一緒にトレーニングする関係です。継続が効いています。",
+      "最後は大胆です。近い距離で全力応援してくれます。"
+    ],
+    expressions: ["| |", ">_>", "^o^", "\\o/", "o(^-^)o", "!!▽!!"]
+  }
+];
+
 const defaultState = {
   reminderTime: "20:00",
   activeDayId: "day-1",
+  activeCharacterId: "sin",
   activeDateKey: getDateKey(),
   doneByDate: {},
   affection: 0,
+  affectionByCharacter: {},
   affectionVersion: 3,
   affectionAwards: {},
+  affectionAwardsByCharacter: {},
   fullCompletionAwards: {},
   lastCompletionDate: "",
   lastVisitDate: "",
+  lastVisitByCharacter: {},
   streak: 0
 };
 
@@ -187,6 +257,11 @@ const workoutTitle = document.querySelector("#workout-title");
 const workoutBadge = document.querySelector("#workout-badge");
 const mascotLine = document.querySelector("#mascot-line");
 const voiceButton = document.querySelector("#voice-button");
+const voiceKicker = document.querySelector("#voice-kicker");
+const characterTabs = document.querySelector("#character-tabs");
+const characterName = document.querySelector("#character-name");
+const characterMood = document.querySelector("#character-mood");
+const characterProfile = document.querySelector("#character-profile");
 const calendarDate = document.querySelector("#calendar-date");
 const prevDateButton = document.querySelector("#prev-date");
 const nextDateButton = document.querySelector("#next-date");
@@ -208,9 +283,12 @@ let deferredInstallPrompt = null;
 
 state.activeDateKey = state.activeDateKey || getDateKey();
 applyAffectionVersion();
+ensureCharacterAffectionState();
 applyAffectionDrift();
 reminderTime.value = state.reminderTime;
 calendarDate.value = state.activeDateKey;
+renderCharacterTabs();
+applyCharacterTheme(false);
 renderDayTabs();
 render();
 initLiveWallpaper();
@@ -265,14 +343,16 @@ todayButton.addEventListener("click", () => {
 });
 
 resetAffectionButton.addEventListener("click", () => {
-  if (!window.confirm("好感度を0にリセットしますか？トレーニング記録は残ります。")) return;
-  state.affection = 0;
+  const character = getActiveCharacter();
+  if (!window.confirm(`${character.name}の好感度を0にリセットしますか？トレーニング記録は残ります。`)) return;
+  setActiveAffection(0);
   state.affectionVersion = 3;
-  state.affectionAwards = {};
-  state.lastVisitDate = getDateKey();
+  state.affectionAwardsByCharacter[character.id] = {};
+  state.lastVisitByCharacter[character.id] = getDateKey();
   saveState();
+  renderCharacterTabs();
   renderBond();
-  const message = "好感度をゼロに戻したよ。今はめちゃくちゃ警戒されてるけど、ここから取り返そ。";
+  const message = `${character.name}の好感度をゼロに戻したよ。ここからまた少しずつ取り返そ。`;
   setMascotLine(message);
   updateStatus("好感度をリセットしました");
 });
@@ -291,6 +371,74 @@ installButton.addEventListener("click", async () => {
   installButton.textContent = result.outcome === "accepted" ? "追加済み" : "あとで";
   updateStatus(result.outcome === "accepted" ? "アプリを追加しました" : "追加をキャンセルしました");
 });
+
+function renderCharacterTabs() {
+  characterTabs.replaceChildren();
+
+  characters.forEach((character) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "character-tab";
+    button.innerHTML = `<span>${character.name}</span><small>${getCharacterAffection(character.id)}</small>`;
+    button.setAttribute("aria-label", character.name);
+    button.setAttribute("aria-pressed", String(character.id === state.activeCharacterId));
+    button.addEventListener("click", () => {
+      state.activeCharacterId = character.id;
+      saveState();
+      renderCharacterTabs();
+      applyCharacterTheme(true);
+      renderBond();
+    });
+    characterTabs.append(button);
+  });
+}
+
+function applyCharacterTheme(announce = true) {
+  const character = getActiveCharacter();
+  characterName.textContent = character.name;
+  characterMood.textContent = character.mood;
+  characterProfile.textContent = character.profile;
+  voiceKicker.textContent = character.voiceLabel;
+
+  if (character.poster) {
+    document.documentElement.style.setProperty("--fallback-bg", `url("${character.poster}")`);
+  }
+
+  setVideoAsset(document.querySelector(".live-wallpaper"), character);
+  setVideoAsset(document.querySelector(".brand-mark video"), character);
+  playLiveWallpapers();
+
+  if (announce) {
+    const message = getMascotMessage("default");
+    setMascotLine(message);
+    updateStatus(`${character.name}に切り替えました`);
+    if (voiceUnlocked) speakMascot(message, "hello");
+  }
+}
+
+function setVideoAsset(video, character) {
+  if (!video) return;
+  const source = video.querySelector("source") || document.createElement("source");
+  if (!source.parentNode) {
+    source.type = "video/mp4";
+    video.append(source);
+  }
+
+  if (source.getAttribute("src") !== character.video) {
+    source.setAttribute("src", character.video);
+    video.load();
+  }
+
+  if (character.poster) {
+    video.setAttribute("poster", character.poster);
+  } else {
+    video.removeAttribute("poster");
+  }
+}
+
+function getActiveCharacter() {
+  return characters.find((character) => character.id === state.activeCharacterId) || characters[0];
+}
 
 function renderDayTabs() {
   dayTabs.replaceChildren();
@@ -336,6 +484,7 @@ function render() {
   pendingCount.textContent = pendingTotal;
   streakCount.textContent = state.streak;
   calendarDate.value = dateKey;
+  renderCharacterTabs();
   renderBond();
 }
 
@@ -448,10 +597,10 @@ function resetSelectedDateProgress() {
 }
 
 function renderBond() {
-  const affection = clampAffection(state.affection);
+  const affection = clampAffection(getActiveAffection());
   const stage = getBondStage(affection);
   const expression = getMascotExpression(affection);
-  state.affection = affection;
+  setActiveAffection(affection);
 
   bondTitle.textContent = `好感度 ${affection}`;
   bondStage.textContent = stage;
@@ -463,20 +612,21 @@ function renderBond() {
 }
 
 function adjustAffection(dateKey, awardKey, amount) {
-  state.affectionAwards = state.affectionAwards || {};
+  const character = getActiveCharacter();
+  const awards = getCharacterAwards(character.id);
   const key = `${dateKey}:${awardKey}`;
 
   if (amount > 0) {
-    if (state.affectionAwards[key]) return;
-    state.affectionAwards[key] = true;
-    state.affection = clampAffection((state.affection ?? 0) + amount);
+    if (awards[key]) return;
+    awards[key] = true;
+    setCharacterAffection(character.id, getCharacterAffection(character.id) + amount);
     return;
   }
 
   if (amount < 0) {
-    if (!state.affectionAwards[key]) return;
-    delete state.affectionAwards[key];
-    state.affection = clampAffection((state.affection ?? 0) + amount);
+    if (!awards[key]) return;
+    delete awards[key];
+    setCharacterAffection(character.id, getCharacterAffection(character.id) + amount);
   }
 }
 
@@ -490,26 +640,80 @@ function applyAffectionVersion() {
   saveState();
 }
 
+function ensureCharacterAffectionState() {
+  state.activeCharacterId = getActiveCharacter().id;
+  state.affectionByCharacter = state.affectionByCharacter || {};
+  state.affectionAwardsByCharacter = state.affectionAwardsByCharacter || {};
+  state.lastVisitByCharacter = state.lastVisitByCharacter || {};
+
+  characters.forEach((character) => {
+    if (state.affectionByCharacter[character.id] === undefined) {
+      state.affectionByCharacter[character.id] = character.id === "sin" ? clampAffection(state.affection ?? 0) : 0;
+    }
+
+    if (!state.affectionAwardsByCharacter[character.id]) {
+      state.affectionAwardsByCharacter[character.id] =
+        character.id === "sin" && state.affectionAwards ? { ...state.affectionAwards } : {};
+    }
+
+    if (!state.lastVisitByCharacter[character.id]) {
+      state.lastVisitByCharacter[character.id] = state.lastVisitDate || getDateKey();
+    }
+  });
+
+  state.affection = getActiveAffection();
+}
+
+function getActiveAffection() {
+  return getCharacterAffection(getActiveCharacter().id);
+}
+
+function setActiveAffection(value) {
+  setCharacterAffection(getActiveCharacter().id, value);
+}
+
+function getCharacterAffection(characterId) {
+  state.affectionByCharacter = state.affectionByCharacter || {};
+  return clampAffection(state.affectionByCharacter[characterId] ?? 0);
+}
+
+function setCharacterAffection(characterId, value) {
+  state.affectionByCharacter = state.affectionByCharacter || {};
+  state.affectionByCharacter[characterId] = clampAffection(value);
+  if (characterId === getActiveCharacter().id) {
+    state.affection = state.affectionByCharacter[characterId];
+  }
+}
+
+function getCharacterAwards(characterId) {
+  state.affectionAwardsByCharacter = state.affectionAwardsByCharacter || {};
+  state.affectionAwardsByCharacter[characterId] = state.affectionAwardsByCharacter[characterId] || {};
+  return state.affectionAwardsByCharacter[characterId];
+}
+
 function applyAffectionDrift() {
-  state.affection = clampAffection(state.affection ?? 0);
-  state.affectionAwards = state.affectionAwards || {};
+  ensureCharacterAffectionState();
   state.fullCompletionAwards = state.fullCompletionAwards || {};
 
   const todayKey = getDateKey();
-  if (!state.lastVisitDate) {
-    state.lastVisitDate = todayKey;
-    saveState();
-    return;
-  }
+  characters.forEach((character) => {
+    const lastVisitDate = state.lastVisitByCharacter[character.id] || todayKey;
+    const awayDays = diffDateKeys(lastVisitDate, todayKey);
 
-  const awayDays = diffDateKeys(state.lastVisitDate, todayKey);
-  if (awayDays > 0) {
-    const noLoginPenalty = Math.max(awayDays - 1, 0) * 4;
-    const unfinishedPenalty = isDateFullyComplete(state.lastVisitDate) ? 0 : 3;
-    state.affection = clampAffection(state.affection - noLoginPenalty - unfinishedPenalty);
-    state.lastVisitDate = todayKey;
-    saveState();
-  }
+    if (awayDays > 0) {
+      const noLoginPenalty = Math.max(awayDays - 1, 0) * 4;
+      const unfinishedPenalty = isDateFullyComplete(lastVisitDate) ? 0 : 3;
+      setCharacterAffection(
+        character.id,
+        getCharacterAffection(character.id) - noLoginPenalty - unfinishedPenalty
+      );
+    }
+
+    state.lastVisitByCharacter[character.id] = todayKey;
+  });
+  state.lastVisitDate = todayKey;
+  state.affection = getActiveAffection();
+  saveState();
 }
 
 function isDateFullyComplete(dateKey) {
@@ -519,30 +723,26 @@ function isDateFullyComplete(dateKey) {
 }
 
 function getBondStage(affection) {
-  if (affection >= 90) return "最高の相棒";
-  if (affection >= 75) return "信頼";
-  if (affection >= 55) return "仲良し";
-  if (affection >= 30) return "警戒解除中";
-  if (affection >= 15) return "まだ嫌い";
-  return "拒絶";
+  return getStageValue(getActiveCharacter().stages, affection);
 }
 
 function getBondNote(affection) {
-  if (affection >= 90) return "かなり懐いています。継続がしっかり伝わっています。";
-  if (affection >= 75) return "信頼度が高めです。今日の一歩もちゃんと見ています。";
-  if (affection >= 55) return "少しずつ距離が近づいています。いい流れです。";
-  if (affection >= 30) return "まだ警戒されています。継続すると少しずつ態度がやわらぎます。";
-  if (affection >= 15) return "かなり塩対応です。完了記録で少しずつ信用を取り戻してください。";
-  return "マジで嫌われています。まずは1種目だけでも見返してください。";
+  return getStageValue(getActiveCharacter().notes, affection);
 }
 
 function getMascotExpression(affection) {
-  if (affection >= 90) return { face: "☆▽☆", className: "is-love" };
-  if (affection >= 75) return { face: "^-^", className: "is-love" };
-  if (affection >= 55) return { face: "^_^", className: "is-happy" };
-  if (affection >= 30) return { face: "._.", className: "is-shy" };
-  if (affection >= 15) return { face: "-_-", className: "is-shy" };
-  return { face: "x_x", className: "is-shy" };
+  const face = getStageValue(getActiveCharacter().expressions, affection);
+  const className = affection >= 75 ? "is-love" : affection >= 55 ? "is-happy" : "is-shy";
+  return { face, className };
+}
+
+function getStageValue(values, affection) {
+  if (affection >= 90) return values[5];
+  if (affection >= 75) return values[4];
+  if (affection >= 55) return values[3];
+  if (affection >= 30) return values[2];
+  if (affection >= 15) return values[1];
+  return values[0];
 }
 
 function clampAffection(value) {
@@ -574,7 +774,7 @@ function scheduleReminder() {
     const doneIds = new Set(state.doneByDate[getSelectedDateKey()] || []);
     const remaining = currentItems.filter((item) => !doneIds.has(item.id)).length;
     if (remaining > 0) {
-      const message = `${getActiveDay().label}の筋トレが${remaining}件残っています。`;
+      const message = getMascotMessage("reminder");
       sendReminder(message);
       if (voiceUnlocked) speakMascot(message, "reminder");
     }
@@ -626,18 +826,17 @@ function saveState() {
 }
 
 function initLiveWallpaper() {
-  const videos = document.querySelectorAll(".live-wallpaper, .brand-mark video");
-  const playVideos = () => {
-    videos.forEach((video) => {
-      video.play().catch(() => {});
-    });
-  };
-
-  playVideos();
+  playLiveWallpapers();
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) playVideos();
+    if (!document.hidden) playLiveWallpapers();
   });
-  document.addEventListener("pointerdown", playVideos, { once: true });
+  document.addEventListener("pointerdown", playLiveWallpapers, { once: true });
+}
+
+function playLiveWallpapers() {
+  document.querySelectorAll(".live-wallpaper, .brand-mark video").forEach((video) => {
+    video.play().catch(() => {});
+  });
 }
 
 function initMascotVoice() {
@@ -657,6 +856,55 @@ function getMascotMessage(type) {
   const currentItems = getCurrentItems(day);
   const doneIds = new Set(state.doneByDate[dateKey] || []);
   const remaining = currentItems.filter((item) => !doneIds.has(item.id)).length;
+  const character = getActiveCharacter();
+
+  if (character.id === "mermaid") {
+    if (type === "hello") {
+      return `……おかえりなさい。${day.label}、そっと一緒に進も。残り${remaining}個だよ。`;
+    }
+
+    if (type === "day") {
+      return `${day.label}は${day.title}だね。焦らなくていいから、ゆっくり進も。`;
+    }
+
+    if (type === "done") {
+      return `うん……できたね。あと${remaining}個。少しずつ、あなたのこと見直してるよ。`;
+    }
+
+    if (type === "complete") {
+      return "全部できたんだ……すごい。今日は、少しだけ近くにいてもいい？";
+    }
+
+    if (type === "reminder") {
+      return `まだ${remaining}個残ってるみたい。無理しないで、でも一緒に進も。`;
+    }
+
+    return `……おかえりなさい。今日も、そっと一緒にがんばろうね。`;
+  }
+
+  if (character.id === "lilian") {
+    if (type === "hello") {
+      return `おかえり！${day.label}、今日はちょっと距離置きつつだけど応援するよ。残り${remaining}個！`;
+    }
+
+    if (type === "day") {
+      return `${day.label}は${day.title}！まずは別々にスタート、調子が出たら一緒にいこ！`;
+    }
+
+    if (type === "done") {
+      return `よし、できた！あと${remaining}個。その一個、ちゃんと見てたからね！`;
+    }
+
+    if (type === "complete") {
+      return "全部クリア！すごいじゃん！ねえ、次はもっと近くで一緒にやろ！";
+    }
+
+    if (type === "reminder") {
+      return `まだ${remaining}個残ってるよ！焦らなくていいけど、ここから一緒に動こ！`;
+    }
+
+    return "おかえり！今日も元気にいこ。まだ距離はあるけど、応援は全力だから！";
+  }
 
   if (type === "hello") {
     return `おかえり。${day.label}、一緒にやろ。残り${remaining}個、無理なくいこ。`;
@@ -672,6 +920,10 @@ function getMascotMessage(type) {
 
   if (type === "complete") {
     return `全部完了。えらすぎ。今日はもう、胸張っていいよ。`;
+  }
+
+  if (type === "reminder") {
+    return `${day.label}の筋トレが${remaining}件残っています。`;
   }
 
   return `今日も一緒にやろ。まずは${day.label}から、ゆっくりで大丈夫。`;
@@ -708,9 +960,10 @@ function speakWithSystemVoice(message) {
   }
 
   const utterance = new SpeechSynthesisUtterance(message);
+  const speech = getActiveCharacter().speech || {};
   utterance.lang = "ja-JP";
-  utterance.pitch = 1.32;
-  utterance.rate = 0.92;
+  utterance.pitch = speech.pitch || 1.32;
+  utterance.rate = speech.rate || 0.92;
   utterance.volume = 0.95;
   utterance.voice = getCuteJapaneseVoice();
 
@@ -719,7 +972,9 @@ function speakWithSystemVoice(message) {
 }
 
 function getMascotAudioSrc(voiceKey) {
-  const audioMap = {
+  const character = getActiveCharacter();
+  const baseVoiceKey = voiceKey && voiceKey.startsWith("day-") ? "hello" : voiceKey;
+  const sinAudioMap = {
     hello: "./assets/voice-hello.m4a",
     done: "./assets/voice-done.m4a",
     complete: "./assets/voice-complete.m4a",
@@ -732,7 +987,18 @@ function getMascotAudioSrc(voiceKey) {
     "day-6": "./assets/voice-day-6.m4a",
     "day-7": "./assets/voice-day-7.m4a"
   };
-  return audioMap[voiceKey] || audioMap.hello;
+
+  if (!character.audioPrefix) {
+    return sinAudioMap[voiceKey] || sinAudioMap.hello;
+  }
+
+  const characterAudioMap = {
+    hello: `./assets/voice-${character.audioPrefix}-hello.m4a`,
+    done: `./assets/voice-${character.audioPrefix}-done.m4a`,
+    complete: `./assets/voice-${character.audioPrefix}-complete.m4a`,
+    reminder: `./assets/voice-${character.audioPrefix}-reminder.m4a`
+  };
+  return characterAudioMap[baseVoiceKey] || characterAudioMap.hello;
 }
 
 function getCuteJapaneseVoice() {

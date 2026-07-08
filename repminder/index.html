@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>RepMinder</title>
     <link rel="apple-touch-icon" href="./icons/icon-180.png">
-    <link rel="manifest" href="./manifest.webmanifest?v=25">
-    <link rel="stylesheet" href="./styles.css?v=25">
+    <link rel="manifest" href="./manifest.webmanifest?v=27">
+    <link rel="stylesheet" href="./styles.css?v=27">
   </head>
   <body>
     <video class="live-wallpaper" autoplay muted loop playsinline preload="auto" poster="./assets/SINEDITOR_1080-1920.png" aria-hidden="true">
@@ -46,6 +46,18 @@
         </div>
       </section>
 
+      <section class="character-panel" aria-label="キャラクター切替">
+        <div class="section-heading">
+          <div>
+            <span class="mascot-kicker">character</span>
+            <h2 id="character-name">SIN</h2>
+          </div>
+          <span class="character-mood" id="character-mood">静かに見守る</span>
+        </div>
+        <p id="character-profile">継続すると少しずつ距離が近づくタイプ。</p>
+        <div class="character-tabs" id="character-tabs"></div>
+      </section>
+
       <section class="bond-panel" aria-label="キャラクター成長">
         <div class="bond-header">
           <div>
@@ -69,7 +81,7 @@
 
       <section class="mascot-panel" aria-label="ボイス応援">
         <div class="mascot-copy">
-          <span class="mascot-kicker">SIN voice</span>
+          <span class="mascot-kicker" id="voice-kicker">SIN voice</span>
           <p id="mascot-line">今日も一緒にやろ。まずはDay1から、ゆっくりで大丈夫。</p>
         </div>
         <button class="voice-button" id="voice-button" type="button" aria-label="応援ボイスを再生">
@@ -178,6 +190,6 @@
       </article>
     </template>
 
-    <script src="./app.js?v=25" defer></script>
+    <script src="./app.js?v=27" defer></script>
   </body>
 </html>

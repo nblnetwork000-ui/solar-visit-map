@@ -1,4 +1,4 @@
-const cacheName = "repminder-v25";
+const cacheName = "repminder-v27";
 const assets = [
   "./",
   "./index.html",
@@ -7,10 +7,22 @@ const assets = [
   "./manifest.webmanifest",
   "./assets/SINEDITOR_1080-1920.png",
   "./assets/sineditor-live-wallpaper.mp4",
+  "./assets/mermaid-1080-1920.jpg",
+  "./assets/mermaid-live-wallpaper.mp4",
+  "./assets/lilian-1080-1920.png",
+  "./assets/lilian-live-wallpaper.mp4",
   "./assets/voice-hello.m4a",
   "./assets/voice-done.m4a",
   "./assets/voice-complete.m4a",
   "./assets/voice-reminder.m4a",
+  "./assets/voice-mermaid-hello.m4a",
+  "./assets/voice-mermaid-done.m4a",
+  "./assets/voice-mermaid-complete.m4a",
+  "./assets/voice-mermaid-reminder.m4a",
+  "./assets/voice-lilian-hello.m4a",
+  "./assets/voice-lilian-done.m4a",
+  "./assets/voice-lilian-complete.m4a",
+  "./assets/voice-lilian-reminder.m4a",
   "./assets/voice-day-1.m4a",
   "./assets/voice-day-2.m4a",
   "./assets/voice-day-3.m4a",
