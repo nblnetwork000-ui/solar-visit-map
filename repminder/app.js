@@ -331,7 +331,7 @@ const pointBalance = document.querySelector("#point-balance");
 const giftGrid = document.querySelector("#gift-grid");
 const giftNote = document.querySelector("#gift-note");
 const brandMark = document.querySelector(".brand-mark");
-const mascotFace = document.querySelector("#mascot-face");
+const emotionChip = document.querySelector("#emotion-chip");
 const resetAffectionButton = document.querySelector("#reset-affection");
 const installPanel = document.querySelector("#install-panel");
 const installButton = document.querySelector("#install-button");
@@ -731,7 +731,6 @@ function renderBond() {
   bondXp.textContent =
     affection >= 100 ? "EXP MAX" : `EXP ${progress.xp} / ${progress.required}（次のLvまで ${progress.remaining}）`;
   bondNote.textContent = getBondNote(affection);
-  mascotFace.textContent = expression.face;
   brandMark.classList.remove("is-shy", "is-happy", "is-love");
   brandMark.classList.add(expression.className);
 }
@@ -1017,11 +1016,8 @@ function getBondNote(affection) {
 }
 
 function getMascotExpression(affection) {
-  const dialogue = pickDialogue("login", { eventKey: "" });
-  const packExpression = dialogue?.expression || "";
-  const face = packExpression.length <= 7 ? packExpression : getStageValue(getActiveCharacter().expressions, affection);
   const className = affection >= 75 ? "is-love" : affection >= 55 ? "is-happy" : "is-shy";
-  return { face, className };
+  return { className };
 }
 
 function getStageValue(values, affection) {
@@ -1328,6 +1324,47 @@ function getMascotMessage(type) {
 
 function setMascotLine(message) {
   mascotLine.textContent = message;
+  setEmotionChip(detectEmotion(message));
+}
+
+function setEmotionChip(emotion) {
+  if (!emotionChip) return;
+  emotionChip.textContent = emotion;
+  emotionChip.dataset.emotion = emotion;
+}
+
+function detectEmotion(message) {
+  const text = String(message || "");
+
+  if (/大好き|愛|相棒|隣にいる|そばにいます|抱きしめ|独り占め|守りたく|味方|特別/.test(text)) {
+    return "愛情";
+  }
+
+  if (/照れ|恥ず|顔を見る|心の中|触れられる|近くにいて|近い距離/.test(text)) {
+    return "恥ずかしい";
+  }
+
+  if (/驚|えっ|おっ|まさか|急に|びっくり|意外/.test(text)) {
+    return "驚き";
+  }
+
+  if (/怒|騒がしい|雑|離れて|拒絶|許可しない|異議は認めません|警戒/.test(text)) {
+    return "怒り";
+  }
+
+  if (/悲|泣|寂|しんみり|遠い|怖|伏せ|乱れて|冷却中/.test(text)) {
+    return "悲しみ";
+  }
+
+  if (/楽しい|楽しく|わくわく|元気|燃えて|気合い|勝利|テンポ|スタート|いける/.test(text)) {
+    return "楽しみ";
+  }
+
+  if (/嬉|よかった|できた|いい感じ|すごい|褒め|クリア|完了|明るく|まぶしい|大丈夫/.test(text)) {
+    return "嬉しい";
+  }
+
+  return "楽しみ";
 }
 
 function speakMascot(message, voiceKey = "hello") {

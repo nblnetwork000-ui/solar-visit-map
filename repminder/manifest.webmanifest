@@ -3,7 +3,7 @@
   "short_name": "RepMinder",
   "description": "筋トレメニューをリマインドして記録するスマホ向けアプリ",
   "id": "./index.html",
-  "start_url": "./index.html?v=32",
+  "start_url": "./index.html?v=33",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
