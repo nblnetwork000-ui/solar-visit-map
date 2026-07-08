@@ -233,6 +233,7 @@ const gifts = [
   {
     id: "shell",
     name: "小さな貝殻",
+    description: "静かな子に刺さりやすい、きれいな記念品。",
     cost: 20,
     xp: 46,
     fit: { sin: 0.82, mermaid: 1.35, lilian: 0.9 }
@@ -240,6 +241,7 @@ const gifts = [
   {
     id: "jelly",
     name: "プロテインゼリー",
+    description: "トレーニング後に渡しやすい実用品。",
     cost: 35,
     xp: 86,
     fit: { sin: 1, mermaid: 0.95, lilian: 1.25 }
@@ -247,9 +249,26 @@ const gifts = [
   {
     id: "crystal",
     name: "光る結晶",
+    description: "無機質で特別感のある高価なプレゼント。",
     cost: 80,
     xp: 220,
     fit: { sin: 1.22, mermaid: 1.1, lilian: 1 }
+  },
+  {
+    id: "bouquet",
+    name: "静かな花束",
+    description: "落ち着いた距離感で気持ちを伝える贈り物。",
+    cost: 50,
+    xp: 125,
+    fit: { sin: 1.06, mermaid: 1.22, lilian: 0.86 }
+  },
+  {
+    id: "band",
+    name: "トレーニングバンド",
+    description: "一緒に動くきっかけになるスポーティな贈り物。",
+    cost: 60,
+    xp: 145,
+    fit: { sin: 0.95, mermaid: 0.8, lilian: 1.32 }
   }
 ];
 
@@ -492,7 +511,7 @@ function renderGifts() {
   giftGrid.replaceChildren();
 
   gifts.forEach((gift) => {
-    const xp = calculateGiftXp(gift, character);
+    const effect = calculateGiftEffect(gift, character);
     const button = document.createElement("button");
     button.type = "button";
     button.className = "gift-button";
@@ -500,7 +519,8 @@ function renderGifts() {
     button.innerHTML = `
       <span>
         <strong>${gift.name}</strong>
-        <small>+${xp} EXP / ${character.name}</small>
+        <small>${gift.description}</small>
+        <small>${effect.label} ${effect.bonusText} / +${effect.totalXp} EXP</small>
       </span>
       <span>${gift.cost}pt</span>
     `;
@@ -524,14 +544,14 @@ function giveGift(giftId) {
     return;
   }
 
-  const xp = calculateGiftXp(gift, character);
+  const effect = calculateGiftEffect(gift, character);
   state.loginPoints -= gift.cost;
-  const result = addAffectionXp(character.id, xp);
+  const result = addAffectionXp(character.id, effect.totalXp);
   saveState();
   render();
   renderGifts();
   const levelText = result.levelsGained > 0 ? ` Lv.${getCharacterAffection(character.id)}に上がったよ。` : "";
-  const message = `${gift.name}を${character.name}にプレゼントしたよ。+${xp} EXP。${levelText}`;
+  const message = `${gift.name}を${character.name}にプレゼントしたよ。${effect.label}で+${effect.totalXp} EXP。${levelText}`;
   setMascotLine(message);
   updateStatus("プレゼントしました");
 }
@@ -873,8 +893,26 @@ function calculateTrainingXp(amount, character) {
 }
 
 function calculateGiftXp(gift, character) {
+  return calculateGiftEffect(gift, character).totalXp;
+}
+
+function calculateGiftEffect(gift, character) {
   const fit = gift.fit[character.id] || 1;
-  return Math.max(1, Math.round(gift.xp * character.giftRate * fit));
+  const baseXp = Math.max(1, Math.round(gift.xp * character.giftRate));
+  const bonusXp = Math.round(baseXp * (fit - 1));
+  const totalXp = Math.max(1, baseXp + bonusXp);
+  const label = getGiftAffinityLabel(fit);
+  const bonusText = bonusXp > 0 ? `ボーナス +${bonusXp}` : bonusXp < 0 ? `相性減少 ${bonusXp}` : "ボーナスなし";
+
+  return { baseXp, bonusXp, totalXp, fit, label, bonusText };
+}
+
+function getGiftAffinityLabel(fit) {
+  if (fit >= 1.25) return "相性◎";
+  if (fit >= 1.08) return "相性○";
+  if (fit >= 0.96) return "相性ふつう";
+  if (fit >= 0.86) return "相性△";
+  return "相性×";
 }
 
 function requiredXpForLevel(level, characterId) {
