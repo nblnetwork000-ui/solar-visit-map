@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#140f24">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="RepMinder">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>RepMinder</title>
+    <link rel="apple-touch-icon" href="./icons/icon-180.png">
+    <link rel="manifest" href="./manifest.webmanifest?v=25">
+    <link rel="stylesheet" href="./styles.css?v=25">
+  </head>
+  <body>
+    <video class="live-wallpaper" autoplay muted loop playsinline preload="auto" poster="./assets/SINEDITOR_1080-1920.png" aria-hidden="true">
+      <source src="./assets/sineditor-live-wallpaper.mp4" type="video/mp4">
+    </video>
+    <main class="app-shell">
+      <section class="top-panel" aria-labelledby="app-title">
+        <div class="status-row">
+          <span class="brand-mark" aria-hidden="true">
+            <video autoplay muted loop playsinline preload="auto" poster="./assets/SINEDITOR_1080-1920.png">
+              <source src="./assets/sineditor-live-wallpaper.mp4" type="video/mp4">
+            </video>
+            <span id="mascot-face" class="mascot-face">x_x</span>
+          </span>
+          <span class="status-pill" id="status-pill">今日のメニュー</span>
+        </div>
+        <h1 id="app-title">RepMinder</h1>
+        <p class="lead">最新版メニューをDayごとに確認して、終わった種目から記録。</p>
+        <div class="today-meter" aria-label="今日の達成状況">
+          <div>
+            <strong id="done-count">0</strong>
+            <span>完了</span>
+          </div>
+          <div>
+            <strong id="pending-count">0</strong>
+            <span>残り</span>
+          </div>
+          <div>
+            <strong id="streak-count">0</strong>
+            <span>連続日</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="bond-panel" aria-label="キャラクター成長">
+        <div class="bond-header">
+          <div>
+            <span class="mascot-kicker">bond level</span>
+            <h2 id="bond-title">好感度 0</h2>
+          </div>
+          <span class="bond-stage" id="bond-stage">はじまり</span>
+        </div>
+        <div class="bond-bar" aria-hidden="true">
+          <span id="bond-fill"></span>
+        </div>
+        <p id="bond-note">最初はマジで嫌われています。継続で少しずつ信用を取り戻してください。</p>
+        <details class="settings-fold">
+          <summary>設定</summary>
+          <div class="settings-body">
+            <p>好感度だけを0に戻します。日付ごとのトレーニング記録は残ります。</p>
+            <button class="danger-button" id="reset-affection" type="button">好感度をリセット</button>
+          </div>
+        </details>
+      </section>
+
+      <section class="mascot-panel" aria-label="ボイス応援">
+        <div class="mascot-copy">
+          <span class="mascot-kicker">SIN voice</span>
+          <p id="mascot-line">今日も一緒にやろ。まずはDay1から、ゆっくりで大丈夫。</p>
+        </div>
+        <button class="voice-button" id="voice-button" type="button" aria-label="応援ボイスを再生">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4V5z"></path>
+            <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
+            <path d="M18.5 5.5a9 9 0 0 1 0 13"></path>
+          </svg>
+        </button>
+      </section>
+
+      <section class="install-panel" id="install-panel" aria-label="アプリ追加">
+        <div class="install-copy">
+          <span class="mascot-kicker">mobile app</span>
+          <p id="install-copy">ホーム画面に追加すると、スマホアプリみたいに開けます。</p>
+        </div>
+        <button class="install-button" id="install-button" type="button">追加</button>
+      </section>
+
+      <section class="calendar-panel" aria-label="カレンダー">
+        <div class="section-heading">
+          <h2>カレンダー</h2>
+          <button class="icon-button" id="today-button" type="button" aria-label="今日へ移動">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 2v4"></path>
+              <path d="M16 2v4"></path>
+              <path d="M3 10h18"></path>
+              <path d="M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2z"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="calendar-row">
+          <button class="date-step" id="prev-date" type="button" aria-label="前の日へ">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
+          </button>
+          <input id="calendar-date" type="date">
+          <button class="date-step" id="next-date" type="button" aria-label="次の日へ">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="reminder-panel" aria-label="リマインダー設定">
+        <div class="section-heading">
+          <h2>リマインド</h2>
+          <button class="icon-button" id="notify-button" type="button" aria-label="通知を有効化">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"></path>
+              <path d="M13.7 21a2 2 0 0 1-3.4 0"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="time-card">
+          <label for="reminder-time">通知する時刻</label>
+          <div class="time-row">
+            <input id="reminder-time" type="time" value="20:00">
+            <button id="save-time" type="button">保存</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="day-panel" aria-label="Day選択">
+        <div class="day-tabs" id="day-tabs"></div>
+      </section>
+
+      <section class="workout-panel" aria-labelledby="workout-title">
+        <div class="section-heading workout-heading">
+          <div>
+            <h2 id="workout-title">Day1：PUSH＋CORE</h2>
+            <p id="workout-badge">最新版メニュー</p>
+          </div>
+          <button class="icon-button" id="reset-button" type="button" aria-label="今日の完了をリセット">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 3-6.7"></path>
+              <path d="M3 3v6h6"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="workout-list" id="workout-list"></div>
+      </section>
+    </main>
+
+    <template id="section-template">
+      <section class="workout-section">
+        <h3></h3>
+        <div class="section-items"></div>
+      </section>
+    </template>
+
+    <template id="workout-template">
+      <article class="workout-item">
+        <button class="check-button" type="button" aria-label="完了にする">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+        </button>
+        <div class="workout-copy">
+          <h4 class="workout-name"></h4>
+          <p class="workout-detail"></p>
+          <p class="workout-note"></p>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js?v=25" defer></script>
+  </body>
+</html>
