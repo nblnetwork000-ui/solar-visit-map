@@ -164,6 +164,9 @@ const characters = [
     poster: "./assets/SINEDITOR_1080-1920.png",
     video: "./assets/sineditor-live-wallpaper.mp4",
     audioPrefix: "",
+    trainingRate: 0.96,
+    giftRate: 0.9,
+    levelCurve: 1.08,
     speech: { pitch: 1.32, rate: 0.92 },
     stages: ["拒絶", "まだ嫌い", "警戒解除中", "仲良し", "信頼", "最高の相棒"],
     notes: [
@@ -185,6 +188,9 @@ const characters = [
     poster: "./assets/mermaid-1080-1920.jpg",
     video: "./assets/mermaid-live-wallpaper.mp4",
     audioPrefix: "mermaid",
+    trainingRate: 0.9,
+    giftRate: 1.18,
+    levelCurve: 1,
     speech: { pitch: 1.22, rate: 0.82 },
     stages: ["しんみり", "まだ遠い", "少し安心", "嬉しい", "信頼", "大胆"],
     notes: [
@@ -206,6 +212,9 @@ const characters = [
     poster: "./assets/lilian-1080-1920.png",
     video: "./assets/lilian-live-wallpaper.mp4",
     audioPrefix: "lilian",
+    trainingRate: 1.12,
+    giftRate: 1,
+    levelCurve: 0.96,
     speech: { pitch: 1.38, rate: 1.05 },
     stages: ["別メニュー", "距離あり", "横で応援", "一緒に準備", "一緒に練習", "大胆ペア"],
     notes: [
@@ -220,21 +229,48 @@ const characters = [
   }
 ];
 
+const gifts = [
+  {
+    id: "shell",
+    name: "小さな貝殻",
+    cost: 20,
+    xp: 46,
+    fit: { sin: 0.82, mermaid: 1.35, lilian: 0.9 }
+  },
+  {
+    id: "jelly",
+    name: "プロテインゼリー",
+    cost: 35,
+    xp: 86,
+    fit: { sin: 1, mermaid: 0.95, lilian: 1.25 }
+  },
+  {
+    id: "crystal",
+    name: "光る結晶",
+    cost: 80,
+    xp: 220,
+    fit: { sin: 1.22, mermaid: 1.1, lilian: 1 }
+  }
+];
+
 const defaultState = {
   reminderTime: "20:00",
   activeDayId: "day-1",
   activeCharacterId: "sin",
   activeDateKey: getDateKey(),
   doneByDate: {},
-  affection: 0,
+  affection: 1,
   affectionByCharacter: {},
-  affectionVersion: 3,
+  affectionXpByCharacter: {},
+  affectionVersion: 4,
   affectionAwards: {},
   affectionAwardsByCharacter: {},
   fullCompletionAwards: {},
   lastCompletionDate: "",
   lastVisitDate: "",
   lastVisitByCharacter: {},
+  loginPoints: 0,
+  lastLoginPointDate: "",
   streak: 0
 };
 
@@ -269,7 +305,11 @@ const todayButton = document.querySelector("#today-button");
 const bondTitle = document.querySelector("#bond-title");
 const bondStage = document.querySelector("#bond-stage");
 const bondFill = document.querySelector("#bond-fill");
+const bondXp = document.querySelector("#bond-xp");
 const bondNote = document.querySelector("#bond-note");
+const pointBalance = document.querySelector("#point-balance");
+const giftGrid = document.querySelector("#gift-grid");
+const giftNote = document.querySelector("#gift-note");
 const brandMark = document.querySelector(".brand-mark");
 const mascotFace = document.querySelector("#mascot-face");
 const resetAffectionButton = document.querySelector("#reset-affection");
@@ -285,10 +325,12 @@ state.activeDateKey = state.activeDateKey || getDateKey();
 applyAffectionVersion();
 ensureCharacterAffectionState();
 applyAffectionDrift();
+grantDailyLoginPoints();
 reminderTime.value = state.reminderTime;
 calendarDate.value = state.activeDateKey;
 renderCharacterTabs();
 applyCharacterTheme(false);
+renderGifts();
 renderDayTabs();
 render();
 initLiveWallpaper();
@@ -344,15 +386,16 @@ todayButton.addEventListener("click", () => {
 
 resetAffectionButton.addEventListener("click", () => {
   const character = getActiveCharacter();
-  if (!window.confirm(`${character.name}の好感度を0にリセットしますか？トレーニング記録は残ります。`)) return;
-  setActiveAffection(0);
-  state.affectionVersion = 3;
+  if (!window.confirm(`${character.name}の好感度をLv.1にリセットしますか？トレーニング記録は残ります。`)) return;
+  setActiveAffection(1);
+  setCharacterXp(character.id, 0);
+  state.affectionVersion = 4;
   state.affectionAwardsByCharacter[character.id] = {};
   state.lastVisitByCharacter[character.id] = getDateKey();
   saveState();
   renderCharacterTabs();
   renderBond();
-  const message = `${character.name}の好感度をゼロに戻したよ。ここからまた少しずつ取り返そ。`;
+  const message = `${character.name}の好感度をLv.1に戻したよ。ここからまた少しずつ取り返そ。`;
   setMascotLine(message);
   updateStatus("好感度をリセットしました");
 });
@@ -379,7 +422,7 @@ function renderCharacterTabs() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "character-tab";
-    button.innerHTML = `<span>${character.name}</span><small>${getCharacterAffection(character.id)}</small>`;
+    button.innerHTML = `<span>${character.name}</span><small>Lv.${getCharacterAffection(character.id)}</small>`;
     button.setAttribute("aria-label", character.name);
     button.setAttribute("aria-pressed", String(character.id === state.activeCharacterId));
     button.addEventListener("click", () => {
@@ -414,6 +457,7 @@ function applyCharacterTheme(announce = true) {
     updateStatus(`${character.name}に切り替えました`);
     if (voiceUnlocked) speakMascot(message, "hello");
   }
+  renderGifts();
 }
 
 function setVideoAsset(video, character) {
@@ -438,6 +482,58 @@ function setVideoAsset(video, character) {
 
 function getActiveCharacter() {
   return characters.find((character) => character.id === state.activeCharacterId) || characters[0];
+}
+
+function renderGifts() {
+  const character = getActiveCharacter();
+  state.loginPoints = Math.max(0, Math.round(Number(state.loginPoints) || 0));
+  pointBalance.textContent = `${state.loginPoints} pt`;
+  giftNote.textContent = `${character.name}にプレゼントできます。毎日ログインで10ptもらえます。`;
+  giftGrid.replaceChildren();
+
+  gifts.forEach((gift) => {
+    const xp = calculateGiftXp(gift, character);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "gift-button";
+    button.disabled = state.loginPoints < gift.cost || getCharacterAffection(character.id) >= 100;
+    button.innerHTML = `
+      <span>
+        <strong>${gift.name}</strong>
+        <small>+${xp} EXP / ${character.name}</small>
+      </span>
+      <span>${gift.cost}pt</span>
+    `;
+    button.addEventListener("click", () => {
+      giveGift(gift.id);
+    });
+    giftGrid.append(button);
+  });
+}
+
+function giveGift(giftId) {
+  const gift = gifts.find((item) => item.id === giftId);
+  if (!gift || state.loginPoints < gift.cost) {
+    updateStatus("ポイントが足りません");
+    return;
+  }
+
+  const character = getActiveCharacter();
+  if (getCharacterAffection(character.id) >= 100) {
+    updateStatus("好感度は最大です");
+    return;
+  }
+
+  const xp = calculateGiftXp(gift, character);
+  state.loginPoints -= gift.cost;
+  const result = addAffectionXp(character.id, xp);
+  saveState();
+  render();
+  renderGifts();
+  const levelText = result.levelsGained > 0 ? ` Lv.${getCharacterAffection(character.id)}に上がったよ。` : "";
+  const message = `${gift.name}を${character.name}にプレゼントしたよ。+${xp} EXP。${levelText}`;
+  setMascotLine(message);
+  updateStatus("プレゼントしました");
 }
 
 function renderDayTabs() {
@@ -486,6 +582,7 @@ function render() {
   calendarDate.value = dateKey;
   renderCharacterTabs();
   renderBond();
+  renderGifts();
 }
 
 function appendSection(title, items, doneIds) {
@@ -598,13 +695,16 @@ function resetSelectedDateProgress() {
 
 function renderBond() {
   const affection = clampAffection(getActiveAffection());
+  const progress = getLevelProgress(getActiveCharacter().id);
   const stage = getBondStage(affection);
   const expression = getMascotExpression(affection);
   setActiveAffection(affection);
 
-  bondTitle.textContent = `好感度 ${affection}`;
+  bondTitle.textContent = `好感度 Lv.${affection}`;
   bondStage.textContent = stage;
-  bondFill.style.width = `${affection}%`;
+  bondFill.style.width = `${progress.percent}%`;
+  bondXp.textContent =
+    affection >= 100 ? "EXP MAX" : `EXP ${progress.xp} / ${progress.required}（次のLvまで ${progress.remaining}）`;
   bondNote.textContent = getBondNote(affection);
   mascotFace.textContent = expression.face;
   brandMark.classList.remove("is-shy", "is-happy", "is-love");
@@ -618,24 +718,38 @@ function adjustAffection(dateKey, awardKey, amount) {
 
   if (amount > 0) {
     if (awards[key]) return;
-    awards[key] = true;
-    setCharacterAffection(character.id, getCharacterAffection(character.id) + amount);
+    const xp = calculateTrainingXp(amount, character);
+    awards[key] = { xp };
+    addAffectionXp(character.id, xp);
     return;
   }
 
   if (amount < 0) {
     if (!awards[key]) return;
+    const xp = typeof awards[key] === "object" ? awards[key].xp : calculateTrainingXp(Math.abs(amount), character);
     delete awards[key];
-    setCharacterAffection(character.id, getCharacterAffection(character.id) + amount);
+    removeAffectionXp(character.id, xp);
   }
 }
 
 function applyAffectionVersion() {
-  if (state.affectionVersion === 3) return;
+  if (state.affectionVersion === defaultState.affectionVersion) return;
 
-  state.affection = 0;
-  state.affectionVersion = 3;
-  state.affectionAwards = {};
+  state.affection = clampAffection(state.affection);
+  if (state.affectionByCharacter) {
+    Object.keys(state.affectionByCharacter).forEach((characterId) => {
+      state.affectionByCharacter[characterId] = clampAffection(state.affectionByCharacter[characterId]);
+    });
+  }
+  if (state.affectionXpByCharacter) {
+    Object.keys(state.affectionXpByCharacter).forEach((characterId) => {
+      state.affectionXpByCharacter[characterId] = Math.max(
+        0,
+        Math.round(Number(state.affectionXpByCharacter[characterId]) || 0)
+      );
+    });
+  }
+  state.affectionVersion = defaultState.affectionVersion;
   state.lastVisitDate = getDateKey();
   saveState();
 }
@@ -643,12 +757,24 @@ function applyAffectionVersion() {
 function ensureCharacterAffectionState() {
   state.activeCharacterId = getActiveCharacter().id;
   state.affectionByCharacter = state.affectionByCharacter || {};
+  state.affectionXpByCharacter = state.affectionXpByCharacter || {};
   state.affectionAwardsByCharacter = state.affectionAwardsByCharacter || {};
   state.lastVisitByCharacter = state.lastVisitByCharacter || {};
 
   characters.forEach((character) => {
     if (state.affectionByCharacter[character.id] === undefined) {
-      state.affectionByCharacter[character.id] = character.id === "sin" ? clampAffection(state.affection ?? 0) : 0;
+      state.affectionByCharacter[character.id] = character.id === "sin" ? clampAffection(state.affection) : 1;
+    } else {
+      state.affectionByCharacter[character.id] = clampAffection(state.affectionByCharacter[character.id]);
+    }
+
+    if (state.affectionXpByCharacter[character.id] === undefined) {
+      state.affectionXpByCharacter[character.id] = 0;
+    } else {
+      state.affectionXpByCharacter[character.id] = Math.max(
+        0,
+        Math.round(Number(state.affectionXpByCharacter[character.id]) || 0)
+      );
     }
 
     if (!state.affectionAwardsByCharacter[character.id]) {
@@ -674,15 +800,29 @@ function setActiveAffection(value) {
 
 function getCharacterAffection(characterId) {
   state.affectionByCharacter = state.affectionByCharacter || {};
-  return clampAffection(state.affectionByCharacter[characterId] ?? 0);
+  return clampAffection(state.affectionByCharacter[characterId] ?? 1);
 }
 
 function setCharacterAffection(characterId, value) {
   state.affectionByCharacter = state.affectionByCharacter || {};
   state.affectionByCharacter[characterId] = clampAffection(value);
+  if (state.affectionByCharacter[characterId] >= 100) {
+    state.affectionXpByCharacter = state.affectionXpByCharacter || {};
+    state.affectionXpByCharacter[characterId] = 0;
+  }
   if (characterId === getActiveCharacter().id) {
     state.affection = state.affectionByCharacter[characterId];
   }
+}
+
+function getCharacterXp(characterId) {
+  state.affectionXpByCharacter = state.affectionXpByCharacter || {};
+  return Math.max(0, Math.round(Number(state.affectionXpByCharacter[characterId]) || 0));
+}
+
+function setCharacterXp(characterId, value) {
+  state.affectionXpByCharacter = state.affectionXpByCharacter || {};
+  state.affectionXpByCharacter[characterId] = Math.max(0, Math.round(Number(value) || 0));
 }
 
 function getCharacterAwards(characterId) {
@@ -716,6 +856,85 @@ function applyAffectionDrift() {
   saveState();
 }
 
+function grantDailyLoginPoints() {
+  const todayKey = getDateKey();
+  state.loginPoints = Math.max(0, Math.round(Number(state.loginPoints) || 0));
+
+  if (state.lastLoginPointDate === todayKey) return;
+
+  state.loginPoints += 10;
+  state.lastLoginPointDate = todayKey;
+  saveState();
+}
+
+function calculateTrainingXp(amount, character) {
+  const baseXp = amount >= 8 ? 180 : Math.abs(amount) * 36;
+  return Math.max(1, Math.round(baseXp * character.trainingRate));
+}
+
+function calculateGiftXp(gift, character) {
+  const fit = gift.fit[character.id] || 1;
+  return Math.max(1, Math.round(gift.xp * character.giftRate * fit));
+}
+
+function requiredXpForLevel(level, characterId) {
+  if (level >= 100) return 0;
+
+  const character = characters.find((item) => item.id === characterId) || characters[0];
+  const curve = character.levelCurve || 1;
+  return Math.round((26 + Math.pow(level, 1.72) * 2.6) * curve);
+}
+
+function getLevelProgress(characterId) {
+  const level = getCharacterAffection(characterId);
+  const required = requiredXpForLevel(level, characterId);
+  const xp = level >= 100 ? 0 : Math.min(getCharacterXp(characterId), required);
+  const percent = level >= 100 ? 100 : Math.round((xp / required) * 100);
+
+  return {
+    level,
+    xp,
+    required,
+    remaining: Math.max(required - xp, 0),
+    percent
+  };
+}
+
+function addAffectionXp(characterId, xpAmount) {
+  let level = getCharacterAffection(characterId);
+  let xp = getCharacterXp(characterId) + Math.max(0, Math.round(Number(xpAmount) || 0));
+  let levelsGained = 0;
+
+  while (level < 100) {
+    const required = requiredXpForLevel(level, characterId);
+    if (xp < required) break;
+    xp -= required;
+    level += 1;
+    levelsGained += 1;
+  }
+
+  if (level >= 100) xp = 0;
+  setCharacterAffection(characterId, level);
+  setCharacterXp(characterId, xp);
+  return { level, xp, levelsGained };
+}
+
+function removeAffectionXp(characterId, xpAmount) {
+  let level = getCharacterAffection(characterId);
+  let xp = getCharacterXp(characterId);
+  let remaining = Math.max(0, Math.round(Number(xpAmount) || 0));
+
+  while (remaining > xp && level > 1) {
+    remaining -= xp;
+    level -= 1;
+    xp = requiredXpForLevel(level, characterId);
+  }
+
+  xp = Math.max(0, xp - remaining);
+  setCharacterAffection(characterId, level);
+  setCharacterXp(characterId, xp);
+}
+
 function isDateFullyComplete(dateKey) {
   const doneIds = new Set(state.doneByDate[dateKey] || []);
   const items = getCurrentItems(getActiveDay());
@@ -746,7 +965,7 @@ function getStageValue(values, affection) {
 }
 
 function clampAffection(value) {
-  return Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
+  return Math.max(1, Math.min(100, Math.round(Number(value) || 1)));
 }
 
 function updateStreak(dateKey) {
@@ -809,10 +1028,29 @@ function loadState() {
     const nextState = { ...defaultState, ...savedState };
 
     if (savedState.affectionVersion !== defaultState.affectionVersion) {
-      nextState.affection = 0;
+      nextState.affection = Math.max(1, Math.round(Number(savedState.affection) || 1));
       nextState.affectionVersion = defaultState.affectionVersion;
-      nextState.affectionAwards = {};
       nextState.lastVisitDate = getDateKey();
+
+      if (savedState.affectionByCharacter) {
+        nextState.affectionByCharacter = { ...savedState.affectionByCharacter };
+        Object.keys(nextState.affectionByCharacter).forEach((characterId) => {
+          nextState.affectionByCharacter[characterId] = Math.max(
+            1,
+            Math.round(Number(nextState.affectionByCharacter[characterId]) || 1)
+          );
+        });
+      }
+
+      if (savedState.affectionXpByCharacter) {
+        nextState.affectionXpByCharacter = { ...savedState.affectionXpByCharacter };
+        Object.keys(nextState.affectionXpByCharacter).forEach((characterId) => {
+          nextState.affectionXpByCharacter[characterId] = Math.max(
+            0,
+            Math.round(Number(nextState.affectionXpByCharacter[characterId]) || 0)
+          );
+        });
+      }
     }
 
     return nextState;

@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>RepMinder</title>
     <link rel="apple-touch-icon" href="./icons/icon-180.png">
-    <link rel="manifest" href="./manifest.webmanifest?v=28">
-    <link rel="stylesheet" href="./styles.css?v=28">
+    <link rel="manifest" href="./manifest.webmanifest?v=29">
+    <link rel="stylesheet" href="./styles.css?v=29">
   </head>
   <body>
     <video class="live-wallpaper" autoplay muted loop playsinline preload="auto" poster="./assets/SINEDITOR_1080-1920.png" aria-hidden="true">
@@ -62,21 +62,34 @@
         <div class="bond-header">
           <div>
             <span class="mascot-kicker">bond level</span>
-            <h2 id="bond-title">好感度 0</h2>
+            <h2 id="bond-title">好感度 Lv.1</h2>
           </div>
           <span class="bond-stage" id="bond-stage">はじまり</span>
         </div>
         <div class="bond-bar" aria-hidden="true">
           <span id="bond-fill"></span>
         </div>
+        <p class="bond-xp" id="bond-xp">EXP 0 / 0</p>
         <p id="bond-note">最初はマジで嫌われています。継続で少しずつ信用を取り戻してください。</p>
         <details class="settings-fold">
           <summary>設定</summary>
           <div class="settings-body">
-            <p>好感度だけを0に戻します。日付ごとのトレーニング記録は残ります。</p>
+            <p>好感度だけをLv.1に戻します。日付ごとのトレーニング記録は残ります。</p>
             <button class="danger-button" id="reset-affection" type="button">好感度をリセット</button>
           </div>
         </details>
+      </section>
+
+      <section class="gift-panel" aria-label="プレゼント">
+        <div class="section-heading">
+          <div>
+            <span class="mascot-kicker">gift shop</span>
+            <h2>プレゼント</h2>
+          </div>
+          <span class="point-pill" id="point-balance">0 pt</span>
+        </div>
+        <p class="gift-note" id="gift-note">毎日ログインでポイントを受け取り、選択中のキャラへプレゼントできます。</p>
+        <div class="gift-grid" id="gift-grid"></div>
       </section>
 
       <section class="mascot-panel" aria-label="ボイス応援">
@@ -190,6 +203,6 @@
       </article>
     </template>
 
-    <script src="./app.js?v=28" defer></script>
+    <script src="./app.js?v=29" defer></script>
   </body>
 </html>
