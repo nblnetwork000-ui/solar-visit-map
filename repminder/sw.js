@@ -1,4 +1,4 @@
-const cacheName = "repminder-v33";
+const cacheName = "repminder-v34";
 const assets = [
   "./",
   "./index.html",

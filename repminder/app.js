@@ -164,7 +164,7 @@ const characters = [
     poster: "./assets/SINEDITOR_1080-1920.png",
     video: "./assets/sineditor-live-wallpaper.mp4",
     audioPrefix: "",
-    trainingRate: 0.96,
+    trainingRate: 1,
     giftRate: 0.9,
     levelCurve: 1.08,
     speech: { pitch: 1.32, rate: 0.92 },
@@ -188,7 +188,7 @@ const characters = [
     poster: "./assets/mermaid-1080-1920.jpg",
     video: "./assets/mermaid-live-wallpaper.mp4",
     audioPrefix: "mermaid",
-    trainingRate: 0.9,
+    trainingRate: 0.98,
     giftRate: 1.18,
     levelCurve: 1,
     speech: { pitch: 1.22, rate: 0.82 },
@@ -212,9 +212,9 @@ const characters = [
     poster: "./assets/lilian-1080-1920.png",
     video: "./assets/lilian-live-wallpaper.mp4",
     audioPrefix: "lilian",
-    trainingRate: 1.12,
+    trainingRate: 1.03,
     giftRate: 1,
-    levelCurve: 0.96,
+    levelCurve: 1.03,
     speech: { pitch: 1.38, rate: 1.05 },
     stages: ["別メニュー", "距離あり", "横で応援", "一緒に準備", "一緒に練習", "大胆ペア"],
     notes: [
@@ -912,7 +912,7 @@ function isDailyItemsComplete(dateKey) {
 }
 
 function calculateTrainingXp(amount, character) {
-  const baseXp = amount >= 8 ? 180 : Math.abs(amount) * 36;
+  const baseXp = amount >= 8 ? 1150 : Math.abs(amount) * 140;
   return Math.max(1, Math.round(baseXp * character.trainingRate));
 }
 
