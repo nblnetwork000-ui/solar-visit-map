@@ -846,8 +846,8 @@ function applyAffectionDrift() {
     const awayDays = diffDateKeys(lastVisitDate, todayKey);
 
     if (awayDays > 0) {
-      const noLoginPenalty = Math.max(awayDays - 1, 0) * 4;
-      const unfinishedPenalty = isDateFullyComplete(lastVisitDate) ? 0 : 3;
+      const noLoginPenalty = getAbsencePenalty(awayDays);
+      const unfinishedPenalty = awayDays >= 2 && !isDateFullyComplete(lastVisitDate) ? 1 : 0;
       setCharacterAffection(
         character.id,
         getCharacterAffection(character.id) - noLoginPenalty - unfinishedPenalty
@@ -859,6 +859,15 @@ function applyAffectionDrift() {
   state.lastVisitDate = todayKey;
   state.affection = getActiveAffection();
   saveState();
+}
+
+function getAbsencePenalty(awayDays) {
+  const missedDays = Math.max(awayDays - 1, 0);
+  if (missedDays <= 1) return 0;
+  if (missedDays <= 3) return 1;
+  if (missedDays <= 7) return 2;
+  if (missedDays <= 14) return 3;
+  return 5;
 }
 
 function settleDailyPointAwards() {
