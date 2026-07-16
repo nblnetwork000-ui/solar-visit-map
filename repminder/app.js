@@ -291,6 +291,7 @@ const defaultState = {
   loginPoints: 0,
   lastLoginPointDate: "",
   dailyPointAwards: {},
+  trainingPointAwards: {},
   streak: 0
 };
 
@@ -845,6 +846,11 @@ function applyAffectionDrift() {
     const lastVisitDate = state.lastVisitByCharacter[character.id] || todayKey;
     const awayDays = diffDateKeys(lastVisitDate, todayKey);
 
+    if (getCharacterAffection(character.id) >= 100) {
+      state.lastVisitByCharacter[character.id] = todayKey;
+      return;
+    }
+
     if (awayDays > 0) {
       const noLoginPenalty = getAbsencePenalty(awayDays);
       const unfinishedPenalty = awayDays >= 2 && !isDateFullyComplete(lastVisitDate) ? 1 : 0;
@@ -874,23 +880,32 @@ function settleDailyPointAwards() {
   const todayKey = getDateKey();
   state.loginPoints = Math.max(0, Math.round(Number(state.loginPoints) || 0));
   state.dailyPointAwards = state.dailyPointAwards || {};
-  let awardedCount = 0;
+  state.trainingPointAwards = state.trainingPointAwards || {};
+  let dailyAwardedCount = 0;
+  let trainingAwardedCount = 0;
 
   Object.keys(state.doneByDate || {}).forEach((dateKey) => {
-    if (dateKey >= todayKey || state.dailyPointAwards[dateKey]) return;
-    if (!isDailyItemsComplete(dateKey)) return;
+    if (dateKey >= todayKey) return;
 
-    state.dailyPointAwards[dateKey] = true;
-    state.loginPoints += 10;
-    awardedCount += 1;
+    if (!state.dailyPointAwards[dateKey] && isDailyItemsComplete(dateKey)) {
+      state.dailyPointAwards[dateKey] = true;
+      state.loginPoints += 10;
+      dailyAwardedCount += 1;
+    }
+
+    if (!state.trainingPointAwards[dateKey] && isAnyTrainingComplete(dateKey)) {
+      state.trainingPointAwards[dateKey] = true;
+      state.loginPoints += 10;
+      trainingAwardedCount += 1;
+    }
   });
 
-  if (awardedCount > 0) {
+  const totalAwardedPoints = (dailyAwardedCount + trainingAwardedCount) * 10;
+  if (totalAwardedPoints > 0) {
     saveState();
     window.setTimeout(() => {
-      const pointText = awardedCount * 10;
-      setMascotLine(`昨日までの毎日メニュー達成分で${pointText}pt確定したよ。プレゼントに使えるね。`);
-      updateStatus(`${pointText}pt 獲得しました`);
+      setMascotLine(`昨日までの達成分で${totalAwardedPoints}pt確定したよ。プレゼントに使えるね。`);
+      updateStatus(`${totalAwardedPoints}pt 獲得しました`);
       renderGifts();
     }, 600);
   }
@@ -899,6 +914,16 @@ function settleDailyPointAwards() {
 function isDailyItemsComplete(dateKey) {
   const doneIds = new Set(state.doneByDate[dateKey] || []);
   return dailyItems.every((item) => doneIds.has(item.id));
+}
+
+function isAnyTrainingComplete(dateKey) {
+  return trainingDays.some((day) => isTrainingItemsComplete(dateKey, day));
+}
+
+function isTrainingItemsComplete(dateKey, day) {
+  const doneIds = new Set(state.doneByDate[dateKey] || []);
+  const items = getSections(day).flatMap((section) => normalizeItems(section.items));
+  return items.length > 0 && items.every((item) => doneIds.has(item.id));
 }
 
 function calculateTrainingXp(amount, character) {
