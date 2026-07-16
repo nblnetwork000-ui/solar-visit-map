@@ -1150,7 +1150,7 @@ function hideStartupScreen() {
   window.setTimeout(() => {
     startupScreen.classList.add("is-hidden");
     startupScreen.setAttribute("aria-hidden", "true");
-  }, 850);
+  }, 5000);
 }
 
 function loadState() {
