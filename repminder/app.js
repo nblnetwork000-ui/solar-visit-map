@@ -359,13 +359,20 @@ scheduleReminder();
 registerServiceWorker();
 
 notifyButton.addEventListener("click", async () => {
-  if (!("Notification" in window)) {
+  const permission = await requestNotificationPermission();
+  if (permission === "unsupported") {
     updateStatus("このブラウザは通知に未対応です");
     return;
   }
 
-  const permission = await Notification.requestPermission();
   updateStatus(permission === "granted" ? "通知を有効にしました" : "通知が許可されていません");
+  if (permission === "granted") {
+    showAppNotification("RepMinder", {
+      body: "通知テストOK。設定した時刻にリマインドします。",
+      tag: "repminder-test"
+    });
+    scheduleReminder();
+  }
 });
 
 voiceButton.addEventListener("click", () => {
@@ -1061,6 +1068,8 @@ function updateStreak(dateKey) {
 function scheduleReminder() {
   window.clearTimeout(reminderTimer);
   const [hours, minutes] = state.reminderTime.split(":").map(Number);
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return;
+
   const target = new Date();
   target.setHours(hours, minutes, 0, 0);
 
@@ -1085,14 +1094,46 @@ function sendReminder(message) {
   setMascotLine(message);
 
   if ("Notification" in window && Notification.permission === "granted") {
-    new Notification("RepMinder", {
+    showAppNotification("RepMinder", {
       body: message,
-      icon: "./icons/icon-192.svg"
+      tag: "repminder-reminder",
+      renotify: true
+    }).then((shown) => {
+      if (!shown) updateStatus(message);
     });
     return;
   }
 
   updateStatus(message);
+}
+
+async function requestNotificationPermission() {
+  if (!("Notification" in window)) return "unsupported";
+  if (Notification.permission !== "default") return Notification.permission;
+  return Notification.requestPermission();
+}
+
+async function showAppNotification(title, options = {}) {
+  const notificationOptions = {
+    icon: "./icons/app-icon-v36-192.png",
+    badge: "./icons/app-icon-v36-180.png",
+    ...options
+  };
+
+  if ("serviceWorker" in navigator) {
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      await registration.showNotification(title, notificationOptions);
+      return true;
+    } catch {}
+  }
+
+  try {
+    new Notification(title, notificationOptions);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function updateStatus(message) {

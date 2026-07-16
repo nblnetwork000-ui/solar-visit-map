@@ -1,4 +1,4 @@
-const cacheName = "repminder-v39";
+const cacheName = "repminder-v40";
 const assets = [
   "./",
   "./index.html",
@@ -67,5 +67,16 @@ self.addEventListener("fetch", (event) => {
         return response;
       })
       .catch(() => caches.match(event.request))
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      const appClient = clientList.find((client) => client.url.includes("/repminder/"));
+      if (appClient) return appClient.focus();
+      return clients.openWindow("./");
+    })
   );
 });
