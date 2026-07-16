@@ -49,6 +49,90 @@ body::before {
   pointer-events: none;
 }
 
+.startup-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  min-height: 100dvh;
+  padding: max(24px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom));
+  background:
+    linear-gradient(180deg, rgba(20, 15, 36, 0.26), rgba(20, 15, 36, 0.52)),
+    var(--fallback-bg);
+  background-position: center top;
+  background-size: cover;
+  opacity: 1;
+  transition:
+    opacity 520ms ease,
+    visibility 520ms ease;
+}
+
+.startup-screen.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.startup-mark {
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  border: 1px solid rgba(255, 248, 255, 0.26);
+  border-radius: 28px;
+  background: rgba(255, 248, 255, 0.12);
+  box-shadow:
+    0 24px 68px rgba(8, 4, 24, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(14px);
+}
+
+.startup-mark img {
+  width: 84px;
+  height: 84px;
+  border-radius: 22px;
+  object-fit: cover;
+}
+
+.startup-title {
+  margin: 0;
+  color: #fff8ff;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-shadow: 0 8px 26px rgba(8, 4, 24, 0.55);
+}
+
+.startup-loader {
+  overflow: hidden;
+  width: 128px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 248, 255, 0.2);
+}
+
+.startup-loader span {
+  display: block;
+  width: 44%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  animation: startupLoad 980ms ease-in-out infinite;
+}
+
+@keyframes startupLoad {
+  0% {
+    transform: translateX(-110%);
+  }
+
+  100% {
+    transform: translateX(260%);
+  }
+}
+
 .live-wallpaper {
   position: fixed;
   inset: 0;

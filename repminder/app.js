@@ -332,6 +332,7 @@ const pointBalance = document.querySelector("#point-balance");
 const giftGrid = document.querySelector("#gift-grid");
 const giftNote = document.querySelector("#gift-note");
 const brandMark = document.querySelector(".brand-mark");
+const startupScreen = document.querySelector("#startup-screen");
 const emotionChip = document.querySelector("#emotion-chip");
 const resetAffectionButton = document.querySelector("#reset-affection");
 let selectedVoice = null;
@@ -357,6 +358,7 @@ initLiveWallpaper();
 initMascotVoice();
 scheduleReminder();
 registerServiceWorker();
+hideStartupScreen();
 
 notifyButton.addEventListener("click", async () => {
   const permission = await requestNotificationPermission();
@@ -1141,6 +1143,14 @@ function updateStatus(message) {
   window.setTimeout(() => {
     statusPill.textContent = "今日のメニュー";
   }, 3600);
+}
+
+function hideStartupScreen() {
+  if (!startupScreen) return;
+  window.setTimeout(() => {
+    startupScreen.classList.add("is-hidden");
+    startupScreen.setAttribute("aria-hidden", "true");
+  }, 850);
 }
 
 function loadState() {

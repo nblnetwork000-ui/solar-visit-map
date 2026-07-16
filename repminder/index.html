@@ -10,10 +10,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>RepMinder</title>
     <link rel="apple-touch-icon" href="./icons/app-icon-v36-180.png">
-    <link rel="manifest" href="./manifest.webmanifest?v=40">
-    <link rel="stylesheet" href="./styles.css?v=40">
+    <link rel="manifest" href="./manifest.webmanifest?v=41">
+    <link rel="stylesheet" href="./styles.css?v=41">
   </head>
   <body>
+    <div class="startup-screen" id="startup-screen" aria-label="起動画面">
+      <div class="startup-mark" aria-hidden="true">
+        <img src="./icons/app-icon-v36-180.png" alt="">
+      </div>
+      <p class="startup-title">RepMinder</p>
+      <div class="startup-loader" aria-hidden="true"><span></span></div>
+    </div>
     <video class="live-wallpaper" autoplay muted loop playsinline preload="auto" poster="./assets/SINEDITOR_1080-1920.png" aria-hidden="true">
       <source src="./assets/sineditor-live-wallpaper.mp4" type="video/mp4">
     </video>
@@ -197,6 +204,6 @@
 
     <p class="voice-credit">VOICEVOX:ナースロボ＿タイプＴ / 九州そら / 満別花丸</p>
 
-    <script src="./app.js?v=40" defer></script>
+    <script src="./app.js?v=41" defer></script>
   </body>
 </html>
