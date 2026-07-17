@@ -347,7 +347,6 @@ const workoutBadge = document.querySelector("#workout-badge");
 const mascotLine = document.querySelector("#mascot-line");
 const voiceButton = document.querySelector("#voice-button");
 const voiceKicker = document.querySelector("#voice-kicker");
-const characterPanel = document.querySelector(".character-panel");
 const characterTabs = document.querySelector("#character-tabs");
 const characterName = document.querySelector("#character-name");
 const characterMood = document.querySelector("#character-mood");
@@ -375,6 +374,8 @@ let dialoguePack = null;
 let lastDialogueAudioSrc = "";
 let characterSwipeStartX = 0;
 let characterSwipeStartY = 0;
+let characterLastTouchSwipeAt = 0;
+let characterMouseSwipeActive = false;
 
 state.activeDateKey = getDateKey();
 applyAffectionVersion();
@@ -417,16 +418,12 @@ voiceButton.addEventListener("click", () => {
   speakMascot(getMascotMessage("tap"), "tap");
 });
 
-saveTimeButton.addEventListener("click", async () => {
+saveTimeButton.addEventListener("click", () => {
   state.reminderTime = reminderTime.value || "20:00";
   saveState();
   scheduleReminder();
-  const permission = await requestNotificationPermission();
-  updateStatus(
-    permission === "granted"
-      ? `${state.reminderTime} に通知します`
-      : `${state.reminderTime} を保存しました。通知は未許可です`
-  );
+  const suffix = "Notification" in window && Notification.permission === "granted" ? "通知します" : "保存しました";
+  updateStatus(`${state.reminderTime} に${suffix}`);
 });
 
 resetButton.addEventListener("click", () => {
@@ -474,20 +471,44 @@ resetAffectionButton.addEventListener("click", () => {
   updateStatus("好感度をリセットしました");
 });
 
-if (characterPanel) {
-  characterPanel.addEventListener("touchstart", (event) => {
+if (window.PointerEvent) {
+  window.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    characterSwipeStartX = event.clientX;
+    characterSwipeStartY = event.clientY;
+  }, { passive: true });
+
+  window.addEventListener("pointerup", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    handleCharacterSwipe(event.clientX, event.clientY);
+  }, { passive: true });
+} else {
+  window.addEventListener("touchstart", (event) => {
+    if (event.touches.length !== 1) return;
     const touch = event.touches[0];
     characterSwipeStartX = touch.clientX;
     characterSwipeStartY = touch.clientY;
   }, { passive: true });
 
-  characterPanel.addEventListener("touchend", (event) => {
+  window.addEventListener("touchend", (event) => {
+    if (!event.changedTouches.length) return;
     const touch = event.changedTouches[0];
-    const dx = touch.clientX - characterSwipeStartX;
-    const dy = touch.clientY - characterSwipeStartY;
-    if (Math.abs(dx) < 54 || Math.abs(dx) < Math.abs(dy) * 1.35) return;
-    switchCharacterByOffset(dx < 0 ? 1 : -1);
+    characterLastTouchSwipeAt = Date.now();
+    handleCharacterSwipe(touch.clientX, touch.clientY);
   }, { passive: true });
+
+  window.addEventListener("mousedown", (event) => {
+    if (event.button !== 0 || Date.now() - characterLastTouchSwipeAt < 700) return;
+    characterMouseSwipeActive = true;
+    characterSwipeStartX = event.clientX;
+    characterSwipeStartY = event.clientY;
+  });
+
+  window.addEventListener("mouseup", (event) => {
+    if (!characterMouseSwipeActive || event.button !== 0) return;
+    characterMouseSwipeActive = false;
+    handleCharacterSwipe(event.clientX, event.clientY);
+  });
 }
 
 if (startupScreen) {
@@ -549,6 +570,13 @@ function switchCharacterByOffset(offset) {
   renderCharacterTabs();
   applyCharacterTheme(true);
   renderBond();
+}
+
+function handleCharacterSwipe(endX, endY) {
+  const dx = endX - characterSwipeStartX;
+  const dy = endY - characterSwipeStartY;
+  if (Math.abs(dx) < 64 || Math.abs(dx) < Math.abs(dy) * 1.45) return;
+  switchCharacterByOffset(dx < 0 ? 1 : -1);
 }
 
 function setVideoAsset(video, character) {
@@ -698,7 +726,9 @@ function render() {
 
 function appendSection(title, items, doneIds) {
   const section = sectionTemplate.content.firstElementChild.cloneNode(true);
-  section.querySelector("h3").textContent = title;
+  const sectionDoneCount = items.filter((item) => doneIds.has(item.id)).length;
+  section.querySelector(".section-title").textContent = title;
+  section.querySelector(".section-count").textContent = `${sectionDoneCount}/${items.length}`;
   const list = section.querySelector(".section-items");
 
   items.forEach((item) => {
