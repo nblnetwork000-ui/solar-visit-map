@@ -232,43 +232,75 @@ const characters = [
 const gifts = [
   {
     id: "shell",
+    icon: "shell",
     name: "小さな貝殻",
     description: "静かな子に刺さりやすい、きれいな記念品。",
     cost: 20,
     xp: 46,
-    fit: { sin: 0.82, mermaid: 1.35, lilian: 0.9 }
+    fit: { sin: 0.82, mermaid: 1.4, lilian: 0.88 }
   },
   {
     id: "jelly",
+    icon: "jelly",
     name: "プロテインゼリー",
     description: "トレーニング後に渡しやすい実用品。",
     cost: 35,
     xp: 86,
-    fit: { sin: 1, mermaid: 0.95, lilian: 1.25 }
+    fit: { sin: 0.96, mermaid: 0.92, lilian: 1.32 }
   },
   {
     id: "crystal",
+    icon: "crystal",
     name: "光る結晶",
     description: "無機質で特別感のある高価なプレゼント。",
     cost: 80,
     xp: 220,
-    fit: { sin: 1.22, mermaid: 1.1, lilian: 1 }
+    fit: { sin: 1.42, mermaid: 1.06, lilian: 0.96 }
   },
   {
     id: "bouquet",
+    icon: "bouquet",
     name: "静かな花束",
     description: "落ち着いた距離感で気持ちを伝える贈り物。",
     cost: 50,
     xp: 125,
-    fit: { sin: 1.06, mermaid: 1.22, lilian: 0.86 }
+    fit: { sin: 1.04, mermaid: 1.3, lilian: 0.84 }
   },
   {
     id: "band",
+    icon: "band",
     name: "トレーニングバンド",
     description: "一緒に動くきっかけになるスポーティな贈り物。",
     cost: 60,
     xp: 145,
-    fit: { sin: 0.95, mermaid: 0.8, lilian: 1.32 }
+    fit: { sin: 0.92, mermaid: 0.78, lilian: 1.42 }
+  },
+  {
+    id: "ribbon",
+    icon: "ribbon",
+    name: "黒いリボン",
+    description: "静かで特別な雰囲気がある、SIN向けの贈り物。",
+    cost: 45,
+    xp: 112,
+    fit: { sin: 1.36, mermaid: 0.9, lilian: 0.96 }
+  },
+  {
+    id: "music",
+    icon: "music",
+    name: "小さなオルゴール",
+    description: "やさしい音色で、落ち着いた子に届きやすい。",
+    cost: 70,
+    xp: 172,
+    fit: { sin: 1.08, mermaid: 1.34, lilian: 0.88 }
+  },
+  {
+    id: "whistle",
+    icon: "whistle",
+    name: "応援ホイッスル",
+    description: "元気なトレーニング相棒にぴったりの贈り物。",
+    cost: 55,
+    xp: 136,
+    fit: { sin: 0.9, mermaid: 0.82, lilian: 1.38 }
   }
 ];
 
@@ -315,6 +347,7 @@ const workoutBadge = document.querySelector("#workout-badge");
 const mascotLine = document.querySelector("#mascot-line");
 const voiceButton = document.querySelector("#voice-button");
 const voiceKicker = document.querySelector("#voice-kicker");
+const characterPanel = document.querySelector(".character-panel");
 const characterTabs = document.querySelector("#character-tabs");
 const characterName = document.querySelector("#character-name");
 const characterMood = document.querySelector("#character-mood");
@@ -340,8 +373,10 @@ let voiceUnlocked = false;
 let mascotAudio = null;
 let dialoguePack = null;
 let lastDialogueAudioSrc = "";
+let characterSwipeStartX = 0;
+let characterSwipeStartY = 0;
 
-state.activeDateKey = state.activeDateKey || getDateKey();
+state.activeDateKey = getDateKey();
 applyAffectionVersion();
 ensureCharacterAffectionState();
 applyAffectionDrift();
@@ -382,11 +417,16 @@ voiceButton.addEventListener("click", () => {
   speakMascot(getMascotMessage("tap"), "tap");
 });
 
-saveTimeButton.addEventListener("click", () => {
+saveTimeButton.addEventListener("click", async () => {
   state.reminderTime = reminderTime.value || "20:00";
   saveState();
   scheduleReminder();
-  updateStatus(`${state.reminderTime} に通知します`);
+  const permission = await requestNotificationPermission();
+  updateStatus(
+    permission === "granted"
+      ? `${state.reminderTime} に通知します`
+      : `${state.reminderTime} を保存しました。通知は未許可です`
+  );
 });
 
 resetButton.addEventListener("click", () => {
@@ -412,6 +452,12 @@ todayButton.addEventListener("click", () => {
   setActiveDate(getDateKey());
 });
 
+window.addEventListener("focus", syncActiveDateToToday);
+window.addEventListener("pageshow", syncActiveDateToToday);
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) syncActiveDateToToday();
+});
+
 resetAffectionButton.addEventListener("click", () => {
   const character = getActiveCharacter();
   if (!window.confirm(`${character.name}の好感度をLv.1にリセットしますか？トレーニング記録は残ります。`)) return;
@@ -427,6 +473,28 @@ resetAffectionButton.addEventListener("click", () => {
   setMascotLine(message);
   updateStatus("好感度をリセットしました");
 });
+
+if (characterPanel) {
+  characterPanel.addEventListener("touchstart", (event) => {
+    const touch = event.touches[0];
+    characterSwipeStartX = touch.clientX;
+    characterSwipeStartY = touch.clientY;
+  }, { passive: true });
+
+  characterPanel.addEventListener("touchend", (event) => {
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - characterSwipeStartX;
+    const dy = touch.clientY - characterSwipeStartY;
+    if (Math.abs(dx) < 54 || Math.abs(dx) < Math.abs(dy) * 1.35) return;
+    switchCharacterByOffset(dx < 0 ? 1 : -1);
+  }, { passive: true });
+}
+
+if (startupScreen) {
+  startupScreen.addEventListener("click", () => {
+    hideStartupScreen(true);
+  });
+}
 
 function renderCharacterTabs() {
   characterTabs.replaceChildren();
@@ -473,6 +541,16 @@ function applyCharacterTheme(announce = true) {
   renderGifts();
 }
 
+function switchCharacterByOffset(offset) {
+  const currentIndex = characters.findIndex((character) => character.id === getActiveCharacter().id);
+  const nextIndex = (currentIndex + offset + characters.length) % characters.length;
+  state.activeCharacterId = characters[nextIndex].id;
+  saveState();
+  renderCharacterTabs();
+  applyCharacterTheme(true);
+  renderBond();
+}
+
 function setVideoAsset(video, character) {
   if (!video) return;
   const source = video.querySelector("source") || document.createElement("source");
@@ -501,7 +579,7 @@ function renderGifts() {
   const character = getActiveCharacter();
   state.loginPoints = Math.max(0, Math.round(Number(state.loginPoints) || 0));
   pointBalance.textContent = `${state.loginPoints} pt`;
-  giftNote.textContent = `${character.name}にプレゼントできます。毎日の3項目を全部達成すると、翌日以降に10pt確定します。`;
+  giftNote.textContent = `${character.name}にプレゼントできます。毎日メニュー達成とトレーニング完走で、それぞれ翌日以降に10pt確定します。`;
   giftGrid.replaceChildren();
 
   gifts.forEach((gift) => {
@@ -511,18 +589,35 @@ function renderGifts() {
     button.className = "gift-button";
     button.disabled = state.loginPoints < gift.cost || getCharacterAffection(character.id) >= 100;
     button.innerHTML = `
-      <span>
+      <span class="gift-copy">
         <strong>${gift.name}</strong>
         <small>${gift.description}</small>
         <small>${effect.label} ${effect.bonusText} / +${effect.totalXp} EXP</small>
       </span>
-      <span>${gift.cost}pt</span>
+      <span class="gift-side">
+        <span class="gift-icon" aria-hidden="true">${getGiftIcon(gift.icon)}</span>
+        <span class="gift-cost">${gift.cost}pt</span>
+      </span>
     `;
     button.addEventListener("click", () => {
       giveGift(gift.id);
     });
     giftGrid.append(button);
   });
+}
+
+function getGiftIcon(icon) {
+  const icons = {
+    shell: "◇",
+    jelly: "●",
+    crystal: "✦",
+    bouquet: "✿",
+    band: "∞",
+    ribbon: "◆",
+    music: "♪",
+    whistle: "!"
+  };
+  return icons[icon] || "＋";
 }
 
 function giveGift(giftId) {
@@ -691,6 +786,12 @@ function shiftActiveDate(offset) {
   const date = parseDateKey(getSelectedDateKey());
   date.setDate(date.getDate() + offset);
   setActiveDate(getDateKey(date));
+}
+
+function syncActiveDateToToday() {
+  const todayKey = getDateKey();
+  if (state.activeDateKey === todayKey) return;
+  setActiveDate(todayKey);
 }
 
 function getSelectedDateKey() {
@@ -1145,12 +1246,12 @@ function updateStatus(message) {
   }, 3600);
 }
 
-function hideStartupScreen() {
+function hideStartupScreen(force = false) {
   if (!startupScreen) return;
   window.setTimeout(() => {
     startupScreen.classList.add("is-hidden");
     startupScreen.setAttribute("aria-hidden", "true");
-  }, 5000);
+  }, force ? 0 : 5000);
 }
 
 function loadState() {
