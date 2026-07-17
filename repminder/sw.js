@@ -1,4 +1,6 @@
-const cacheName = "repminder-v45";
+const cacheName = "repminder-v46";
+let reminderTimer = null;
+let reminderPayload = null;
 const assets = [
   "./",
   "./index.html",
@@ -70,13 +72,53 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
+self.addEventListener("message", (event) => {
+  const data = event.data || {};
+
+  if (data.type === "SCHEDULE_REMINDER") {
+    reminderPayload = data;
+    scheduleReminderNotification();
+  }
+
+  if (data.type === "CLEAR_REMINDER") {
+    reminderPayload = null;
+    if (reminderTimer) self.clearTimeout(reminderTimer);
+  }
+});
+
+function scheduleReminderNotification() {
+  if (!reminderPayload || !reminderPayload.reminderAt) return;
+  if (reminderTimer) self.clearTimeout(reminderTimer);
+
+  let reminderAt = Number(reminderPayload.reminderAt);
+  const dayMs = 24 * 60 * 60 * 1000;
+  while (reminderAt <= Date.now()) {
+    reminderAt += dayMs;
+  }
+  reminderPayload.reminderAt = reminderAt;
+
+  const delay = Math.min(reminderAt - Date.now(), 2147483647);
+  reminderTimer = self.setTimeout(() => {
+    self.registration.showNotification(reminderPayload.title || "RepMinder", {
+      body: reminderPayload.body || "筋トレメニューの時間です。",
+      icon: reminderPayload.icon || "./icons/app-icon-v36-192.png",
+      badge: reminderPayload.badge || "./icons/app-icon-v36-180.png",
+      tag: "repminder-reminder",
+      renotify: true,
+      data: { url: "./index.html?from=notification" }
+    });
+    reminderPayload.reminderAt += dayMs;
+    scheduleReminderNotification();
+  }, delay);
+}
+
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
       const appClient = clientList.find((client) => client.url.includes("/repminder/"));
       if (appClient) return appClient.focus();
-      return clients.openWindow("./");
+      return clients.openWindow(event.notification.data?.url || "./");
     })
   );
 });

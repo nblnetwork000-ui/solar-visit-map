@@ -1203,12 +1203,8 @@ function scheduleReminder() {
   const [hours, minutes] = state.reminderTime.split(":").map(Number);
   if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return;
 
-  const target = new Date();
-  target.setHours(hours, minutes, 0, 0);
-
-  if (target <= new Date()) {
-    target.setDate(target.getDate() + 1);
-  }
+  const target = getNextReminderTarget(hours, minutes);
+  scheduleBackgroundReminder(target);
 
   reminderTimer = window.setTimeout(() => {
     const currentItems = getCurrentItems(getActiveDay());
@@ -1221,6 +1217,37 @@ function scheduleReminder() {
     }
     scheduleReminder();
   }, target.getTime() - Date.now());
+}
+
+function getNextReminderTarget(hours, minutes) {
+  const target = new Date();
+  target.setHours(hours, minutes, 0, 0);
+
+  if (target <= new Date()) {
+    target.setDate(target.getDate() + 1);
+  }
+
+  return target;
+}
+
+async function scheduleBackgroundReminder(target) {
+  if (!("serviceWorker" in navigator) || !("Notification" in window)) return;
+  if (Notification.permission !== "granted") return;
+
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    const controller = navigator.serviceWorker.controller || registration.active;
+    if (!controller) return;
+    controller.postMessage({
+      type: "SCHEDULE_REMINDER",
+      reminderAt: target.getTime(),
+      reminderTime: state.reminderTime,
+      title: "RepMinder",
+      body: "筋トレメニューの時間です。今日の残りを確認しよ。",
+      icon: "./icons/app-icon-v36-192.png",
+      badge: "./icons/app-icon-v36-180.png"
+    });
+  } catch {}
 }
 
 function sendReminder(message) {
@@ -1699,6 +1726,15 @@ function formatDisplayDate(dateKey) {
 
 function registerServiceWorker() {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js");
+    navigator.serviceWorker.register("./sw.js").then((registration) => {
+      registration.update().catch(() => {});
+      return navigator.serviceWorker.ready;
+    }).then(() => {
+      scheduleReminder();
+    }).catch(() => {});
+
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      scheduleReminder();
+    });
   }
 }
