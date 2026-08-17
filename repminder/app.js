@@ -2,10 +2,10 @@ const storageKey = "repminder-state-v2";
 
 const dailyItems = [
   {
-    id: "daily-walk-45",
+    id: "daily-walk-30-45",
     name: "ウォーキング",
-    detail: "45分",
-    note: "週2回：最後10分 速歩"
+    detail: "30〜45分 × 週5日",
+    note: "週2回：最後10分速歩。脚・臀部の疲労が強い日は20〜30分の軽歩"
   },
   {
     id: "daily-draw-in-morning",
@@ -23,40 +23,54 @@ const trainingDays = [
   {
     id: "day-1",
     label: "Day1",
-    title: "PUSH＋CORE",
-    badge: "最後10分早歩き追加",
-    items: [
-      ["day1-wide-push-up", "プッシュアップ（ワイド）", "20 × 4"],
-      ["day1-narrow-push-up", "プッシュアップ（ナロー）", "15 × 3"],
-      ["day1-decline-push-up", "ディクラインプッシュアップ", "10 × 3"],
-      ["day1-pike-push-up", "パイクプッシュアップ", "10 × 3"],
-      ["day1-crunch", "クランチ", "20 × 3"],
-      ["day1-leg-raise", "レッグレイズ", "15 × 3"],
-      ["day1-plank", "プランク", "60秒 × 2"],
-      ["day1-arm-bar", "アームバー", "15 × 4"]
+    title: "PUSH＋腹筋肥大",
+    sections: [
+      {
+        title: "PUSH",
+        items: [
+          ["day1-decline-push-up", "ディクラインプッシュアップ", "12〜15 × 4", "下ろし3秒"],
+          ["day1-wide-push-up", "ワイドプッシュアップ", "15〜20 × 3", "下で1秒停止"],
+          ["day1-narrow-push-up", "ナロープッシュアップ", "12〜15 × 3"],
+          ["day1-pike-push-up", "パイクプッシュアップ", "10〜12 × 4"],
+          ["day1-arm-bar", "アームバー", "15 × 4", "閉じた位置で2秒キープ"]
+        ]
+      },
+      {
+        title: "腹筋",
+        items: [
+          ["day1-ab-roller-knee", "アブローラー膝コロ", "10〜12 × 3", "最大可動域・戻りもゆっくり"],
+          ["day1-slow-crunch", "スロークランチ", "12〜15 × 3", "上で2秒収縮・下ろし3秒"],
+          ["day1-plank", "プランク", "60秒 × 2"]
+        ]
+      }
     ]
   },
   {
     id: "day-2",
     label: "Day2",
-    title: "下半身＋HIIT",
+    title: "PULL＋懸垂＋下腹",
+    badge: "公園Day",
     sections: [
       {
-        title: "朝",
+        title: "懸垂",
         items: [
-          ["day2-hanging-knee-raise", "ハンギングニーレイズ", "15 × 3", "代替：仰向け足上げ"]
+          ["day2-pull-up", "通常懸垂", "できる回数 × 3セット"],
+          ["day2-negative-pull-up", "ネガティブ懸垂", "5秒 × 5回 × 3セット"],
+          ["day2-top-hold", "トップホールド", "10〜15秒 × 3"],
+          ["day2-dead-hang", "デッドハング", "20〜30秒 × 3"]
         ]
       },
       {
-        title: "メイン",
+        title: "PULL",
         items: [
-          ["day2-squat", "スクワット", "25 × 4"],
-          ["day2-bulgarian-squat", "ブルガリアンスクワット", "12 × 3 /脚"],
-          ["day2-lunge", "ランジ", "20 × 3"],
-          ["day2-hip-lift", "ヒップリフト", "20 × 3"],
-          ["day2-burpee", "バーピー", "10 × 5"],
-          ["day2-mountain-climber", "マウンテンクライマー", "30秒 × 5"],
-          ["day2-plank", "プランク", "45秒 × 2"]
+          ["day2-towel-row", "タオルロー", "15〜20 × 4"],
+          ["day2-reverse-snow-angel", "リバーススノーエンジェル", "15 × 3"]
+        ]
+      },
+      {
+        title: "腹筋",
+        items: [
+          ["day2-hanging-knee-raise", "ハンギングニーレイズ", "10〜15 × 3", "最後に骨盤を丸める。余裕が出たらハンギングレッグレイズへ進化"]
         ]
       }
     ]
@@ -64,92 +78,79 @@ const trainingDays = [
   {
     id: "day-3",
     label: "Day3",
-    title: "PULL＋CORE",
-    badge: "最後10分早歩き追加",
+    title: "LEGS",
+    badge: "臀部に痛み・強い疲労が残っている場合はブルガリアン／ランジ中止",
     items: [
-      ["day3-hanging-knee-raise", "ハンギングニーレイズ", "15 × 3", "代替：仰向け足上げ"],
-      ["day3-reverse-snow-angel", "リバーススノーエンジェル", "15 × 3"],
-      ["day3-yt-raise", "YTレイズ", "15 × 3"],
-      ["day3-towel-row", "タオルロー", "15 × 3"],
-      ["day3-back-extension", "バックエクステンション", "15 × 3"],
-      ["day3-russian-twist", "ロシアンツイスト", "20 × 3"],
-      ["day3-side-plank", "サイドプランク", "45秒 × 左右"],
-      ["day3-leg-raise", "レッグレイズ", "15 × 3"]
+      ["day3-tempo-squat", "テンポスクワット", "15 × 4", "3秒で下ろす→底1秒→1秒で上がる"],
+      ["day3-bulgarian-squat", "ブルガリアンスクワット", "12〜15 × 4 /脚"],
+      ["day3-reverse-lunge", "リバースランジ", "12 × 3 /脚"],
+      ["day3-single-leg-hip-lift", "シングルレッグヒップリフト", "12〜15 × 3 /脚"],
+      ["day3-calf-raise", "カーフレイズ", "25〜30 × 4"],
+      ["day3-wall-squat", "壁スクワット", "60秒 × 2"]
     ]
   },
   {
     id: "day-4",
     label: "Day4",
-    title: "全身サーキット",
-    badge: "6種目 × 4周",
-    sections: [
-      {
-        title: "サーキット",
-        items: [
-          ["day4-tempo-squat", "テンポスクワット", "15"],
-          ["day4-push-up", "プッシュアップ", "12"],
-          ["day4-towel-row", "タオルロー", "15"],
-          ["day4-hip-hinge", "ヒップヒンジ", "15"],
-          ["day4-dead-bug", "デッドバグ", "左右10"],
-          ["day4-bear-crawl", "ベアクロール", "30秒"]
-        ]
-      },
-      {
-        title: "仕上げ",
-        items: [
-          ["day4-leg-raise", "レッグレイズ", "20"],
-          ["day4-plank", "プランク", "45秒"]
-        ]
-      }
+    title: "RECOVERY",
+    badge: "筋トレなし",
+    items: [
+      ["day4-walk", "ウォーキング", "30〜45分"],
+      ["day4-stretch", "ストレッチ", "10分"],
+      ["day4-draw-in-morning", "ドローイン 朝", "10呼吸"],
+      ["day4-draw-in-night", "ドローイン 夜", "10呼吸"],
+      ["day4-no-strength", "筋トレなし", ""]
     ]
   },
   {
     id: "day-5",
     label: "Day5",
-    title: "下半身（強度）",
-    sections: [
-      {
-        title: "メイン",
-        items: [
-          ["day5-squat", "スクワット", "20 × 4"],
-          ["day5-bulgarian-squat", "ブルガリアンスクワット", "15 × 3 /脚"],
-          ["day5-calf-raise", "カーフレイズ", "30 × 4"],
-          ["day5-wall-squat", "壁スクワット", "60秒 × 2"],
-          ["day5-reverse-plank", "リバースプランク", "45秒 × 2"]
-        ]
-      },
-      {
-        title: "週1回追加（腹強化）",
-        items: [
-          ["day5-ab-roller-knee", "アブローラー 膝コロ", "10 × 3"],
-          ["day5-negative-standing-rollout", "ネガティブ立ちコロ", "5 × 3"]
-        ]
-      }
+    title: "UPPER BODY",
+    items: [
+      ["day5-pull-up", "通常懸垂", "できる回数 × 3セット"],
+      ["day5-negative-pull-up", "ネガティブ懸垂", "5秒 × 5回 × 2セット"],
+      ["day5-decline-push-up", "ディクラインプッシュアップ", "12〜15 × 3"],
+      ["day5-narrow-push-up", "ナロープッシュアップ", "12〜15 × 3"],
+      ["day5-pike-push-up", "パイクプッシュアップ", "10〜12 × 3"],
+      ["day5-towel-row", "タオルロー", "15〜20 × 3"],
+      ["day5-arm-bar", "アームバー", "15 × 3"]
     ]
   },
   {
     id: "day-6",
     label: "Day6",
-    title: "上半身補強",
-    items: [
-      ["day6-hanging-knee-raise", "ハンギングニーレイズ", "15 × 3", "代替：仰向け足上げ"],
-      ["day6-narrow-push-up", "ナロープッシュアップ", "15 × 4"],
-      ["day6-pike-push-up", "パイクプッシュアップ", "12 × 3"],
-      ["day6-side-plank", "サイドプランク", "45秒 × 左右"],
-      ["day6-crunch", "クランチ", "20", "1〜2セット"],
-      ["day6-leg-raise", "レッグレイズ", "15", "1〜2セット"],
-      ["day6-russian-twist", "ロシアンツイスト", "20", "1〜2セット"],
-      ["day6-arm-bar", "アームバー", "15 × 3"]
+    title: "FULL BODY＋腹筋強化",
+    sections: [
+      {
+        title: "FULL BODY",
+        items: [
+          ["day6-bulgarian-squat", "ブルガリアンスクワット", "12 × 3 /脚"],
+          ["day6-push-up", "プッシュアップ", "15 × 3"],
+          ["day6-towel-row", "タオルロー", "15 × 3"],
+          ["day6-hip-hinge", "ヒップヒンジ", "15 × 3"],
+          ["day6-pike-push-up", "パイクプッシュアップ", "10 × 3"]
+        ]
+      },
+      {
+        title: "腹筋",
+        items: [
+          ["day6-negative-standing-rollout", "ネガティブ立ちコロ", "3〜5 × 3", "立位から限界までゆっくり伸ばす→膝をついて戻る"],
+          ["day6-ab-roller-knee", "アブローラー膝コロ", "8〜10 × 3", "最大可動域＋ゆっくり"],
+          ["day6-leg-raise", "レッグレイズ", "12〜15 × 3"],
+          ["day6-side-plank", "サイドプランク", "45秒 × 左右 × 2"]
+        ]
+      }
     ]
   },
   {
     id: "day-7",
     label: "Day7",
-    title: "脂肪燃焼",
+    title: "完全回復",
+    badge: "筋トレなし",
     items: [
-      ["day7-walk-60", "ウォーキング", "60分"],
-      ["day7-stretch", "ストレッチ", ""],
-      ["day7-draw-in", "ドローイン", ""]
+      ["day7-walk", "ウォーキング", "30〜45分", "疲労が強ければ散歩20分程度"],
+      ["day7-full-body-stretch", "全身ストレッチ", "10〜15分"],
+      ["day7-no-strength", "筋トレなし", ""]
     ]
   }
 ];
@@ -418,11 +419,16 @@ voiceButton.addEventListener("click", () => {
   speakMascot(getMascotMessage("tap"), "tap");
 });
 
-saveTimeButton.addEventListener("click", () => {
+saveTimeButton.addEventListener("click", async () => {
   state.reminderTime = reminderTime.value || "20:00";
   saveState();
-  scheduleReminder();
-  const suffix = "Notification" in window && Notification.permission === "granted" ? "通知します" : "保存しました";
+  await scheduleReminder();
+  const suffix =
+    isNativeApp()
+      ? "通知します"
+      : "Notification" in window && Notification.permission === "granted"
+        ? "通知します"
+        : "保存しました";
   updateStatus(`${state.reminderTime} に${suffix}`);
 });
 
@@ -1198,12 +1204,13 @@ function updateStreak(dateKey) {
   state.lastCompletionDate = dateKey;
 }
 
-function scheduleReminder() {
+async function scheduleReminder() {
   window.clearTimeout(reminderTimer);
   const [hours, minutes] = state.reminderTime.split(":").map(Number);
   if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return;
 
   const target = getNextReminderTarget(hours, minutes);
+  await scheduleNativeReminder(hours, minutes);
   scheduleBackgroundReminder(target);
 
   reminderTimer = window.setTimeout(() => {
@@ -1231,6 +1238,7 @@ function getNextReminderTarget(hours, minutes) {
 }
 
 async function scheduleBackgroundReminder(target) {
+  if (isNativeApp()) return;
   if (!("serviceWorker" in navigator) || !("Notification" in window)) return;
   if (Notification.permission !== "granted") return;
 
@@ -1248,6 +1256,41 @@ async function scheduleBackgroundReminder(target) {
       badge: "./icons/app-icon-v36-180.png"
     });
   } catch {}
+}
+
+async function scheduleNativeReminder(hours, minutes) {
+  const localNotifications = getLocalNotificationsPlugin();
+  if (!localNotifications) return false;
+
+  const permission = await requestNativeNotificationPermission();
+  if (permission !== "granted") return false;
+
+  try {
+    await localNotifications.cancel({ notifications: [{ id: 1001 }] });
+  } catch {}
+
+  try {
+    await localNotifications.schedule({
+      notifications: [
+        {
+          id: 1001,
+          title: "RepMinder",
+          body: "筋トレメニューの時間です。今日の残りを確認しよ。",
+          schedule: {
+            on: { hour: hours, minute: minutes },
+            repeats: true,
+            every: "day",
+            allowWhileIdle: true
+          },
+          sound: "default",
+          iconColor: "#8df4ff"
+        }
+      ]
+    });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function sendReminder(message) {
@@ -1268,12 +1311,39 @@ function sendReminder(message) {
 }
 
 async function requestNotificationPermission() {
+  const nativePermission = await requestNativeNotificationPermission();
+  if (nativePermission) return nativePermission;
+
   if (!("Notification" in window)) return "unsupported";
   if (Notification.permission !== "default") return Notification.permission;
   return Notification.requestPermission();
 }
 
 async function showAppNotification(title, options = {}) {
+  const localNotifications = getLocalNotificationsPlugin();
+  if (localNotifications) {
+    const permission = await requestNativeNotificationPermission();
+    if (permission !== "granted") return false;
+
+    try {
+      await localNotifications.schedule({
+        notifications: [
+          {
+            id: Date.now() % 2147483647,
+            title,
+            body: options.body || "",
+            schedule: { at: new Date(Date.now() + 1000), allowWhileIdle: true },
+            sound: "default",
+            iconColor: "#8df4ff"
+          }
+        ]
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   const notificationOptions = {
     icon: "./icons/app-icon-v36-192.png",
     badge: "./icons/app-icon-v36-180.png",
@@ -1293,6 +1363,28 @@ async function showAppNotification(title, options = {}) {
     return true;
   } catch {
     return false;
+  }
+}
+
+function isNativeApp() {
+  return Boolean(window.Capacitor?.isNativePlatform?.());
+}
+
+function getLocalNotificationsPlugin() {
+  return window.Capacitor?.Plugins?.LocalNotifications || null;
+}
+
+async function requestNativeNotificationPermission() {
+  const localNotifications = getLocalNotificationsPlugin();
+  if (!localNotifications) return "";
+
+  try {
+    const current = await localNotifications.checkPermissions();
+    if (current.display === "granted") return "granted";
+    const requested = await localNotifications.requestPermissions();
+    return requested.display === "granted" ? "granted" : "denied";
+  } catch {
+    return "denied";
   }
 }
 
