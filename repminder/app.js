@@ -1,4 +1,6 @@
 const storageKey = "repminder-state-v2";
+const supabaseUrl = "https://qxnptusyazjuvqobqfap.supabase.co";
+const supabasePublishableKey = "sb_publishable_fnh-dtGH21SazivkQtkuWw_XOiKuPxd";
 
 const dailyItems = [
   {
@@ -325,6 +327,9 @@ const defaultState = {
   lastLoginPointDate: "",
   dailyPointAwards: {},
   trainingPointAwards: {},
+  sectionPointAwards: {},
+  sectionPointAwardsVersion: 0,
+  progressRecoveryVersion: 0,
   streak: 0
 };
 
@@ -368,6 +373,11 @@ const brandMark = document.querySelector(".brand-mark");
 const startupScreen = document.querySelector("#startup-screen");
 const emotionChip = document.querySelector("#emotion-chip");
 const resetAffectionButton = document.querySelector("#reset-affection");
+const cloudStatus = document.querySelector("#cloud-status");
+const cloudLogin = document.querySelector("#cloud-login");
+const cloudEmail = document.querySelector("#cloud-email");
+const cloudLoginButton = document.querySelector("#cloud-login-button");
+const cloudLogoutButton = document.querySelector("#cloud-logout-button");
 let selectedVoice = null;
 let voiceUnlocked = false;
 let mascotAudio = null;
@@ -377,11 +387,17 @@ let characterSwipeStartX = 0;
 let characterSwipeStartY = 0;
 let characterLastTouchSwipeAt = 0;
 let characterMouseSwipeActive = false;
+let cloudClient = null;
+let cloudUser = null;
+let cloudSaveTimer = null;
+let isApplyingCloudState = false;
 
 state.activeDateKey = getDateKey();
 applyAffectionVersion();
 ensureCharacterAffectionState();
 applyAffectionDrift();
+restoreProgressForVersion48();
+migrateSectionPointAwards();
 settleDailyPointAwards();
 reminderTime.value = state.reminderTime;
 calendarDate.value = state.activeDateKey;
@@ -396,6 +412,7 @@ initMascotVoice();
 scheduleReminder();
 registerServiceWorker();
 hideStartupScreen();
+initCloudSync();
 
 notifyButton.addEventListener("click", async () => {
   const permission = await requestNotificationPermission();
@@ -475,6 +492,33 @@ resetAffectionButton.addEventListener("click", () => {
   const message = `${character.name}の好感度をLv.1に戻したよ。ここからまた少しずつ取り返そ。`;
   setMascotLine(message);
   updateStatus("好感度をリセットしました");
+});
+
+cloudLoginButton.addEventListener("click", async () => {
+  const email = cloudEmail.value.trim();
+  if (!email || !cloudClient) {
+    updateStatus(email ? "クラウド接続を準備できませんでした" : "メールアドレスを入力してください");
+    return;
+  }
+
+  cloudLoginButton.disabled = true;
+  const redirectTo = `${window.location.origin}${window.location.pathname}`;
+  const { error } = await cloudClient.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: redirectTo }
+  });
+  cloudLoginButton.disabled = false;
+  if (error) {
+    updateStatus("ログインリンクを送れませんでした");
+    return;
+  }
+  cloudStatus.textContent = "メールを確認";
+  updateStatus("メールのログインリンクを開いてください");
+});
+
+cloudLogoutButton.addEventListener("click", async () => {
+  if (!cloudClient) return;
+  await cloudClient.auth.signOut();
 });
 
 if (window.PointerEvent) {
@@ -613,7 +657,7 @@ function renderGifts() {
   const character = getActiveCharacter();
   state.loginPoints = Math.max(0, Math.round(Number(state.loginPoints) || 0));
   pointBalance.textContent = `${state.loginPoints} pt`;
-  giftNote.textContent = `${character.name}にプレゼントできます。毎日メニュー達成とトレーニング完走で、それぞれ翌日以降に10pt確定します。`;
+  giftNote.textContent = `${character.name}にプレゼントできます。毎日・PUSH・腹筋など、各セクション達成ごとに翌日以降10pt確定します。`;
   giftGrid.replaceChildren();
 
   gifts.forEach((gift) => {
@@ -1026,9 +1070,9 @@ function settleDailyPointAwards() {
   const todayKey = getDateKey();
   state.loginPoints = Math.max(0, Math.round(Number(state.loginPoints) || 0));
   state.dailyPointAwards = state.dailyPointAwards || {};
-  state.trainingPointAwards = state.trainingPointAwards || {};
+  state.sectionPointAwards = state.sectionPointAwards || {};
   let dailyAwardedCount = 0;
-  let trainingAwardedCount = 0;
+  let sectionAwardedCount = 0;
 
   Object.keys(state.doneByDate || {}).forEach((dateKey) => {
     if (dateKey >= todayKey) return;
@@ -1039,14 +1083,16 @@ function settleDailyPointAwards() {
       dailyAwardedCount += 1;
     }
 
-    if (!state.trainingPointAwards[dateKey] && isAnyTrainingComplete(dateKey)) {
-      state.trainingPointAwards[dateKey] = true;
+    getCompletedTrainingSectionKeys(dateKey).forEach((sectionKey) => {
+      const awardKey = `${dateKey}:${sectionKey}`;
+      if (state.sectionPointAwards[awardKey]) return;
+      state.sectionPointAwards[awardKey] = true;
       state.loginPoints += 10;
-      trainingAwardedCount += 1;
-    }
+      sectionAwardedCount += 1;
+    });
   });
 
-  const totalAwardedPoints = (dailyAwardedCount + trainingAwardedCount) * 10;
+  const totalAwardedPoints = (dailyAwardedCount + sectionAwardedCount) * 10;
   if (totalAwardedPoints > 0) {
     saveState();
     window.setTimeout(() => {
@@ -1062,14 +1108,58 @@ function isDailyItemsComplete(dateKey) {
   return dailyItems.every((item) => doneIds.has(item.id));
 }
 
-function isAnyTrainingComplete(dateKey) {
-  return trainingDays.some((day) => isTrainingItemsComplete(dateKey, day));
+function getCompletedTrainingSectionKeys(dateKey) {
+  const doneIds = new Set(state.doneByDate[dateKey] || []);
+  const completedKeys = [];
+
+  trainingDays.forEach((day) => {
+    getSections(day).forEach((section, sectionIndex) => {
+      const items = normalizeItems(section.items);
+      if (items.length > 0 && items.every((item) => doneIds.has(item.id))) {
+        completedKeys.push(`${day.id}:${sectionIndex}`);
+      }
+    });
+  });
+
+  return completedKeys;
 }
 
-function isTrainingItemsComplete(dateKey, day) {
-  const doneIds = new Set(state.doneByDate[dateKey] || []);
-  const items = getSections(day).flatMap((section) => normalizeItems(section.items));
-  return items.length > 0 && items.every((item) => doneIds.has(item.id));
+function migrateSectionPointAwards() {
+  if ((state.sectionPointAwardsVersion || 0) >= 1) return;
+
+  state.sectionPointAwards = state.sectionPointAwards || {};
+  state.trainingPointAwards = state.trainingPointAwards || {};
+
+  Object.entries(state.trainingPointAwards).forEach(([dateKey, wasAwarded]) => {
+    if (!wasAwarded) return;
+    getCompletedTrainingSectionKeys(dateKey).forEach((sectionKey) => {
+      state.sectionPointAwards[`${dateKey}:${sectionKey}`] = true;
+    });
+  });
+
+  state.sectionPointAwardsVersion = 1;
+  saveState();
+}
+
+function restoreProgressForVersion48() {
+  if ((state.progressRecoveryVersion || 0) >= 1) return;
+
+  const sinLevel = 33;
+  setCharacterAffection("sin", sinLevel);
+  setCharacterXp("sin", 63);
+  setCharacterAffection("mermaid", 1);
+  setCharacterXp("mermaid", 0);
+  setCharacterAffection("lilian", 1);
+  setCharacterXp("lilian", 0);
+
+  const todayKey = getDateKey();
+  state.lastVisitByCharacter = state.lastVisitByCharacter || {};
+  characters.forEach((character) => {
+    state.lastVisitByCharacter[character.id] = todayKey;
+  });
+  state.affection = getActiveAffection();
+  state.progressRecoveryVersion = 1;
+  saveState();
 }
 
 function calculateTrainingXp(amount, character) {
@@ -1442,6 +1532,95 @@ function loadState() {
 
 function saveState() {
   localStorage.setItem(storageKey, JSON.stringify(state));
+  if (!isApplyingCloudState) queueCloudSave();
+}
+
+async function initCloudSync() {
+  if (!window.supabase?.createClient) {
+    cloudStatus.textContent = "接続エラー";
+    return;
+  }
+
+  cloudClient = window.supabase.createClient(supabaseUrl, supabasePublishableKey);
+  cloudClient.auth.onAuthStateChange((_event, session) => {
+    window.setTimeout(() => handleCloudSession(session), 0);
+  });
+
+  const { data } = await cloudClient.auth.getSession();
+  await handleCloudSession(data.session);
+}
+
+async function handleCloudSession(session) {
+  const nextUser = session?.user || null;
+  if (!nextUser) {
+    cloudUser = null;
+    cloudStatus.textContent = "未ログイン";
+    cloudLogin.hidden = false;
+    cloudLogoutButton.hidden = true;
+    return;
+  }
+
+  const isSameUser = cloudUser?.id === nextUser.id;
+  cloudUser = nextUser;
+  cloudStatus.textContent = "同期中";
+  cloudLogin.hidden = true;
+  cloudLogoutButton.hidden = false;
+  if (!isSameUser) await pullCloudState();
+}
+
+async function pullCloudState() {
+  if (!cloudClient || !cloudUser) return;
+
+  const { data, error } = await cloudClient
+    .from("repminder_states")
+    .select("state, updated_at")
+    .eq("user_id", cloudUser.id)
+    .maybeSingle();
+
+  if (error) {
+    cloudStatus.textContent = "同期エラー";
+    return;
+  }
+
+  if (!data?.state) {
+    await saveCloudState();
+    cloudStatus.textContent = "同期済み";
+    return;
+  }
+
+  isApplyingCloudState = true;
+  state = { ...defaultState, ...data.state, activeDateKey: getDateKey() };
+  applyAffectionVersion();
+  ensureCharacterAffectionState();
+  restoreProgressForVersion48();
+  migrateSectionPointAwards();
+  localStorage.setItem(storageKey, JSON.stringify(state));
+  reminderTime.value = state.reminderTime;
+  calendarDate.value = state.activeDateKey;
+  renderCharacterTabs();
+  applyCharacterTheme(false);
+  renderDayTabs();
+  render();
+  isApplyingCloudState = false;
+  cloudStatus.textContent = "同期済み";
+  updateStatus("クラウドから進捗を復元しました");
+}
+
+function queueCloudSave() {
+  if (!cloudClient || !cloudUser) return;
+  window.clearTimeout(cloudSaveTimer);
+  cloudSaveTimer = window.setTimeout(saveCloudState, 700);
+}
+
+async function saveCloudState() {
+  if (!cloudClient || !cloudUser) return;
+  cloudStatus.textContent = "同期中";
+  const { error } = await cloudClient.from("repminder_states").upsert({
+    user_id: cloudUser.id,
+    state,
+    updated_at: new Date().toISOString()
+  });
+  cloudStatus.textContent = error ? "同期エラー" : "同期済み";
 }
 
 function initLiveWallpaper() {
