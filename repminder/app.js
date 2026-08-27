@@ -110,7 +110,6 @@ const trainingDays = [
       {
         title: "回復",
         items: [
-          ["day4-walk", "ウォーキング", "30〜45分"],
           ["day4-stretch", "ストレッチ", "10分"],
           ["day4-no-strength", "筋トレなし", ""]
         ]
@@ -183,9 +182,8 @@ const trainingDays = [
     badge: "筋トレなし",
     sections: [
       {
-        title: "軽い運動・ストレッチ",
+        title: "ストレッチ",
         items: [
-          ["day7-walk", "ウォーキング", "30〜45分", "疲労が強ければ散歩20分程度"],
           ["day7-full-body-stretch", "全身ストレッチ", "10〜15分"]
         ]
       },
