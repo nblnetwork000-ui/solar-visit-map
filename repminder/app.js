@@ -109,13 +109,15 @@ const trainingDays = [
     label: "Day5",
     title: "UPPER BODY",
     items: [
-      ["day5-pull-up", "通常懸垂", "できる回数 × 3セット"],
+      ["day5-pull-up", "通常懸垂チャレンジ", "1回 × 1〜2セット"],
+      ["day5-scapular-pull-up", "スキャプラプルアップ", "8〜10回 × 2セット"],
       ["day5-negative-pull-up", "ネガティブ懸垂", "5秒 × 5回 × 2セット"],
-      ["day5-decline-push-up", "ディクラインプッシュアップ", "12〜15 × 3"],
-      ["day5-narrow-push-up", "ナロープッシュアップ", "12〜15 × 3"],
-      ["day5-pike-push-up", "パイクプッシュアップ", "10〜12 × 3"],
-      ["day5-towel-row", "タオルロー", "15〜20 × 3"],
-      ["day5-arm-bar", "アームバー", "15 × 3"]
+      ["day5-dead-hang", "デッドハング", "20〜30秒 × 2セット"],
+      ["day5-decline-push-up", "ディクラインプッシュアップ", "12〜15回 × 3セット"],
+      ["day5-narrow-push-up", "ナロープッシュアップ", "12〜15回 × 3セット"],
+      ["day5-pike-push-up", "パイクプッシュアップ", "10〜12回 × 3セット"],
+      ["day5-towel-row", "タオルロー", "15〜20回 × 3セット"],
+      ["day5-arm-bar", "アームバー", "15回 × 3セット"]
     ]
   },
   {
