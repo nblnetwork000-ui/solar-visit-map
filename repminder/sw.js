@@ -1,4 +1,4 @@
-const cacheName = "repminder-v49";
+const cacheName = "repminder-v50";
 let reminderTimer = null;
 let reminderPayload = null;
 const assets = [
