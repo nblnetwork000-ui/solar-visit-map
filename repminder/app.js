@@ -82,13 +82,23 @@ const trainingDays = [
     label: "Day3",
     title: "LEGS",
     badge: "臀部に痛み・強い疲労が残っている場合はブルガリアン／ランジ中止",
-    items: [
-      ["day3-tempo-squat", "テンポスクワット", "15 × 4", "3秒で下ろす→底1秒→1秒で上がる"],
-      ["day3-bulgarian-squat", "ブルガリアンスクワット", "12〜15 × 4 /脚"],
-      ["day3-reverse-lunge", "リバースランジ", "12 × 3 /脚"],
-      ["day3-single-leg-hip-lift", "シングルレッグヒップリフト", "12〜15 × 3 /脚"],
-      ["day3-calf-raise", "カーフレイズ", "25〜30 × 4"],
-      ["day3-wall-squat", "壁スクワット", "60秒 × 2"]
+    sections: [
+      {
+        title: "脚メイン",
+        items: [
+          ["day3-tempo-squat", "テンポスクワット", "15 × 4", "3秒で下ろす→底1秒→1秒で上がる"],
+          ["day3-bulgarian-squat", "ブルガリアンスクワット", "12〜15 × 4 /脚"],
+          ["day3-reverse-lunge", "リバースランジ", "12 × 3 /脚"]
+        ]
+      },
+      {
+        title: "臀部・仕上げ",
+        items: [
+          ["day3-single-leg-hip-lift", "シングルレッグヒップリフト", "12〜15 × 3 /脚"],
+          ["day3-calf-raise", "カーフレイズ", "25〜30 × 4"],
+          ["day3-wall-squat", "壁スクワット", "60秒 × 2"]
+        ]
+      }
     ]
   },
   {
@@ -96,12 +106,22 @@ const trainingDays = [
     label: "Day4",
     title: "RECOVERY",
     badge: "筋トレなし",
-    items: [
-      ["day4-walk", "ウォーキング", "30〜45分"],
-      ["day4-stretch", "ストレッチ", "10分"],
-      ["day4-draw-in-morning", "ドローイン 朝", "10呼吸"],
-      ["day4-draw-in-night", "ドローイン 夜", "10呼吸"],
-      ["day4-no-strength", "筋トレなし", ""]
+    sections: [
+      {
+        title: "回復",
+        items: [
+          ["day4-walk", "ウォーキング", "30〜45分"],
+          ["day4-stretch", "ストレッチ", "10分"],
+          ["day4-no-strength", "筋トレなし", ""]
+        ]
+      },
+      {
+        title: "ドローイン",
+        items: [
+          ["day4-draw-in-morning", "ドローイン 朝", "10呼吸"],
+          ["day4-draw-in-night", "ドローイン 夜", "10呼吸"]
+        ]
+      }
     ]
   },
   {
@@ -161,10 +181,20 @@ const trainingDays = [
     label: "Day7",
     title: "完全回復",
     badge: "筋トレなし",
-    items: [
-      ["day7-walk", "ウォーキング", "30〜45分", "疲労が強ければ散歩20分程度"],
-      ["day7-full-body-stretch", "全身ストレッチ", "10〜15分"],
-      ["day7-no-strength", "筋トレなし", ""]
+    sections: [
+      {
+        title: "軽い運動・ストレッチ",
+        items: [
+          ["day7-walk", "ウォーキング", "30〜45分", "疲労が強ければ散歩20分程度"],
+          ["day7-full-body-stretch", "全身ストレッチ", "10〜15分"]
+        ]
+      },
+      {
+        title: "休養",
+        items: [
+          ["day7-no-strength", "筋トレなし", ""]
+        ]
+      }
     ]
   }
 ];
