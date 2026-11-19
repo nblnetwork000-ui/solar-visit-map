@@ -249,6 +249,63 @@
     video.addEventListener("pointercancel", endDrag);
   }
 
+  // --- Weight log: per-exercise last-used weight, editable, saved on this device ---
+  var WKEY = "viviWeightsV1";
+  function loadWeights() {
+    try { return JSON.parse(window.localStorage.getItem(WKEY) || "{}"); } catch (e) { return {}; }
+  }
+  function saveWeight(key, value) {
+    var all = loadWeights();
+    if (value) { all[key] = value; } else { delete all[key]; }
+    try { window.localStorage.setItem(WKEY, JSON.stringify(all)); } catch (e) {}
+  }
+  function currentDayLabel() {
+    var t = document.getElementById("workout-title");
+    var m = t ? t.textContent.match(/Day\d+/) : null;
+    if (m) return m[0];
+    var tab = document.querySelector('.day-tab[aria-pressed="true"]');
+    return tab ? tab.textContent.trim() : "Day";
+  }
+  function injectWeights() {
+    var list = document.getElementById("workout-list");
+    if (!list) return;
+    var all = loadWeights();
+    var day = currentDayLabel();
+    list.querySelectorAll(".workout-item").forEach(function (node) {
+      if (node.querySelector(".vivi-weight-row")) return;
+      var nameEl = node.querySelector(".workout-name");
+      var copy = node.querySelector(".workout-copy");
+      if (!nameEl || !copy) return;
+      var section = node.closest(".workout-section");
+      var secEl = section ? section.querySelector(".section-title") : null;
+      var secTitle = secEl ? secEl.textContent.trim() : "";
+      var key = (secTitle === "\u6bce\u65e5" ? secTitle : day) + "|" + nameEl.textContent.trim();
+      var row = document.createElement("div");
+      row.className = "vivi-weight-row";
+      var label = document.createElement("span");
+      label.className = "vivi-weight-label";
+      label.textContent = "\u524d\u56de\u306e\u91cd\u3055";
+      var input = document.createElement("input");
+      input.className = "vivi-weight-input";
+      input.type = "text";
+      input.inputMode = "decimal";
+      input.placeholder = "\u4f8b\uff1a14kg";
+      input.value = all[key] || "";
+      input.setAttribute("aria-label", nameEl.textContent.trim() + "\u306e\u524d\u56de\u306e\u91cd\u3055");
+      input.addEventListener("change", function () { saveWeight(key, input.value.trim()); });
+      input.addEventListener("keydown", function (event) { if (event.key === "Enter") input.blur(); });
+      row.appendChild(label);
+      row.appendChild(input);
+      copy.appendChild(row);
+    });
+  }
+  var weightList = document.getElementById("workout-list");
+  if (weightList && "MutationObserver" in window) {
+    var weightObserver = new MutationObserver(function () { injectWeights(); });
+    weightObserver.observe(weightList, { childList: true, subtree: true });
+  }
+  injectWeights();
+
   // --- Greeting ---
   window.setTimeout(function () {
     if (currentOutfit === "rest") {
