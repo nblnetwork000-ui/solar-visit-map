@@ -1315,3 +1315,91 @@ input:focus {
   font-weight: 700;
   text-decoration: none;
 }
+
+.vivi-companion {
+  position: fixed;
+  right: 10px;
+  bottom: calc(10px + env(safe-area-inset-bottom));
+  z-index: 60;
+  width: 104px;
+  pointer-events: none;
+}
+
+.vivi-companion-inner {
+  position: relative;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.vivi-companion-video {
+  width: 104px;
+  height: 138px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--button-line);
+  box-shadow: var(--button-shadow);
+  pointer-events: auto;
+  cursor: pointer;
+  animation: vivi-bob 2.6s ease-in-out infinite;
+  background: rgba(20, 15, 36, 0.35);
+}
+
+@keyframes vivi-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.vivi-bubble {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  width: max-content;
+  max-width: 210px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--panel-2);
+  color: #241b3a;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.5;
+  box-shadow: var(--button-shadow);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.vivi-bubble.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vivi-companion-video.vivi-hop {
+  animation: vivi-hop 0.55s ease;
+}
+
+.vivi-companion-video.vivi-big-hop {
+  animation: vivi-big-hop 0.8s ease;
+}
+
+@keyframes vivi-hop {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-14px) scale(1.04); }
+  60% { transform: translateY(0); }
+  80% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes vivi-big-hop {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-22px) scale(1.08) rotate(-2deg); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-12px) rotate(2deg); }
+  100% { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vivi-companion-video {
+    animation: none;
+  }
+}

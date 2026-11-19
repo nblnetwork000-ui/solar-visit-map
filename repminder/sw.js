@@ -1,4 +1,4 @@
-const cacheName = "repminder-v54";
+const cacheName = "repminder-v55";
 let reminderTimer = null;
 let reminderPayload = null;
 const assets = [
@@ -8,6 +8,7 @@ const assets = [
   "./bodyweight.html",
   "./styles.css",
   "./app.js",
+  "./vivi-companion.js",
   "./manifest.webmanifest",
   "./assets/dialogue-pack.json",
   "./assets/vivi-training.webp",
