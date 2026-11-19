@@ -11,7 +11,7 @@
     <title>RepMinder</title>
     <link rel="apple-touch-icon" href="./icons/app-icon-v36-180.png">
     <link rel="manifest" href="./manifest.webmanifest?v=48">
-    <link rel="stylesheet" href="./styles.css?v=48">
+    <link rel="stylesheet" href="./styles.css?v=49">
   </head>
   <body>
     <div class="startup-screen" id="startup-screen" aria-label="起動画面">
@@ -115,6 +115,24 @@
             <path d="M18.5 5.5a9 9 0 0 1 0 13"></path>
           </svg>
         </button>
+      </section>
+
+      <section class="mascot-panel vivi-panel" aria-label="ViVi応援">
+        <video class="vivi-video" autoplay muted loop playsinline preload="auto" poster="./assets/vivi-training.webp" aria-hidden="true">
+          <source src="./assets/vivi-training-live.mp4" type="video/mp4">
+        </video>
+        <div class="mascot-copy">
+          <span class="mascot-kicker">ViVi cheer</span>
+          <p>今日も一緒にがんばろ！ボクが見てるから、1セットずついこうね。</p>
+        </div>
+      </section>
+
+      <section class="mascot-panel bw-panel" aria-label="置き換えメニュー">
+        <div class="mascot-copy">
+          <span class="mascot-kicker">no equipment</span>
+          <p>松本の日や出張先など、機材がない日はこちら。</p>
+        </div>
+        <a class="bw-link-button" href="./bodyweight.html">置き換えメニュー</a>
       </section>
 
       <section class="calendar-panel" aria-label="カレンダー">
@@ -225,6 +243,6 @@
     <p class="voice-credit">VOICEVOX:ナースロボ＿タイプＴ / 九州そら / 満別花丸</p>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-    <script src="./app.js?v=53" defer></script>
+    <script src="./app.js?v=54" defer></script>
   </body>
 </html>

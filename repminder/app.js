@@ -30,18 +30,20 @@ const trainingDays = [
       {
         title: "PUSH",
         items: [
-          ["day1-decline-push-up", "ディクラインプッシュアップ", "12〜15 × 4", "下ろし3秒"],
-          ["day1-wide-push-up", "ワイドプッシュアップ", "15〜20 × 3", "下で1秒停止"],
-          ["day1-narrow-push-up", "ナロープッシュアップ", "12〜15 × 3"],
-          ["day1-pike-push-up", "パイクプッシュアップ", "10〜12 × 4"],
-          ["day1-arm-bar", "アームバー", "15 × 4", "閉じた位置で2秒キープ"]
+          ["day1-explosive-push-up", "爆発プッシュアップ", "5〜8 × 3", "手が浮く高さまで。できたらクラップ"],
+          ["day1-db-bench-press", "ダンベルベンチプレス", "8〜12 × 4", "片手10〜14kgから。全セット12回で次回+2kg"],
+          ["day1-dips", "ディップス", "8〜12 × 3", "深く下ろしすぎない"],
+          ["day1-db-fly", "ダンベルフライ", "10〜12 × 3"],
+          ["day1-db-shoulder-press", "ダンベルショルダープレス", "8〜12 × 3"],
+          ["day1-side-raise", "サイドレイズ", "12〜15 × 2"],
+          ["day1-overhead-extension", "オーバーヘッドエクステンション", "10〜12 × 2"]
         ]
       },
       {
         title: "腹筋",
         items: [
           ["day1-ab-roller-knee", "アブローラー膝コロ", "10〜12 × 3", "最大可動域・戻りもゆっくり"],
-          ["day1-slow-crunch", "スロークランチ", "12〜15 × 3", "上で2秒収縮・下ろし3秒"],
+          ["day1-hanging-leg-raise", "ハンギングレッグレイズ", "8〜12 × 2", "無理な分はニーレイズで回数+2"],
           ["day1-plank", "プランク", "60秒 × 2"]
         ]
       }
@@ -51,28 +53,32 @@ const trainingDays = [
     id: "day-2",
     label: "Day2",
     title: "PULL＋懸垂＋下腹",
-    badge: "公園Day",
+    badge: "自宅Day",
     sections: [
       {
         title: "懸垂",
         items: [
-          ["day2-pull-up", "通常懸垂", "できる回数 × 3セット"],
-          ["day2-negative-pull-up", "ネガティブ懸垂", "5秒 × 5回 × 3セット"],
-          ["day2-top-hold", "トップホールド", "10〜15秒 × 3"],
-          ["day2-dead-hang", "デッドハング", "20〜30秒 × 3"]
+          ["day2-scapular-pull-up", "スキャプラプルアップ", "8〜10 × 2", "ウォームアップ"],
+          ["day2-pull-up", "通常懸垂", "できる回数 × 4セット", "合計回数 前回+1目標。上がらなくなったらネガティブで埋める"],
+          ["day2-wide-pull-up", "ワイドグリップ懸垂", "1〜3回 × 2セット", "ネガティブで補う"],
+          ["day2-chin-up", "チンアップ（逆手）", "1〜3回 × 2セット", "ネガティブで補う"],
+          ["day2-frenchies", "フレンチーズ", "各5秒キープ × 2周", "上・中・下でキープ"],
+          ["day2-negative-pull-up", "ネガティブ懸垂", "5秒 × 5回 × 2セット"],
+          ["day2-dead-hang", "デッドハング", "20〜30秒 × 2"]
         ]
       },
       {
         title: "PULL",
         items: [
-          ["day2-towel-row", "タオルロー", "15〜20 × 4"],
-          ["day2-reverse-snow-angel", "リバーススノーエンジェル", "15 × 3"]
+          ["day2-one-arm-row", "ワンハンドダンベルロー", "10〜12 × 4 /側", "ベンチに膝。16〜22kg目安"],
+          ["day2-db-bent-over-row", "ダンベルベントオーバーロー", "10〜12 × 3"],
+          ["day2-db-curl", "ダンベルカール", "10〜12 × 3"]
         ]
       },
       {
         title: "腹筋",
         items: [
-          ["day2-hanging-knee-raise", "ハンギングニーレイズ", "10〜15 × 3", "最後に骨盤を丸める。余裕が出たらハンギングレッグレイズへ進化"]
+          ["day2-hanging-knee-raise", "ハンギングニーレイズ", "10〜15 × 3", "最後に骨盤を丸める。余裕が出たらレッグレイズへ"]
         ]
       }
     ]
@@ -86,17 +92,17 @@ const trainingDays = [
       {
         title: "脚メイン",
         items: [
-          ["day3-tempo-squat", "テンポスクワット", "15 × 4", "3秒で下ろす→底1秒→1秒で上がる"],
-          ["day3-bulgarian-squat", "ブルガリアンスクワット", "12〜15 × 4 /脚"],
-          ["day3-reverse-lunge", "リバースランジ", "12 × 3 /脚"]
+          ["day3-jump-squat", "ジャンピングスクワット", "8〜10 × 3", "着地は静かに"],
+          ["day3-goblet-squat", "ゴブレットスクワット", "10〜12 × 4", "24kgで軽い場合は下ろし3秒テンポ"],
+          ["day3-db-bulgarian-squat", "ダンベルブルガリアンスクワット", "10〜12 × 3 /脚"],
+          ["day3-db-romanian-deadlift", "ダンベルルーマニアンデッドリフト", "10〜12 × 3"]
         ]
       },
       {
         title: "臀部・仕上げ",
         items: [
-          ["day3-single-leg-hip-lift", "シングルレッグヒップリフト", "12〜15 × 3 /脚"],
-          ["day3-calf-raise", "カーフレイズ", "25〜30 × 4"],
-          ["day3-wall-squat", "壁スクワット", "60秒 × 2"]
+          ["day3-db-hip-thrust", "ダンベルヒップスラスト", "12〜15 × 2", "ベンチ使用"],
+          ["day3-single-leg-calf-raise", "シングルレッグカーフレイズ", "12〜15 × 3 /脚", "ダンベル片手"]
         ]
       }
     ]
@@ -131,8 +137,9 @@ const trainingDays = [
       {
         title: "懸垂",
         items: [
-          ["day5-pull-up", "通常懸垂チャレンジ", "1回 × 1〜2セット"],
-          ["day5-scapular-pull-up", "スキャプラプルアップ", "8〜10回 × 2セット"],
+          ["day5-pull-up", "通常懸垂チャレンジ", "限界 × 2セット"],
+          ["day5-neutral-pull-up", "ニュートラルグリップ懸垂", "1〜3回 × 2セット", "並行グリップ"],
+          ["day5-scapular-pull-up", "スキャプラプルアップ", "15回 × 2セット"],
           ["day5-negative-pull-up", "ネガティブ懸垂", "5秒 × 5回 × 2セット"],
           ["day5-dead-hang", "デッドハング", "20〜30秒 × 2セット"]
         ]
@@ -140,11 +147,13 @@ const trainingDays = [
       {
         title: "家でできる",
         items: [
-          ["day5-decline-push-up", "ディクラインプッシュアップ", "12〜15回 × 3セット"],
-          ["day5-narrow-push-up", "ナロープッシュアップ", "12〜15回 × 3セット"],
-          ["day5-pike-push-up", "パイクプッシュアップ", "10〜12回 × 3セット"],
-          ["day5-towel-row", "タオルロー", "15〜20回 × 3セット"],
-          ["day5-arm-bar", "アームバー", "15回 × 3セット"]
+          ["day5-explosive-push-up", "爆発プッシュアップ", "5 × 2", "軽めに感覚維持"],
+          ["day5-db-bench-press", "ダンベルベンチプレス", "10〜12回 × 3セット", "Day1より軽め"],
+          ["day5-one-arm-row", "ワンハンドダンベルロー", "12〜15回 × 3セット"],
+          ["day5-db-shoulder-press", "ダンベルショルダープレス", "10〜12回 × 2セット"],
+          ["day5-side-raise", "サイドレイズ", "12〜15 × 2"],
+          ["day5-db-curl", "ダンベルカール", "10〜12 × 2"],
+          ["day5-overhead-extension", "オーバーヘッドエクステンション", "10〜12 × 2"]
         ]
       }
     ]
@@ -157,20 +166,21 @@ const trainingDays = [
       {
         title: "FULL BODY",
         items: [
-          ["day6-bulgarian-squat", "ブルガリアンスクワット", "12 × 3 /脚"],
-          ["day6-push-up", "プッシュアップ", "15 × 3"],
-          ["day6-towel-row", "タオルロー", "15 × 3"],
-          ["day6-hip-hinge", "ヒップヒンジ", "15 × 3"],
-          ["day6-pike-push-up", "パイクプッシュアップ", "10 × 3"]
+          ["day6-scapular-pull-up", "スキャプラプルアップ", "8 × 1", "ウォームアップ"],
+          ["day6-db-romanian-deadlift", "ダンベルルーマニアンデッドリフト", "10〜12 × 3"],
+          ["day6-db-bulgarian-squat", "ダンベルブルガリアンスクワット", "10 × 2 /脚"],
+          ["day6-db-floor-press", "ダンベルフロアプレス", "12〜15 × 3"],
+          ["day6-pull-up", "懸垂", "限界 × 2"]
         ]
       },
       {
         title: "腹筋",
         items: [
           ["day6-negative-standing-rollout", "ネガティブ立ちコロ", "3〜5 × 3", "立位から限界までゆっくり伸ばす→膝をついて戻る"],
-          ["day6-ab-roller-knee", "アブローラー膝コロ", "8〜10 × 3", "最大可動域＋ゆっくり"],
-          ["day6-leg-raise", "レッグレイズ", "12〜15 × 3"],
-          ["day6-side-plank", "サイドプランク", "45秒 × 左右 × 2"]
+          ["day6-ab-roller-knee", "アブローラー膝コロ", "8〜10 × 2", "最大可動域＋ゆっくり"],
+          ["day6-hanging-side-raise", "ハンギングサイドニーレイズ", "8〜10 × 2 /側", "腹斜筋"],
+          ["day6-l-sit-hang", "Lシットハング", "10秒 × 2", "キツければ膝曲げ"],
+          ["day6-burpee", "バーピー", "8〜10 × 2", "仕上げ。またはタックジャンプ 6〜8 × 2"]
         ]
       }
     ]

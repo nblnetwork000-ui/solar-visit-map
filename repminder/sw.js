@@ -1,14 +1,17 @@
-const cacheName = "repminder-v53";
+const cacheName = "repminder-v54";
 let reminderTimer = null;
 let reminderPayload = null;
 const assets = [
   "./",
   "./index.html",
   "./progression.html",
+  "./bodyweight.html",
   "./styles.css",
   "./app.js",
   "./manifest.webmanifest",
   "./assets/dialogue-pack.json",
+  "./assets/vivi-training.webp",
+  "./assets/vivi-training-live.mp4",
   "./assets/SINEDITOR_1080-1920.png",
   "./assets/sineditor-live-wallpaper.mp4",
   "./assets/mermaid-1080-1920.jpg",
