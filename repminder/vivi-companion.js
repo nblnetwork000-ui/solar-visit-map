@@ -120,7 +120,7 @@
       rafPending = true;
       window.requestAnimationFrame(function () {
         rafPending = false;
-        if (!lastEvent || !inner) return;
+        if (!lastEvent || !inner || dragging) return;
         var rect = companion.getBoundingClientRect();
         var cx = rect.left + rect.width / 2;
         var cy = rect.top + rect.height / 2;
@@ -137,6 +137,7 @@
   // --- Tap reaction ---
   if (video) {
     video.addEventListener("click", function () {
+      if (suppressTap) { suppressTap = false; return; }
       say(pick(tapLines), 2200);
       showFace("tap", 1400);
       hop(false);
@@ -175,6 +176,77 @@
     });
     observer.observe(panel, { attributes: true, attributeFilter: ["class"], subtree: true });
     prev = counts();
+  }
+
+  // --- Drag to move: grab ViVi and drop her anywhere ---
+  var dragging = false;
+  var suppressTap = false;
+  var dragState = null;
+  var POS_KEY = "viviCompanionPosV1";
+  function clampPos(left, top) {
+    var w = companion.offsetWidth;
+    var h = companion.offsetHeight;
+    return {
+      left: Math.max(4, Math.min(Math.max(4, window.innerWidth - w - 4), left)),
+      top: Math.max(4, Math.min(Math.max(4, window.innerHeight - h - 4), top))
+    };
+  }
+  function applyPos(left, top) {
+    var p = clampPos(left, top);
+    companion.style.left = p.left + "px";
+    companion.style.top = p.top + "px";
+    companion.style.right = "auto";
+    companion.style.bottom = "auto";
+    companion.classList.toggle("bubble-below", p.top < 130);
+    companion.classList.toggle("bubble-left", p.left + companion.offsetWidth / 2 < window.innerWidth / 3);
+    return p;
+  }
+  function savePos(left, top) {
+    try { window.localStorage.setItem(POS_KEY, JSON.stringify({ left: left, top: top })); } catch (e) {}
+  }
+  (function restorePos() {
+    try {
+      var raw = window.localStorage.getItem(POS_KEY);
+      if (!raw) return;
+      var pos = JSON.parse(raw);
+      if (pos && typeof pos.left === "number" && typeof pos.top === "number") applyPos(pos.left, pos.top);
+    } catch (e) {}
+  })();
+  if (video) {
+    video.addEventListener("pointerdown", function (event) {
+      var rect = companion.getBoundingClientRect();
+      dragState = { startX: event.clientX, startY: event.clientY, origLeft: rect.left, origTop: rect.top, moved: false, left: rect.left, top: rect.top };
+      try { video.setPointerCapture(event.pointerId); } catch (e) {}
+    });
+    video.addEventListener("pointermove", function (event) {
+      if (!dragState) return;
+      var dx = event.clientX - dragState.startX;
+      var dy = event.clientY - dragState.startY;
+      if (!dragState.moved && Math.abs(dx) + Math.abs(dy) < 9) return;
+      if (!dragState.moved) {
+        dragState.moved = true;
+        dragging = true;
+        companion.classList.add("dragging");
+        if (inner) inner.style.transform = "";
+        if (bubble) bubble.classList.remove("show");
+      }
+      var p = applyPos(dragState.origLeft + dx, dragState.origTop + dy);
+      dragState.left = p.left;
+      dragState.top = p.top;
+    });
+    function endDrag() {
+      if (!dragState) return;
+      if (dragState.moved) {
+        suppressTap = true;
+        savePos(dragState.left, dragState.top);
+        window.setTimeout(function () { suppressTap = false; }, 400);
+      }
+      dragState = null;
+      dragging = false;
+      companion.classList.remove("dragging");
+    }
+    video.addEventListener("pointerup", endDrag);
+    video.addEventListener("pointercancel", endDrag);
   }
 
   // --- Greeting ---

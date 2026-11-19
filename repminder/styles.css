@@ -1340,7 +1340,8 @@ input:focus {
   border: 1px solid var(--button-line);
   box-shadow: var(--button-shadow);
   pointer-events: auto;
-  cursor: pointer;
+  cursor: grab;
+  touch-action: none;
   animation: vivi-bob 2.6s ease-in-out infinite;
   background: rgba(20, 15, 36, 0.35);
 }
@@ -1373,6 +1374,21 @@ input:focus {
 .vivi-bubble.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+.vivi-companion.dragging .vivi-companion-video {
+  cursor: grabbing;
+  animation: none;
+}
+
+.vivi-companion.bubble-below .vivi-bubble {
+  bottom: auto;
+  top: calc(100% + 8px);
+}
+
+.vivi-companion.bubble-left .vivi-bubble {
+  right: auto;
+  left: 0;
 }
 
 .vivi-companion-video.vivi-hop {
