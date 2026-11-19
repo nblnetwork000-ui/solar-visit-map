@@ -1,4 +1,4 @@
-const cacheName = "repminder-v55";
+const cacheName = "repminder-v56";
 let reminderTimer = null;
 let reminderPayload = null;
 const assets = [
@@ -13,6 +13,15 @@ const assets = [
   "./assets/dialogue-pack.json",
   "./assets/vivi-training.webp",
   "./assets/vivi-training-live.mp4",
+  "./assets/vivi-day-pull.webp",
+  "./assets/vivi-day-pull-live.mp4",
+  "./assets/vivi-day-legs.webp",
+  "./assets/vivi-day-legs-live.mp4",
+  "./assets/vivi-day-rest.webp",
+  "./assets/vivi-day-rest-live.mp4",
+  "./assets/vivi-face-cheer.webp",
+  "./assets/vivi-face-complete.webp",
+  "./assets/vivi-face-tap.webp",
   "./assets/SINEDITOR_1080-1920.png",
   "./assets/sineditor-live-wallpaper.mp4",
   "./assets/mermaid-1080-1920.jpg",

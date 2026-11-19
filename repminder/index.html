@@ -11,7 +11,7 @@
     <title>RepMinder</title>
     <link rel="apple-touch-icon" href="./icons/app-icon-v36-180.png">
     <link rel="manifest" href="./manifest.webmanifest?v=48">
-    <link rel="stylesheet" href="./styles.css?v=50">
+    <link rel="stylesheet" href="./styles.css?v=51">
   </head>
   <body>
     <div class="startup-screen" id="startup-screen" aria-label="起動画面">
@@ -238,11 +238,12 @@
         <video class="vivi-companion-video" id="vivi-companion-video" autoplay muted loop playsinline preload="auto" poster="./assets/vivi-training.webp" aria-label="ViViをタップ">
           <source src="./assets/vivi-training-live.mp4" type="video/mp4">
         </video>
+        <img class="vivi-face" id="vivi-face" alt="" aria-hidden="true">
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
     <script src="./app.js?v=54" defer></script>
-    <script src="./vivi-companion.js?v=1" defer></script>
+    <script src="./vivi-companion.js?v=2" defer></script>
   </body>
 </html>
