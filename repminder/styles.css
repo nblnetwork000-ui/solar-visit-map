@@ -1321,7 +1321,7 @@ input:focus {
   right: 10px;
   bottom: calc(10px + env(safe-area-inset-bottom));
   z-index: 60;
-  width: 112px;
+  width: 104px;
   pointer-events: none;
 }
 
@@ -1332,10 +1332,10 @@ input:focus {
 }
 
 .vivi-companion-video {
-  width: 112px;
-  height: 158px;
+  width: 104px;
+  height: 192px;
   object-fit: cover;
-  object-position: center 6%;
+  object-position: center 0%;
   border-radius: 14px;
   border: 1px solid var(--button-line);
   box-shadow: var(--button-shadow);
