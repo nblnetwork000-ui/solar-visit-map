@@ -701,3 +701,16 @@ input:focus {
     padding-top: 34px;
   }
 }
+
+.vivi-panel {
+  align-items: stretch;
+}
+
+.vivi-video {
+  width: 96px;
+  min-height: 128px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex: none;
+  background: rgba(20, 15, 36, 0.35);
+}

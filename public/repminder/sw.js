@@ -1,7 +1,8 @@
-const cacheName = "repminder-v25";
+const cacheName = "repminder-v26";
 const assets = [
   "./",
   "./index.html",
+  "./bodyweight.html",
   "./styles.css",
   "./app.js",
   "./manifest.webmanifest",
@@ -18,6 +19,8 @@ const assets = [
   "./assets/voice-day-5.m4a",
   "./assets/voice-day-6.m4a",
   "./assets/voice-day-7.m4a",
+  "./assets/vivi-training.webp",
+  "./assets/vivi-training-live.mp4",
   "./icons/icon-180.png",
   "./icons/icon-192.png",
   "./icons/icon-512.png",

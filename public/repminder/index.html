@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>RepMinder</title>
     <link rel="apple-touch-icon" href="./icons/icon-180.png">
-    <link rel="manifest" href="./manifest.webmanifest?v=25">
-    <link rel="stylesheet" href="./styles.css?v=25">
+    <link rel="manifest" href="./manifest.webmanifest?v=26">
+    <link rel="stylesheet" href="./styles.css?v=26">
   </head>
   <body>
     <video class="live-wallpaper" autoplay muted loop playsinline preload="auto" poster="./assets/SINEDITOR_1080-1920.png" aria-hidden="true">
@@ -79,6 +79,24 @@
             <path d="M18.5 5.5a9 9 0 0 1 0 13"></path>
           </svg>
         </button>
+      </section>
+
+      <section class="mascot-panel vivi-panel" aria-label="ViVi応援">
+        <video class="vivi-video" autoplay muted loop playsinline preload="auto" poster="./assets/vivi-training.webp" aria-hidden="true">
+          <source src="./assets/vivi-training-live.mp4" type="video/mp4">
+        </video>
+        <div class="mascot-copy">
+          <span class="mascot-kicker">ViVi cheer</span>
+          <p>今日も一緒にがんばろ！ボクが見てるから、1セットずついこうね。</p>
+        </div>
+      </section>
+
+      <section class="install-panel" aria-label="置き換えメニュー">
+        <div class="install-copy">
+          <span class="mascot-kicker">no equipment</span>
+          <p>松本の日や出張先など、機材がない日はこちら。</p>
+        </div>
+        <a class="install-button" href="./bodyweight.html">置き換えメニュー</a>
       </section>
 
       <section class="install-panel" id="install-panel" aria-label="アプリ追加">
@@ -178,6 +196,6 @@
       </article>
     </template>
 
-    <script src="./app.js?v=25" defer></script>
+    <script src="./app.js?v=26" defer></script>
   </body>
 </html>
